@@ -1,18 +1,21 @@
-/* Lora (local, variable font) */
+/* =========================
+   JetBrains Mono (local, variable font)
+   ========================= */
+
 @font-face {
-  font-family: "Lora";
-  src: url("/src/assets/font/lora/Lora-VariableFont_wght.ttf")
+  font-family: "JetBrains Mono";
+  src: url("/src/assets/font/jetbrains/JetBrainsMono-VariableFont_wght.ttf")
     format("truetype");
-  font-weight: 400 700;
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Lora";
-  src: url("/src/assets/font/lora/Lora-Italic-VariableFont_wght.ttf")
+  font-family: "JetBrains Mono";
+  src: url("/src/assets/font/jetbrains/JetBrainsMono-Italic-VariableFont_wght.ttf")
     format("truetype");
-  font-weight: 400 700;
+  font-weight: 100 800;
   font-style: italic;
   font-display: swap;
 }
@@ -21,10 +24,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force Lora globally - AFTER Tailwind base */
+/* =========================
+   THEME VARIABLES
+   ========================= */
+
+:root[data-theme="dark"] {
+  --bg: #050208;
+  --text: #e5e7eb;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+:root[data-theme="light"] {
+  /* Warm paper white */
+  --bg: #f3f1ee;
+
+  /* Soft ink black */
+  --text: #1e2329;
+
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(30, 35, 45, 0.12);
+}
+
+/* =========================
+   GLOBAL FONT — JetBrains Mono
+   ========================= */
+
 @layer base {
   * {
-    font-family: "Lora", serif;
+    font-family: "JetBrains Mono", monospace;
   }
 
   html,
@@ -34,19 +62,20 @@
   }
 }
 
-/* Reset */
+/* =========================
+   RESET & BASE
+   ========================= */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Global base */
 html,
 body {
-  background: #050208;
-  color: #e5e7eb;
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* Hide scrollbar */
@@ -59,7 +88,7 @@ body {
   scrollbar-width: none;
 }
 
-/* Headings */
+/* Headings (still mono, just tighter) */
 h1,
 h2,
 h3,
@@ -67,7 +96,7 @@ h4,
 h5,
 h6 {
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 /* Smooth scrolling */

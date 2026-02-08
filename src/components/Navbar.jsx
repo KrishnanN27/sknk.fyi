@@ -1,26 +1,15 @@
 // Navbar.jsx
 import { useState, useEffect } from "react";
-import {
-  Home,
-  User,
-  Briefcase,
-  FileText,
-  Image,
-  MessageCircle,
-  Mail,
-  Sun,
-  Moon,
-} from "lucide-react";
+import { Home, User, Briefcase, Mail, Sun, Moon } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState("home");
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [isDark, setIsDark] = useState(true);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -28,9 +17,6 @@ const Navbar = () => {
     { id: "home", icon: Home, label: "Home" },
     { id: "about", icon: User, label: "About" },
     { id: "work", icon: Briefcase, label: "Work" },
-    { id: "blog", icon: FileText, label: "Blog" },
-    { id: "gallery", icon: Image, label: "Gallery" },
-    { id: "chat", icon: MessageCircle, label: "AI Chat" },
     { id: "contact", icon: Mail, label: "Contact" },
   ];
 
@@ -53,11 +39,12 @@ const Navbar = () => {
         .nav-button::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(45deg, rgba(160, 100, 255, 0.3), rgba(100, 150, 255, 0.3));
+          inset: 0;
+          background: linear-gradient(
+            45deg,
+            rgba(160, 100, 255, 0.25),
+            rgba(100, 150, 255, 0.25)
+          );
           opacity: 0;
           transition: opacity 0.3s ease;
         }
@@ -68,35 +55,16 @@ const Navbar = () => {
 
         @media (max-width: 768px) {
           .navbar-container {
-            top: auto !important;
-            bottom: 1.5rem !important;
+            top: auto;
+            bottom: 1.5rem;
           }
           .nav-label {
             display: none;
           }
-          .nav-button {
-            padding: 0.7rem !important;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .theme-toggle {
-            width: 36px !important;
-            height: 36px !important;
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-
-        .time-separator {
-          animation: pulse 2s ease-in-out infinite;
         }
       `}</style>
 
-      {/* Navbar */}
+      {/* NAVBAR */}
       <nav className="navbar-container">
         <div
           style={{
@@ -104,18 +72,18 @@ const Navbar = () => {
             alignItems: "center",
             gap: "0.25rem",
             padding: "0.5rem",
-            background: "rgba(255, 255, 255, 0.06)",
+            background: "var(--glass-bg)",
+            color: "var(--text)", // ✅ KEY LINE
             backdropFilter: "blur(24px) saturate(180%)",
-            WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
+            border: "1px solid var(--glass-border)",
             borderRadius: "20px",
-            boxShadow:
-              "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
           }}
         >
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.id;
+
             return (
               <button
                 key={item.id}
@@ -127,148 +95,78 @@ const Navbar = () => {
                   gap: "0.6rem",
                   padding: "0.7rem 1.1rem",
                   background: isActive
-                    ? "rgba(255, 255, 255, 0.12)"
+                    ? "rgba(255,255,255,0.15)"
                     : "transparent",
-                  color: "white",
+                  color: "inherit", // ✅ inherit text color
                   border: "none",
                   borderRadius: "14px",
                   cursor: "pointer",
                   fontSize: "0.9rem",
-                  fontWeight: isActive ? "600" : "500",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  whiteSpace: "nowrap",
+                  fontWeight: isActive ? 600 : 500,
+                  transition: "all 0.25s ease",
                   position: "relative",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.background =
-                      "rgba(255, 255, 255, 0.08)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }
                 }}
               >
                 <Icon
                   size={18}
                   strokeWidth={2.5}
-                  style={{
-                    filter: isActive
-                      ? "drop-shadow(0 0 8px rgba(160, 100, 255, 0.6))"
-                      : "none",
-                  }}
+                  color="currentColor" // ✅ icon follows text
                 />
                 <span className="nav-label">{item.label}</span>
               </button>
             );
           })}
 
-          {/* Theme toggle button */}
+          {/* THEME TOGGLE */}
           <button
-            className="theme-toggle"
-            onClick={() => setIsDark(!isDark)}
+            onClick={toggleTheme}
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "40px",
-              height: "40px",
-              marginLeft: "0.25rem",
-              background: "rgba(255, 255, 255, 0.08)",
-              color: "white",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              borderRadius: "14px",
+              width: 40,
+              height: 40,
+              marginLeft: 4,
+              background: "rgba(255,255,255,0.12)",
+              color: "inherit", // ✅ inherit
+              border: "1px solid var(--glass-border)",
+              borderRadius: 14,
               cursor: "pointer",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)";
-              e.currentTarget.style.transform = "scale(1.05)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
-              e.currentTarget.style.transform = "scale(1)";
             }}
           >
-            {isDark ? (
-              <Sun size={18} strokeWidth={2.5} />
+            {theme === "dark" ? (
+              <Sun size={18} color="currentColor" />
             ) : (
-              <Moon size={18} strokeWidth={2.5} />
+              <Moon size={18} color="currentColor" />
             )}
           </button>
         </div>
       </nav>
 
-      {/* Time Display - Premium design */}
+      {/* TIME */}
       <div
         style={{
           position: "fixed",
           top: "1.5rem",
           right: "1.5rem",
           zIndex: 1000,
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-          padding: "0.85rem 1.35rem",
-          background: "rgba(255, 255, 255, 0.06)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
-          border: "1px solid rgba(255, 255, 255, 0.18)",
-          borderRadius: "20px",
-          boxShadow:
-            "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
-          color: "white",
+          padding: "0.75rem 1.2rem",
+          background: "var(--glass-bg)",
+          color: "var(--text)", // ✅ switches correctly
+          border: "1px solid var(--glass-border)",
+          borderRadius: "18px",
+          backdropFilter: "blur(20px)",
+          fontWeight: 600,
+          fontSize: "0.9rem",
         }}
       >
-        <div
-          style={{
-            fontSize: "1.1rem",
-            fontWeight: "600",
-            letterSpacing: "0.5px",
-            display: "flex",
-            alignItems: "center",
-            gap: "2px",
-          }}
-        >
-          {currentTime
-            .toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-              timeZone: "America/Denver",
-            })
-            .split(":")
-            .map((part, index) => (
-              <span key={index}>
-                {part}
-                {index === 0 && (
-                  <span className="time-separator" style={{ opacity: 0.7 }}>
-                    :
-                  </span>
-                )}
-              </span>
-            ))}
-        </div>
-        <div
-          style={{
-            fontSize: "0.7rem",
-            fontWeight: "600",
-            opacity: 0.6,
-            textTransform: "uppercase",
-            letterSpacing: "1.5px",
-            background:
-              "linear-gradient(90deg, rgba(160, 100, 255, 0.8), rgba(100, 150, 255, 0.8))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
-        >
-          MST
-        </div>
+        {currentTime.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Denver",
+        })}{" "}
+        <span style={{ opacity: 0.6, fontSize: "0.7rem" }}>MST</span>
       </div>
     </>
   );
