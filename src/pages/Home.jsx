@@ -1,6 +1,5 @@
 import Widget from "../components/Widget";
 import NowPlaying from "../components/widgets/NowPlaying";
-import GithubActivity from "../components/widgets/GithubActivity";
 import ContactCard from "../components/widgets/ContactCard";
 import LatestProject from "../components/widgets/LatestProject";
 import LatestBlog from "../components/widgets/LatestBlog";
@@ -16,37 +15,32 @@ const Home = () => {
         color: "var(--text)",
         display: "flex",
         flexDirection: "column",
-        gap: "4rem",
+        gap: "3.2rem",
       }}
     >
       {/* TOP — WIDGET ROW */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(5, minmax(220px, 1fr))",
-          gap: "1.5rem",
-          overflowX: "auto",
-          paddingBottom: "0.5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: "1.75rem",
+          alignItems: "stretch",
         }}
       >
-        <Widget title="Now Playing">
-          <NowPlaying />
-        </Widget>
-
-        <Widget title="GitHub Activity">
-          <GithubActivity />
-        </Widget>
-
-        <Widget title="Get in Touch">
-          <ContactCard />
-        </Widget>
-
         <Widget title="Latest Project">
           <LatestProject />
         </Widget>
 
         <Widget title="Latest Blog">
           <LatestBlog />
+        </Widget>
+
+        <Widget title="Get in Touch">
+          <ContactCard />
+        </Widget>
+
+        <Widget title="Now Playing">
+          <NowPlaying />
         </Widget>
       </div>
 

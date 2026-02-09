@@ -1,10 +1,24 @@
 export default function NowPlaying() {
   return (
-    <div style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
-      <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+      <div
+        style={{
+          fontSize: "0.9rem",
+          fontWeight: 500,
+          opacity: 0.85,
+        }}
+      >
         Nothing playing
       </div>
-      <div style={{ opacity: 0.6 }}>Spotify integration coming soon</div>
+
+      <div
+        style={{
+          fontSize: "0.75rem",
+          opacity: 0.55,
+        }}
+      >
+        Spotify integration coming soon
+      </div>
     </div>
   );
 }
