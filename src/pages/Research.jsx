@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import researchImage from "../assets/images/research/research.png";
 
 /* ---------------- animation presets ---------------- */
+
 const fadeUp = {
   hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
   show: {
@@ -41,7 +42,7 @@ const Research = () => {
       }}
     >
       <motion.div initial="hidden" animate="show">
-        {/* Image with enhanced container */}
+        {/* ---------------- IMAGE (LOCKED ASPECT RATIO) ---------------- */}
         <motion.div
           variants={{
             hidden: { opacity: 0, scale: 0.96, filter: "blur(6px)" },
@@ -53,7 +54,7 @@ const Research = () => {
             },
           }}
           style={{
-            position: "relative",
+            aspectRatio: "16 / 9",
             width: "100%",
             maxWidth: "720px",
             margin: "0 auto 4rem",
@@ -67,7 +68,8 @@ const Research = () => {
             alt="Hybrid Quantum–AI Concept"
             style={{
               width: "100%",
-              height: "auto", // ✅ key line
+              height: "100%",
+              objectFit: "cover",
               display: "block",
             }}
           />
@@ -83,7 +85,7 @@ const Research = () => {
           />
         </motion.div>
 
-        {/* Metaphor with accent styling */}
+        {/* ---------------- METAPHOR ---------------- */}
         <motion.div
           variants={fadeUp}
           style={{
@@ -116,7 +118,7 @@ const Research = () => {
           It expands what can be carried, explored, and accessed.
         </motion.p>
 
-        {/* Compact Centered Toggle */}
+        {/* ---------------- TOGGLE ---------------- */}
         <motion.div
           variants={fadeUp}
           style={{
@@ -141,7 +143,6 @@ const Research = () => {
                 fontSize: "0.9rem",
                 opacity: 0.65,
                 fontWeight: 500,
-                letterSpacing: "0.01em",
               }}
             >
               Viewing for:
@@ -155,7 +156,6 @@ const Research = () => {
                 position: "relative",
               }}
             >
-              {/* Background slider */}
               <motion.div
                 layout
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -165,7 +165,7 @@ const Research = () => {
                   left: mode === "researchers" ? 0 : "calc(50% + 0.25rem)",
                   width: "calc(50% - 0.25rem)",
                   height: "100%",
-                  background: "var(--text, currentColor)",
+                  background: "var(--text)",
                   borderRadius: "8px",
                   opacity: 0.08,
                   zIndex: 0,
@@ -189,8 +189,8 @@ const Research = () => {
           </div>
         </motion.div>
 
-        {/* Animated Content Toggle */}
-        <div style={{ position: "relative", minHeight: "280px" }}>
+        {/* ---------------- CONTENT (FIXED HEIGHT) ---------------- */}
+        <div style={{ position: "relative", height: "320px" }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={mode}
@@ -280,9 +280,7 @@ const toggleButtonStyle = (active) => ({
   opacity: active ? 1 : 0.5,
   position: "relative",
   zIndex: 1,
-  transition: "opacity 0.2s ease",
   borderRadius: "8px",
-  letterSpacing: "0.01em",
 });
 
 const highlightStyle = {

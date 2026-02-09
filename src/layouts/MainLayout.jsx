@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import ScrollToTop from "../components/ScrollToTop";
 import { useTheme } from "../context/ThemeContext";
 
 const MainLayout = () => {
@@ -42,16 +43,38 @@ const MainLayout = () => {
   return (
     <>
       {/* Background host */}
-      <div ref={bgRef} />
+      <div
+        ref={bgRef}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
 
       <Navbar />
 
-      {/* Page content */}
-      <main style={{ position: "relative", zIndex: 1 }}>
+      {/* Scroll container */}
+      <main
+        id="scroll-container"
+        style={{
+          height: "100vh",
+          overflowY: "auto",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <ScrollToTop />
         <Outlet />
       </main>
 
       <style>{`
+        html, body {
+          height: 100%;
+          overflow: hidden;
+        }
+
         bb-ambient-ribbon {
           position: fixed;
           inset: 0;
