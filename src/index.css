@@ -38,18 +38,13 @@
 }
 
 :root[data-theme="light"] {
-  /* Warm paper white */
   --bg: #f3f1ee;
-
-  /* Soft ink black */
   --text: #1e2329;
-
-  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-bg: rgba(255, 255, 255, 0.3); /* Reduced from 0.78 */
   --glass-border: rgba(30, 35, 45, 0.12);
   --tag-border: rgba(0, 0, 0, 0.18);
   --tag-bg: transparent;
 }
-
 /* =========================
    GLOBAL FONT — JetBrains Mono
    ========================= */

@@ -533,30 +533,63 @@ const About = () => {
       </main>
 
       <style>{`
-        :root {
-          --text: #ffffff;
-          --bg: #000000;
-          --card-bg: rgba(255, 255, 255, 0.03);
-          --card-bg-hover: rgba(255, 255, 255, 0.05);
-          --border-color: rgba(255, 255, 255, 0.15);
-          --border-color-hover: rgba(255, 255, 255, 0.25);
-        }
+       :root {
+    --text: #ffffff;
+    --bg: #000000;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-bg-hover: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.15);
+    --border-color-hover: rgba(255, 255, 255, 0.25);
+  }
 
-        /* For light theme, make borders dark */
-        :root[data-theme="light"] {
-          --text: #1e2329;
-          --bg: #f3f1ee;
-          --card-bg: rgba(255, 255, 255, 0.5);
-          --card-bg-hover: rgba(255, 255, 255, 0.7);
-          --border-color: rgba(0, 0, 0, 0.2);
-          --border-color-hover: rgba(0, 0, 0, 0.3);
-        }
+  :root[data-theme="light"] {
+    --text: #1e2329;
+    --bg: #f3f1ee;
+    --card-bg: rgba(255, 255, 255, 0.5);
+    --card-bg-hover: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(0, 0, 0, 0.2);
+    --border-color-hover: rgba(0, 0, 0, 0.3);
+  }
 
-.intro-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 1rem;
-}
+  /* GLASS EFFECT OVERRIDES - PUT THIS RIGHT HERE */
+  .experience-card,
+  .education-card,
+  .skill-card,
+  .honor-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .experience-card:hover,
+  .education-card:hover,
+  .skill-card:hover,
+  .honor-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+  }
+
+  :root[data-theme="light"] .experience-card,
+  :root[data-theme="light"] .education-card,
+  :root[data-theme="light"] .skill-card,
+  :root[data-theme="light"] .honor-card {
+    background: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  :root[data-theme="light"] .experience-card:hover,
+  :root[data-theme="light"] .education-card:hover,
+  :root[data-theme="light"] .skill-card:hover,
+  :root[data-theme="light"] .honor-card:hover {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .intro-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
 
 .cv-button {
   display: inline-flex;
