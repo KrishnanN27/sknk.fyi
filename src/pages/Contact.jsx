@@ -23,13 +23,10 @@ const Contact = () => {
     <section
       style={{
         minHeight: "100vh",
-
-        /* 🔑 NAVBAR-SAFE TOP SPACING */
         paddingTop: "clamp(6.5rem, 12vh, 8.5rem)",
         paddingBottom: "clamp(3rem, 8vh, 4rem)",
         paddingLeft: "clamp(1.25rem, 5vw, 2rem)",
         paddingRight: "clamp(1.25rem, 5vw, 2rem)",
-
         maxWidth: "700px",
         margin: "0 auto",
         color: "var(--text)",
@@ -74,14 +71,22 @@ const Contact = () => {
             backdropFilter: "blur(12px)",
           }}
         >
-          {/* Email */}
+          {/* Academic Email */}
           <div style={{ marginBottom: "1.25rem" }}>
-            <div style={labelStyle}>Email</div>
+            <div style={labelStyle}>Academic Email</div>
             <a
               href="mailto:sowndaryakrishnanna@mines.edu"
               style={valueLinkStyle}
             >
               sowndaryakrishnanna@mines.edu
+            </a>
+          </div>
+
+          {/* Personal Email */}
+          <div style={{ marginBottom: "1.25rem" }}>
+            <div style={labelStyle}>Personal Email</div>
+            <a href="mailto:krishnaofficial27@gmail.com" style={valueLinkStyle}>
+              krishnaofficial27@gmail.com
             </a>
           </div>
 

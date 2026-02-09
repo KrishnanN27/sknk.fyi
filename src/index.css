@@ -60,6 +60,13 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+html {
+  overflow-y: scroll; /* always show scrollbar */
+}
+
+html {
+  scrollbar-gutter: auto; /* remove forced gutter */
+}
 
 /* =========================
    RESET & BASE
