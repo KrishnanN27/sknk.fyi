@@ -301,6 +301,31 @@ const About = () => {
                 Focused on developing computational methods that extend
                 classical simulation limits using quantum computing and AI.
               </motion.p>
+
+              <motion.div
+                className="intro-actions"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              >
+                <a download="Sowndarya_Krishnan_CV.pdf" className="cv-button">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Download CV
+                </a>
+              </motion.div>
             </div>
           </div>
         </motion.section>
@@ -508,6 +533,38 @@ const About = () => {
           --bg: #000000;
         }
 
+.intro-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.cv-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.cv-button:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cv-button svg {
+  flex-shrink: 0;
+  opacity: 0.9;
+}
         .about-wrapper {
           max-width: 1200px;
           margin: 0 auto;
@@ -991,70 +1048,50 @@ const About = () => {
           gap: 1.25rem;
         }
 
-        .honor-card {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
-          padding: 1.75rem;
-          position: relative;
-          overflow: hidden;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          transform-style: preserve-3d;
-          perspective: 1000px;
-        }
+     .honor-card {
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
 
-        .honor-card:hover {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.15);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
+.honor-year {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
 
-        .honor-year {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
-          font-size: 2rem;
-          font-weight: 700;
-          opacity: 0.08;
-          line-height: 1;
-          pointer-events: none;
-        }
+.honor-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
 
-        .honor-title {
-          font-size: 1.15rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-          letter-spacing: -0.01em;
-          position: relative;
-          z-index: 1;
-        }
+.honor-org {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.5;
+}
 
-        .honor-org {
-          font-size: 0.9rem;
-          opacity: 0.6;
-          margin: 0;
-        }
+.honor-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-        .honor-shine {
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: linear-gradient(
-            45deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 70%
-          );
-          transform: translateX(-100%) translateY(-100%);
-          transition: transform 0.6s ease;
-        }
-
-        .honor-card:hover .honor-shine {
-          transform: translateX(100%) translateY(100%);
-        }
+.honor-card:hover .honor-shine {
+  opacity: 1;
+}
 
         /* -------- MOBILE & TABLET -------- */
 
