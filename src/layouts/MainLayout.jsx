@@ -18,21 +18,21 @@ const MainLayout = () => {
       const ribbon = document.createElement("bb-ambient-ribbon");
 
       if (theme === "dark") {
-        ribbon.setAttribute("ribbon-count", "8");
+        ribbon.setAttribute("ribbon-count", "3");
         ribbon.setAttribute("ribbon-hue-start", "260");
-        ribbon.setAttribute("ribbon-hue-end", "290");
-        ribbon.setAttribute("ribbon-lightness-start", "45");
-        ribbon.setAttribute("ribbon-lightness-end", "35");
-        ribbon.setAttribute("ribbon-line-opacity", "0.08");
-        ribbon.setAttribute("bg-colors", "#050208, #0a0410");
+        ribbon.setAttribute("ribbon-hue-end", "260");
+        ribbon.setAttribute("ribbon-lightness-start", "36");
+        ribbon.setAttribute("ribbon-lightness-end", "32");
+        ribbon.setAttribute("ribbon-line-opacity", "0.03");
+        ribbon.setAttribute("bg-colors", "#06040a, #090611");
       } else {
-        ribbon.setAttribute("ribbon-count", "8");
-        ribbon.setAttribute("ribbon-hue-start", "310");
-        ribbon.setAttribute("ribbon-hue-end", "280");
-        ribbon.setAttribute("ribbon-lightness-start", "70");
-        ribbon.setAttribute("ribbon-lightness-end", "65");
-        ribbon.setAttribute("ribbon-line-opacity", "0.1");
-        ribbon.setAttribute("bg-colors", "#f3f1ee, #f3f1ee");
+        ribbon.setAttribute("ribbon-count", "3");
+        ribbon.setAttribute("ribbon-hue-start", "295");
+        ribbon.setAttribute("ribbon-hue-end", "295");
+        ribbon.setAttribute("ribbon-lightness-start", "54");
+        ribbon.setAttribute("ribbon-lightness-end", "50");
+        ribbon.setAttribute("ribbon-line-opacity", "0.025");
+        ribbon.setAttribute("bg-colors", "#ece8e3, #e7e3de");
       }
 
       bgRef.current.prepend(ribbon);
