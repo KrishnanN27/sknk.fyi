@@ -1,10 +1,10 @@
-import Widget from "../Widget";
-
 export default function NowPlaying() {
   return (
-    <Widget title="Now Playing">
-      <p className="text-lg">🎧 Nothing playing</p>
-      <p className="text-sm text-muted">Spotify coming soon</p>
-    </Widget>
+    <div style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
+      <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>
+        Nothing playing
+      </div>
+      <div style={{ opacity: 0.6 }}>Spotify integration coming soon</div>
+    </div>
   );
 }

@@ -1,11 +1,13 @@
-import Widget from "../Widget";
-
 export default function ContactCard() {
   return (
-    <Widget title="Get in touch">
-      <button className="mt-3 px-4 py-2 rounded-lg bg-white text-black text-sm">
-        Say hello
-      </button>
-    </Widget>
+    <div style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
+      <div style={{ fontWeight: 600 }}>Let’s connect</div>
+
+      <div style={{ opacity: 0.7, marginTop: "0.4rem" }}>krish@example.com</div>
+
+      <div style={{ opacity: 0.6, marginTop: "0.25rem" }}>
+        Colorado School of Mines
+      </div>
+    </div>
   );
 }
