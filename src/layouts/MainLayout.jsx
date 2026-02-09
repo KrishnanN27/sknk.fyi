@@ -10,6 +10,20 @@ const MainLayout = () => {
   const { theme } = useTheme();
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (!bgRef.current) return;
+
+    // 🔹 MOBILE: simple solid background
+    if (isMobile) {
+      bgRef.current.innerHTML = "";
+      bgRef.current.style.background = theme === "dark" ? "#06040a" : "#ece8e3";
+      return;
+    }
+
+    // 🔹 DESKTOP: your existing ribbon (unchanged)
+    bgRef.current.style.background = "none";
+
     import("beautiful-backgrounds").then(() => {
       if (!bgRef.current) return;
 
