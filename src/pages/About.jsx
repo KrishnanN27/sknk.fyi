@@ -56,36 +56,35 @@ const About = () => {
           variants={fadeIn}
           initial="hidden"
           animate="show"
+          className="about-intro"
         >
-          <img
-            src={headshot}
-            alt="Sowndarya Krishnan"
-            className="about-headshot"
-          />
+          <div className="intro-grid">
+            <img
+              src={headshot}
+              alt="Sowndarya Krishnan"
+              className="about-headshot"
+            />
 
-          <h1>Sowndarya Krishnan N K</h1>
+            <div className="intro-text">
+              <h1 className="intro-name">Sowndarya Krishnan N K</h1>
 
-          <p className="about-meta">
-            Golden, CO, USA ·{" "}
-            <a href="mailto:sowndaryakrishnanna@mines.edu">
-              sowndaryakrishnanna@mines.edu
-            </a>{" "}
-            · +1 539-895-1874
-          </p>
+              <p className="intro-meta">
+                Golden, CO, USA ·{" "}
+                <a href="mailto:krishnaofficial27@gmail.com">
+                  krishnaofficial27@gmail.com
+                </a>
+              </p>
 
-          <p>
-            Ph.D. student in Computer Science specializing in machine learning
-            and scientific computing for physics-based systems.
-          </p>
+              <p className="intro-desc">
+                Ph.D. student in Computer Science specializing in machine
+                learning and scientific computing for physics-based systems.
+              </p>
 
-          <p className="muted">
-            Strong background in Python-based scientific coding and applied AI.
-          </p>
-
-          <div className="about-links">
-            <a href="https://skfyi.com">Website</a>
-            <a href="https://github.com/krishnanN27">GitHub</a>
-            <a href="https://linkedin.com/in/krishnan-n">LinkedIn</a>
+              <p className="intro-muted">
+                Strong background in Python-based scientific coding and applied
+                AI.
+              </p>
+            </div>
           </div>
         </motion.section>
 
@@ -276,6 +275,78 @@ const About = () => {
             margin-left: 0;
           }
         }
+          /* -------- INTRO -------- */
+
+/* -------- INTRO -------- */
+
+.about-intro {
+  max-width: 100%;
+}
+
+.intro-grid {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.intro-text {
+  max-width: 540px;
+}
+
+.intro-name {
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.intro-meta {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 1.25rem;
+}
+
+.intro-meta a {
+  color: inherit;           /* no blue */
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.intro-meta a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.intro-desc {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+
+.intro-muted {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+/* -------- MOBILE -------- */
+
+@media (max-width: 700px) {
+  .intro-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-headshot {
+    width: 96px;
+    height: 96px;
+  }
+
+  .intro-text {
+    max-width: 100%;
+  }
+}
+
+
       `}</style>
     </section>
   );

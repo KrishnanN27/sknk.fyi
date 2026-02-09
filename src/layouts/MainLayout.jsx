@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
+import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 
 const MainLayout = () => {
@@ -53,6 +54,7 @@ const MainLayout = () => {
         }}
       />
 
+      {/* Fixed Navbar */}
       <Navbar />
 
       {/* Scroll container */}
@@ -63,12 +65,17 @@ const MainLayout = () => {
           overflowY: "auto",
           position: "relative",
           zIndex: 1,
+
+          /* 👇 KEY FIX */
+          paddingBottom: "calc(64px + env(safe-area-inset-bottom))",
         }}
       >
         <ScrollToTop />
         <Outlet />
+        <Footer />
       </main>
 
+      {/* Global layout rules */}
       <style>{`
         html, body {
           height: 100%;
@@ -80,6 +87,13 @@ const MainLayout = () => {
           inset: 0;
           z-index: 0;
           pointer-events: none;
+        }
+
+        /* Optional: only apply bottom padding on mobile */
+        @media (min-width: 769px) {
+          #scroll-container {
+            padding-bottom: 0;
+          }
         }
       `}</style>
     </>
