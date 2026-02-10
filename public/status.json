@@ -1,0 +1,11 @@
+{
+  "active": 1,
+
+  "_legend": {
+    "1": "debugging code that worked yesterday",
+    "2": "about to crash out",
+    "3": "writing a paper",
+    "4": "deep in research",
+    "5": "crashing out (end of day)"
+  }
+}

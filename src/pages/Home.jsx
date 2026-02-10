@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
-
+import Status from "../components/widgets/Status";
 import Widget from "../components/Widget";
-import NowPlaying from "../components/widgets/NowPlaying";
-import ContactCard from "../components/widgets/ContactCard";
-import LatestProject from "../components/widgets/LatestProject";
-import LatestBlog from "../components/widgets/LatestBlog";
 
 /* ---------------- animation presets ---------------- */
 
@@ -46,6 +42,7 @@ const tagVariants = {
 };
 
 /* ---------------- Tag component ---------------- */
+
 const Tag = ({ children }) => (
   <motion.span
     variants={tagVariants}
@@ -55,7 +52,6 @@ const Tag = ({ children }) => (
       fontWeight: 500,
       textTransform: "uppercase",
       letterSpacing: "0.06em",
-
       borderRadius: "4px",
       background: "var(--tag-bg)",
       border: "1px solid var(--tag-border)",
@@ -76,58 +72,21 @@ const Home = () => {
         maxWidth: "1400px",
         margin: "0 auto",
         padding: "10rem 2rem 6rem",
-
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center", // 👈 key line
-        gap: "3.2rem",
       }}
     >
-      {/* ---------------- WIDGET ROW ---------------- */}
-      {/* <motion.div
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "1.75rem",
+          gridTemplateColumns: "1fr 320px",
+          gap: "3.5rem",
+          alignItems: "start",
         }}
       >
-        <motion.div variants={fadeUp}>
-          <Widget title="Latest Project">
-            <LatestProject />
-          </Widget>
-        </motion.div>
-
-        <motion.div variants={fadeUp}>
-          <Widget title="Latest Blog">
-            <LatestBlog />
-          </Widget>
-        </motion.div>
-
-        <motion.div variants={fadeUp}>
-          <Widget title="Get in Touch">
-            <ContactCard />
-          </Widget>
-        </motion.div>
-
-        <motion.div variants={fadeUp}>
-          <Widget title="Now Playing">
-            <NowPlaying />
-          </Widget>
-        </motion.div>
-      </motion.div> */}
-
-      {/* ---------------- MAIN CONTENT ---------------- */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        style={{ maxWidth: 720 }}
-      >
-        {/* Header block (static, no floating animation) */}
-        <div>
+        {/* ================= LEFT COLUMN ================= */}
+        <div style={{ maxWidth: 720 }}>
           <motion.h1
             variants={fadeUp}
             style={{
@@ -143,7 +102,6 @@ const Home = () => {
             <span style={{ opacity: 0.6, fontWeight: 500 }}>Krishnan</span>
           </motion.h1>
 
-          {/* Tags */}
           <motion.div
             variants={container}
             style={{
@@ -157,35 +115,53 @@ const Home = () => {
             <Tag>Research Assistant</Tag>
             <Tag>Former Software Engineer</Tag>
           </motion.div>
+
+          <motion.p
+            variants={fadeUp}
+            style={{
+              fontSize: "1.1rem",
+              lineHeight: 1.7,
+              opacity: 0.78,
+              marginBottom: "1.4rem",
+            }}
+          >
+            I am a PhD student in Computer Science at Colorado School of Mines
+            and a research assistant working on scientific and computational
+            methods for complex physical systems.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            style={{
+              fontSize: "1.05rem",
+              lineHeight: 1.7,
+              opacity: 0.7,
+            }}
+          >
+            My research focuses on hybrid quantum–AI approaches for solving
+            partial differential equations, with applications in physics-based
+            modeling and simulation.
+          </motion.p>
         </div>
 
-        <motion.p
-          variants={fadeUp}
-          style={{
-            fontSize: "1.1rem",
-            lineHeight: 1.7,
-            opacity: 0.78,
-            marginBottom: "1.4rem",
-          }}
-        >
-          I am a PhD student in Computer Science at Colorado School of Mines and
-          a research assistant working on scientific and computational methods
-          for complex physical systems.
-        </motion.p>
-
-        <motion.p
-          variants={fadeUp}
-          style={{
-            fontSize: "1.05rem",
-            lineHeight: 1.7,
-            opacity: 0.7,
-          }}
-        >
-          My research focuses on hybrid quantum–AI approaches for solving
-          partial differential equations, with applications in physics-based
-          modeling and simulation.
-        </motion.p>
+        {/* ================= RIGHT COLUMN ================= */}
+        <motion.div variants={fadeUp}>
+          <Widget title="Status">
+            <Status />
+          </Widget>
+        </motion.div>
       </motion.div>
+
+      {/* ---------- mobile stack ---------- */}
+      <style>
+        {`
+          @media (max-width: 900px) {
+            section > div {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}
+      </style>
     </section>
   );
 };
