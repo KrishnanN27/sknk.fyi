@@ -18,7 +18,7 @@ export default function Widget({ title, children }) {
         background:
           theme === "dark"
             ? "rgba(255,255,255,0.025)"
-            : "rgba(255,255,255,0.45)",
+            : "rgba(255,255,255,0.2345)",
 
         // Soft border
         border:

@@ -54,29 +54,24 @@ export default function Status() {
         {status.text}
       </div>
 
-      {/* Visual */}
+      {/* Square visual — no overlay, no opacity */}
       <div
         style={{
-          marginTop: "0.6rem",
-          height: "96px",
+          marginTop: "0.75rem",
+          width: "100%",
+          aspectRatio: "1 / 1",
           borderRadius: "14px",
           overflow: "hidden",
-          opacity: 0.6,
-          mixBlendMode: "luminosity",
-          background: "rgba(255,255,255,0.03)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <img
           src={VISUALS[status.visual]}
           alt=""
           style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-            transform: "scale(1.15)", // 👈 key line
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "scale(1.1)",
           }}
         />
       </div>
