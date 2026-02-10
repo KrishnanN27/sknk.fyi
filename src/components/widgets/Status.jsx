@@ -54,7 +54,7 @@ export default function Status() {
         {status.text}
       </div>
 
-      {/* Square visual — no overlay, no opacity */}
+      {/* Square visual */}
       <div
         style={{
           marginTop: "0.75rem",
@@ -67,6 +67,8 @@ export default function Status() {
         <img
           src={VISUALS[status.visual]}
           alt=""
+          loading="lazy"
+          decoding="async"
           style={{
             width: "100%",
             height: "100%",
