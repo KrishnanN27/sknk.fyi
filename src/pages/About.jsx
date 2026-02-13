@@ -18,23 +18,23 @@ const history = [
 ];
 
 const funFacts = [
-  "I rewrite notes more than necessary.",
-  "I prefer clarity over speed.",
-  "I think in diagrams.",
-  "I romanticize hard problems.",
-  "I secretly enjoy debugging.",
-  "I probably have too many open tabs."
+  "I speak the Oldest living language in the world — Tamil (தமிழ்).",
+  "Growing up, people have called me every version of my name — Sowndar, Sound, Krishna, Krish, Chris, Sowndarya Krishnan.",
+  "I come from a culture where last names aren’t really used — mine is simply N."
 ];
 
 const likes = [
-  "Running when it’s cold",
-  "Skiing steep lines",
-  "Whiteboards",
+  "Mobile photography",
   "Mechanical keyboards",
-  "Airports at 6am",
-  "Silence",
-  "Well-designed research papers"
+  "The smell of petrol",
+  "Strong filter coffee",
+  "Dosa as emotional recovery",
+  "All things nerdy",
+  "Anime, manhwa, and K-dramas",
+  "6am airport terminals",
+  "Rewatching comfort shows for the 100th time",
 ];
+
 
 const quotes = [
   "If we don’t explain science to the public, others will fill the gap with nonsense.",
@@ -78,6 +78,30 @@ const About = () => {
         margin: "0 auto",
       }}
     >
+
+
+      {/* DRAFT NOTICE */}
+<motion.div
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  style={{
+    marginBottom: "3rem",
+    padding: "1rem 1.5rem",
+    borderRadius: "16px",
+    border: "1px solid var(--glass-border)",
+    background: "rgba(255,255,255,0.04)",
+    backdropFilter: "blur(8px)",
+    fontSize: "0.9rem",
+    letterSpacing: "0.03em",
+    opacity: 0.75,
+  }}
+>
+Please be kind — this portfolio is aggressively under construction.
+It will be good. Eventually.
+
+</motion.div>
+
       {/* HERO IMAGE ROTATOR */}
      <div
   style={{
@@ -124,29 +148,54 @@ const About = () => {
 />
 
 </div>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7 }}
+  style={{ marginBottom: "10rem" }}
+>
+  <p
+    style={{
+      fontSize: "1.2rem",
+      lineHeight: 1.8,
+      opacity: 0.9,
+    }}
+  >
+    Who am I ?? idek
+  </p>
 
-      {/* INTRO */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        style={{ marginBottom: "10rem" }}
-      >
-        <p
-          style={{
-            fontSize: "1.2rem",
-            lineHeight: 1.7,
-            opacity: 0.85,
-          }}
-        >
-          PhD researcher focused on computational modeling, adaptive systems,
-          and long-horizon scientific problems. I’m interested in building tools
-          that extend what classical systems can solve — through clarity,
-          discipline, and thoughtful design.
-        </p>
-      </motion.div>
+  <p
+    style={{
+      marginTop: "2rem",
+      fontSize: "1.05rem",
+      lineHeight: 1.8,
+      opacity: 0.75,
+    }}
+  >
+    Most friends call me Krish or Chris.
+    If you’d like to pronounce my full name:
+    (Sown-dar-yeh Krish-nun).
+  </p>
+</motion.div>
 
-      {/* HISTORY */}
+      {/* FUN FACTS */}
+      <Section title="Fun Facts">
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          {funFacts.map((fact, i) => (
+            <motion.p
+              key={i}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 0.75 }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              viewport={{ once: true }}
+            >
+              {fact}
+            </motion.p>
+          ))}
+        </div>
+      </Section>
+
+      {/* HISTORY
       <Section title="Some History">
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           {history.map((item, i) => (
@@ -162,7 +211,7 @@ const About = () => {
             </motion.p>
           ))}
         </div>
-      </Section>
+      </Section> */}
 
       {/* I LIKE */}
       <Section title="I Like">
@@ -185,25 +234,10 @@ const About = () => {
         </div>
       </Section>
 
-      {/* FUN FACTS */}
-      <Section title="Fun Facts">
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-          {funFacts.map((fact, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 0.75 }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              viewport={{ once: true }}
-            >
-              {fact}
-            </motion.p>
-          ))}
-        </div>
-      </Section>
+
 
       {/* QUOTES */}
-      <Section title="Notes to Self">
+<Section title="Quiet Influences">
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           {quotes.map((quote, i) => (
             <motion.p

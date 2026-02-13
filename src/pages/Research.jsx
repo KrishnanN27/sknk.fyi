@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import researchImage from "../assets/images/research/research.png";
 
 /* ---------------- animation presets ---------------- */
@@ -127,79 +127,82 @@ const Research = () => {
           It expands what can be carried, explored, and accessed.
         </motion.p>
 
-        {/* ---------------- TOGGLE ---------------- */}
-        <motion.div
-          variants={fadeUp}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "clamp(3rem, 10vh, 4rem) 0 clamp(2rem, 6vh, 3rem)",
-            padding: "0 0.5rem",
-          }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              padding:
-                "clamp(0.6rem, 2.5vw, 0.75rem) clamp(0.9rem, 3vw, 1.25rem)",
-              background: "rgba(128, 128, 128, 0.04)",
-              borderRadius: "12px",
-              border: "1px solid rgba(128, 128, 128, 0.08)",
-              flexWrap: "wrap",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "0.9rem",
-                opacity: 0.65,
-                fontWeight: 500,
-              }}
-            >
-              Viewing for:
-            </span>
+     {/* ---------------- TOGGLE ---------------- */}
+<motion.div
+  variants={fadeUp}
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    margin: "clamp(3rem, 10vh, 4rem) 0 clamp(2rem, 6vh, 3rem)",
+    padding: "0 0.5rem",
+  }}
+>
+  <div
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.75rem",
+      padding: "0.6rem 1rem",
+      background: "rgba(255,255,255,0.03)",
+      borderRadius: "14px",
+      border: "1px solid rgba(255,255,255,0.06)",
+      backdropFilter: "blur(6px)",
+    }}
+  >
+    <span
+      style={{
+        fontSize: "0.9rem",
+        opacity: 0.6,
+        fontWeight: 500,
+      }}
+    >
+      Viewing for:
+    </span>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "0.5rem",
-                position: "relative",
-                minWidth: "220px",
-              }}
-            >
+    <div
+      style={{
+        display: "flex",
+        position: "relative",
+        background: "rgba(255,255,255,0.04)",
+        borderRadius: "10px",
+        padding: "4px",
+      }}
+    >
+      {["researchers", "everyone"].map((value) => {
+        const isActive = mode === value;
+        return (
+          <motion.button
+            key={value}
+            onClick={() => setMode(value)}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            style={toggleButtonStyle(isActive)}
+          >
+            {isActive && (
               <motion.div
-                layout
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                layoutId="activeToggle"
+                transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 style={{
                   position: "absolute",
-                  top: 0,
-                  left: mode === "researchers" ? 0 : "calc(50% + 0.25rem)",
-                  width: "calc(50% - 0.25rem)",
-                  height: "100%",
-                  background: "var(--text)",
+                  inset: 0,
                   borderRadius: "8px",
-                  opacity: 0.08,
+                  background:
+                    "linear-gradient(135deg, var(--text) 0%, rgba(255,255,255,0.35) 100%)",
+                  opacity: 0.12,
                   zIndex: 0,
                 }}
               />
+            )}
+            <span style={{ position: "relative", zIndex: 1 }}>
+              {value === "researchers" ? "Researchers" : "Everyone"}
+            </span>
+          </motion.button>
+        );
+      })}
+    </div>
+  </div>
+</motion.div>
 
-              <button
-                onClick={() => setMode("researchers")}
-                style={toggleButtonStyle(mode === "researchers")}
-              >
-                Researchers
-              </button>
-
-              <button
-                onClick={() => setMode("everyone")}
-                style={toggleButtonStyle(mode === "everyone")}
-              >
-                Everyone
-              </button>
-            </div>
-          </div>
-        </motion.div>
 
         {/* ---------------- CONTENT ---------------- */}
         <div
@@ -287,19 +290,18 @@ const paragraphStyle = {
 };
 
 const toggleButtonStyle = (active) => ({
-  background: "none",
+  position: "relative",
   border: "none",
-  padding: "0.5rem 1rem",
+  background: "transparent",
+  padding: "0.55rem 1.1rem",
+  borderRadius: "8px",
   cursor: "pointer",
   fontSize: "0.9rem",
-  color: "var(--text)",
-  fontWeight: active ? 600 : 500,
-  opacity: active ? 1 : 0.5,
-  position: "relative",
-  zIndex: 1,
-  borderRadius: "8px",
-  whiteSpace: "nowrap",
+  fontWeight: 500,
+  color: active ? "var(--text)" : "rgba(128,128,128,0.6)",
+  transition: "color 0.25s ease",
 });
+
 
 const highlightStyle = {
   fontWeight: 600,
