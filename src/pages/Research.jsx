@@ -82,16 +82,24 @@ const Research = () => {
               display: "block",
             }}
           />
+{/* Theme-based overlay */}
+{/* Overlay (same style logic as About) */}
+<div
+  style={{
+    position: "absolute",
+    inset: 0,
+    background: `
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        var(--bg) 100%
+      )
+    `,
+    pointerEvents: "none",
+  }}
+/>
 
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.05))",
-              pointerEvents: "none",
-            }}
-          />
+
         </motion.div>
 
         {/* ---------------- METAPHOR ---------------- */}
@@ -247,29 +255,28 @@ const Research = () => {
                   </p>
                 </>
               ) : (
-                <>
-                  <p style={paragraphStyle}>
-                    Modern science relies on mathematical models to understand
-                    complex physical systems—from how fluids move through porous
-                    materials to how energy and matter interact in large-scale
-                    engineering processes.
-                  </p>
+             <>
+  <p style={paragraphStyle}>
+    Scientists use math and computer simulations to understand how the world
+    works — like how water moves underground, how materials react to heat, or
+    how energy flows through systems.
+  </p>
 
-                  <p style={paragraphStyle}>
-                    My research explores how{" "}
-                    <span style={highlightStyle}>quantum computing</span> and{" "}
-                    <span style={highlightStyle}>artificial intelligence</span>{" "}
-                    can work together to push beyond classical computational
-                    limits.
-                  </p>
+  <p style={paragraphStyle}>
+    But some of these problems are so complex that even today’s fastest
+    computers struggle to solve them efficiently.
+  </p>
 
-                  <p style={{ ...paragraphStyle, opacity: 0.65 }}>
-                    Think of it as creating new tools that help us simulate and
-                    understand phenomena that current computers struggle
-                    with—enabling breakthroughs in materials science, energy
-                    systems, and beyond.
-                  </p>
-                </>
+  <p style={paragraphStyle}>
+    My research explores how{" "}
+    <span style={highlightStyle}>quantum computing</span> and{" "}
+    <span style={highlightStyle}>artificial intelligence</span>{" "}
+    can work together to tackle these harder problems — building new tools
+    that may help us design better materials, improve energy systems, and
+    understand nature in deeper ways.
+  </p>
+</>
+
               )}
             </motion.div>
           </AnimatePresence>
