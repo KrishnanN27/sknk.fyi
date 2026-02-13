@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import researchImage from "../assets/images/research/research.png";
+import researchImage from "../assets/images/research/research.webp";
 
 /* ---------------- animation presets ---------------- */
 

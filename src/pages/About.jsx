@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import h1 from "../assets/images/about/h1.jpg";
-import h2 from "../assets/images/about/h2.JPG";
-import h3 from "../assets/images/about/h3.jpg";
-import h4 from "../assets/images/about/h4.JPG";
+import h1 from "../assets/images/about/h1.webp";
+import h2 from "../assets/images/about/h2.webp";
+import h3 from "../assets/images/about/h3.webp";
+import h4 from "../assets/images/about/h4.webp";
+
 
 const images = [h1, h2, h3, h4];
 
