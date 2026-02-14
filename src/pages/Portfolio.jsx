@@ -1,6 +1,4 @@
-import {
-	motion
-} from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import headshot from "../assets/images/about/headshot.jpeg";
 import cvFile from "../assets/pdf/CV.pdf";
@@ -8,528 +6,549 @@ import cvFile from "../assets/pdf/CV.pdf";
 /* ---------------- animations ---------------- */
 
 const fadeIn = {
-	hidden: { opacity: 0, y: 20 },
-	show: {
-		opacity: 1,
-		y: 0,
-		transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-	},
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const staggerContainer = {
-	hidden: { opacity: 0 },
-	show: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.12,
-			delayChildren: 0.1,
-		},
-	},
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
 };
 
 const itemVariant = {
-	hidden: { opacity: 0, x: -30, filter: "blur(4px)" },
-	show: {
-		opacity: 1,
-		x: 0,
-		filter: "blur(0px)",
-		transition: {
-			duration: 0.7,
-			ease: [0.22, 1, 0.36, 1],
-		},
-	},
+  hidden: { opacity: 0, x: -30, filter: "blur(4px)" },
+  show: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
 const skillVariant = {
-	hidden: { opacity: 0, scale: 0.8 },
-	show: {
-		opacity: 1,
-		scale: 1,
-		transition: {
-			duration: 0.5,
-			ease: [0.34, 1.56, 0.64, 1],
-		},
-	},
+  hidden: { opacity: 0, scale: 0.8 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.34, 1.56, 0.64, 1],
+    },
+  },
 };
 
 const honorVariant = {
-	hidden: { opacity: 0, y: 20, rotateX: -15 },
-	show: {
-		opacity: 1,
-		y: 0,
-		rotateX: 0,
-		transition: {
-			duration: 0.6,
-			ease: [0.22, 1, 0.36, 1],
-		},
-	},
+  hidden: { opacity: 0, y: 20, rotateX: -15 },
+  show: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
 /* ---------------- helpers ---------------- */
 
 const sections = [
-	{ id: "intro", label: "Introduction" },
-	{ id: "experience", label: "Experience" },
-	{ id: "education", label: "Education" },
-	{ id: "skills", label: "Skills" },
-	{ id: "honors", label: "Honors" },
+  { id: "intro", label: "Introduction" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
+  { id: "honors", label: "Honors" },
 ];
 
 const scrollTo = (id) => {
-	document.getElementById(id)?.scrollIntoView({
-		behavior: "smooth",
-		block: "start",
-	});
+  document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 };
 
 const sectionStyle = {
-	scrollMarginTop: "110px",
+  scrollMarginTop: "110px",
 };
 
 /* ---------------- data ---------------- */
 
 const experiences = [
-	{
-		company: "G4 Lab, Colorado School of Mines",
-		role: "Research Assistant",
-		period: "Aug 2025 – Present",
-		status: "current",
-		highlights: [
-			"Developed ML-driven surrogate models for PDE systems.",
-			"Built Python pipelines for simulation and inverse problems.",
-			"Translated mathematical models into scalable research software.",
-		],
-	},
-	{
-		company: "Colorado School of Mines",
-		role: "Teaching Assistant",
-		period: "Aug 2025 – May 2026",
-		status: "current",
-		highlights: [
-			"Mentored graduate students on ML design and optimization.",
-			"Supported labs, grading, and evaluations.",
-		],
-	},
-	{
-		company: "Data-Driven CPS Lab",
-		role: "Research Assistant",
-		period: "Aug 2023 – May 2025",
-		highlights: [
-			"Designed FlowSHACL, a DAG-based SHACL engine.",
-			"Implemented dependency-aware execution optimizations.",
-			"Built benchmarking pipelines on RDF datasets.",
-		],
-	},
-	{
-		company: "Sloan Foundation Energy Project",
-		role: "Full Stack Engineer",
-		period: "Jan 2023 – May 2025",
-		highlights: [
-			"Built backend services for high-frequency energy data.",
-			"Deployed containerized services using Docker.",
-		],
-	},
-	{
-		company: "NCompass Tech Studio Pvt. Ltd.",
-		role: "Software Engineer",
-		period: "May 2021 – May 2022",
-		highlights: [
-			"Developed Android and Flutter applications.",
-			"Led UI redesign resulting in 1,000+ downloads.",
-		],
-	},
+  {
+    company: "G4 Lab, Colorado School of Mines",
+    role: "Research Assistant",
+    period: "Aug 2025 – Present",
+    status: "current",
+    highlights: [
+      "Developed ML-driven surrogate models for PDE systems.",
+      "Built Python pipelines for simulation and inverse problems.",
+      "Translated mathematical models into scalable research software.",
+    ],
+  },
+  {
+    company: "Colorado School of Mines",
+    role: "Teaching Assistant",
+    period: "Aug 2025 – May 2026",
+    status: "current",
+    highlights: [
+      "Mentored graduate students on ML design and optimization.",
+      "Supported labs, grading, and evaluations.",
+    ],
+  },
+  {
+    company: "Data-Driven CPS Lab",
+    role: "Research Assistant",
+    period: "Aug 2023 – May 2025",
+    highlights: [
+      "Designed FlowSHACL, a DAG-based SHACL engine.",
+      "Implemented dependency-aware execution optimizations.",
+      "Built benchmarking pipelines on RDF datasets.",
+    ],
+  },
+  {
+    company: "Sloan Foundation Energy Project",
+    role: "Full Stack Engineer",
+    period: "Jan 2023 – May 2025",
+    highlights: [
+      "Built backend services for high-frequency energy data.",
+      "Deployed containerized services using Docker.",
+    ],
+  },
+  {
+    company: "NCompass Tech Studio Pvt. Ltd.",
+    role: "Software Engineer",
+    period: "May 2021 – May 2022",
+    highlights: [
+      "Developed Android and Flutter applications.",
+      "Led UI redesign resulting in 1,000+ downloads.",
+    ],
+  },
 ];
 
 const skills = [
-	{ category: "Programming", items: ["Python", "C", "Java", "JavaScript"] },
-	{ category: "Machine Learning", items: ["PyTorch", "scikit-learn"] },
-	{ category: "Scientific Computing", items: ["PDEs", "numerical methods"] },
-	{ category: "Systems & Tools", items: ["Linux", "Docker", "REST APIs"] },
-	{ category: "Cloud & DevOps", items: ["AWS", "GCP", "CI/CD"] },
+  { category: "Programming", items: ["Python", "C", "Java", "JavaScript"] },
+  { category: "Machine Learning", items: ["PyTorch", "scikit-learn"] },
+  { category: "Scientific Computing", items: ["PDEs", "numerical methods"] },
+  { category: "Systems & Tools", items: ["Linux", "Docker", "REST APIs"] },
+  { category: "Cloud & DevOps", items: ["AWS", "GCP", "CI/CD"] },
 ];
 
 const honors = [
-	{ title: "Best Poster Presentation", org: "CMAPP Honors", year: "2025" },
-	{ title: "Hackathon Winner", org: "Echoes of Equality", year: "2022" },
-	{ title: "Undergraduate Research Symposium Judge", org: "", year: "2024" },
-	{ title: "Best Presentation", org: "ECUBE, Anna University", year: "2022" },
+  { title: "Best Poster Presentation", org: "CMAPP Honors", year: "2025" },
+  { title: "Hackathon Winner", org: "Echoes of Equality", year: "2022" },
+  { title: "Undergraduate Research Symposium Judge", org: "", year: "2024" },
+  { title: "Best Presentation", org: "ECUBE, Anna University", year: "2022" },
 ];
 
 /* ---------------- component ---------------- */
 
 const Portfolio = () => {
-	const [hoveredIndex, setHoveredIndex] = useState(null);
-	const [activeSection, setActiveSection] = useState("intro");
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-	const containerRef = useRef(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [activeSection, setActiveSection] = useState("intro");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						setActiveSection(entry.target.id);
-					}
-				});
-			},
-			{
-				root: null,
-				rootMargin: "-45% 0px -45% 0px", // center-based trigger
-				threshold: 0,
-			},
-		);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-45% 0px -45% 0px", // center-based trigger
+        threshold: 0,
+      },
+    );
 
-		sections.forEach((s) => {
-			const el = document.getElementById(s.id);
-			if (el) observer.observe(el);
-		});
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
 
-		return () => observer.disconnect();
-	}, []);
+    return () => observer.disconnect();
+  }, []);
 
-	// Mouse parallax effect
-	useEffect(() => {
-		const handleMouseMove = (e) => {
-			if (containerRef.current) {
-				const rect = containerRef.current.getBoundingClientRect();
-				const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-				const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-				setMousePosition({ x, y });
-			}
-		};
+  // Mouse parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+        setMousePosition({ x, y });
+      }
+    };
 
-		window.addEventListener("mousemove", handleMouseMove);
-		return () => window.removeEventListener("mousemove", handleMouseMove);
-	}, []);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
-	return (
-		<section className="about-wrapper" ref={containerRef}>
-			{/* Animated background gradient */}
-			<div
-				className="bg-gradient"
-				style={{
-					transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
-				}}
-			/>
+  return (
+    <section className="about-wrapper" ref={containerRef}>
+      {/* Animated background gradient */}
+      <div
+        className="bg-gradient"
+        style={{
+          transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
+        }}
+      />
 
-			{/* -------- DESKTOP NAV -------- */}
-			<aside className="about-nav">
-				{sections.map((s) => (
-					<motion.button
-						key={s.id}
-						onClick={() => scrollTo(s.id)}
-						className={activeSection === s.id ? "active" : ""}
-						whileHover={{ x: 8 }}
-						transition={{ type: "spring", stiffness: 300, damping: 20 }}
-					>
-						<span className="nav-label">{s.label}</span>
-						{activeSection === s.id && (
-							<motion.div
-								className="nav-indicator"
-								layoutId="nav-indicator"
-								transition={{ type: "spring", stiffness: 300, damping: 30 }}
-							/>
-						)}
-					</motion.button>
-				))}
-			</aside>
+      {/* -------- DESKTOP NAV -------- */}
+      <aside className="about-nav">
+        {sections.map((s) => (
+          <motion.button
+            key={s.id}
+            onClick={() => scrollTo(s.id)}
+            className={activeSection === s.id ? "active" : ""}
+            whileHover={{ x: 8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <span className="nav-label">{s.label}</span>
+            {activeSection === s.id && (
+              <motion.div
+                className="nav-indicator"
+                layoutId="nav-indicator"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
+          </motion.button>
+        ))}
+      </aside>
 
-			{/* -------- CONTENT -------- */}
-			<main className="about-content">
-				{/* INTRO */}
-				<motion.section
-					id="intro"
-					style={sectionStyle}
-					variants={fadeIn}
-					initial="hidden"
-					animate="show"
-					className="about-intro"
-				>
-					<div className="intro-grid">
-						<motion.div
-							className="headshot-container"
-							whileHover={{ scale: 1.05 }}
-							transition={{ type: "spring", stiffness: 200 }}
-						>
-							<img
-								src={headshot}
-								alt="Sowndarya Krishnan"
-								className="about-headshot"
-							/>
-						</motion.div>
+      {/* -------- CONTENT -------- */}
+      <main className="about-content">
+        {/* INTRO */}
+        <motion.section
+          id="intro"
+          style={sectionStyle}
+          variants={fadeIn}
+          initial="hidden"
+          animate="show"
+          className="about-intro"
+        >
+          <div className="intro-grid">
+            <motion.div
+              className="headshot-container"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              <img
+                src={headshot}
+                alt="Sowndarya Krishnan"
+                className="about-headshot"
+              />
+            </motion.div>
 
-						<div className="intro-text">
-							<motion.h1
-								className="intro-name"
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: 0.2, duration: 0.6 }}
-							>
-								Sowndarya Krishnan NK
-							</motion.h1>
+            <div className="intro-text">
+              <motion.h1
+                className="intro-name"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                Sowndarya Krishnan NK
+              </motion.h1>
 
-							<motion.p
-								className="intro-meta"
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ delay: 0.3, duration: 0.6 }}
-							>
-								Golden, CO, USA ·{" "}
-								<a href="mailto:krishnaofficial27@gmail.com">
-									krishnaofficial27@gmail.com
-								</a>
-							</motion.p>
+              <motion.p
+                className="intro-meta"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                Golden, CO, USA ·{" "}
+                <a href="mailto:sknkfyi@gmail.com">sknkfyi@gmail.com</a>
+              </motion.p>
 
-							<motion.p
-								className="intro-desc"
-								initial={{ opacity: 0, y: 10 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: 0.4, duration: 0.6 }}
-							>
-								Ph.D. student in Computer Science working on hybrid quantum–AI
-								methods for scientific computing and physics-based modeling.
-							</motion.p>
+              <motion.p
+                className="intro-desc"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                Ph.D. student in Computer Science working on hybrid quantum–AI
+                methods for scientific computing and physics-based modeling.
+              </motion.p>
 
-							<motion.p
-								className="intro-muted"
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ delay: 0.5, duration: 0.6 }}
-							>
-								Focused on developing computational methods that extend
-								classical simulation limits using quantum computing and AI.
-							</motion.p>
+              <motion.p
+                className="intro-muted"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+              >
+                Focused on developing computational methods that extend
+                classical simulation limits using quantum computing and AI.
+              </motion.p>
 
-							<motion.div
-								className="intro-actions"
-								initial={{ opacity: 0, y: 10 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: 0.6, duration: 0.6 }}
-							>
-								<a
-									href={cvFile}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="cv-button"
-								>
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									>
-										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-										<polyline points="15 3 21 3 21 9" />
-										<line x1="10" y1="14" x2="21" y2="3" />
-									</svg>
-									View CV
-								</a>
-							</motion.div>
-						</div>
-					</div>
-				</motion.section>
+              <motion.div
+                className="intro-actions"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              >
+                <a
+                  href={cvFile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cv-button"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  View CV
+                </a>
+                <a
+                  href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="schedule-button"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  Schedule a Meeting
+                </a>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
 
-				{/* EXPERIENCE */}
-				<motion.section
-					id="experience"
-					style={sectionStyle}
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="show"
-					viewport={{ once: true, margin: "-100px" }}
-				>
-					<div className="section-header">
-						<h2 className="section-title">Experience</h2>
-						<div className="section-line" />
-					</div>
+        {/* EXPERIENCE */}
+        <motion.section
+          id="experience"
+          style={sectionStyle}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="section-header">
+            <h2 className="section-title">Experience</h2>
+            <div className="section-line" />
+          </div>
 
-					<div className="experience-timeline">
-						{experiences.map((exp, i) => (
-							<motion.div
-								key={i}
-								className="experience-item"
-								variants={itemVariant}
-								onMouseEnter={() => setHoveredIndex(i)}
-								onMouseLeave={() => setHoveredIndex(null)}
-							>
-								{/* Glassmorphic card */}
-								<div className="experience-card">
-									<div className="experience-header">
-										<div className="experience-title-group">
-											<h3 className="experience-company">{exp.company}</h3>
-											<p className="experience-role">{exp.role}</p>
-										</div>
-										<div className="experience-meta">
-											<span className="experience-period">{exp.period}</span>
-											{exp.status === "current" && (
-												<motion.div
-													className="status-badge"
-													initial={{ scale: 0 }}
-													animate={{ scale: 1 }}
-													transition={{ delay: i * 0.1 + 0.5, type: "spring" }}
-												>
-													<span className="status-pulse" />
-													Current
-												</motion.div>
-											)}
-										</div>
-									</div>
+          <div className="experience-timeline">
+            {experiences.map((exp, i) => (
+              <motion.div
+                key={i}
+                className="experience-item"
+                variants={itemVariant}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {/* Glassmorphic card */}
+                <div className="experience-card">
+                  <div className="experience-header">
+                    <div className="experience-title-group">
+                      <h3 className="experience-company">{exp.company}</h3>
+                      <p className="experience-role">{exp.role}</p>
+                    </div>
+                    <div className="experience-meta">
+                      <span className="experience-period">{exp.period}</span>
+                      {exp.status === "current" && (
+                        <motion.div
+                          className="status-badge"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: i * 0.1 + 0.5, type: "spring" }}
+                        >
+                          <span className="status-pulse" />
+                          Current
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
 
-									<ul className="experience-highlights">
-										{exp.highlights.map((highlight, j) => (
-											<motion.li
-												key={j}
-												initial={{ opacity: 0, x: -10 }}
-												animate={{ opacity: 0.8, x: 0 }}
-												transition={{ delay: i * 0.1 + j * 0.05 + 0.3 }}
-											>
-												{highlight}
-											</motion.li>
-										))}
-									</ul>
-								</div>
+                  <ul className="experience-highlights">
+                    {exp.highlights.map((highlight, j) => (
+                      <motion.li
+                        key={j}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 0.8, x: 0 }}
+                        transition={{ delay: i * 0.1 + j * 0.05 + 0.3 }}
+                      >
+                        {highlight}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
 
-								{/* Timeline connector */}
-								<div className="timeline-connector">
-									<motion.div
-										className="timeline-dot"
-										animate={{
-											scale: hoveredIndex === i ? 1.4 : 1,
-										}}
-										transition={{ type: "spring", stiffness: 300 }}
-									/>
-									{i < experiences.length - 1 && (
-										<div className="timeline-line" />
-									)}
-								</div>
-							</motion.div>
-						))}
-					</div>
-				</motion.section>
+                {/* Timeline connector */}
+                <div className="timeline-connector">
+                  <motion.div
+                    className="timeline-dot"
+                    animate={{
+                      scale: hoveredIndex === i ? 1.4 : 1,
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  />
+                  {i < experiences.length - 1 && (
+                    <div className="timeline-line" />
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-				{/* EDUCATION */}
-				<motion.section
-					id="education"
-					style={sectionStyle}
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="show"
-					viewport={{ once: true, margin: "-100px" }}
-				>
-					<div className="section-header">
-						<h2 className="section-title">Education</h2>
-						<div className="section-line" />
-					</div>
+        {/* EDUCATION */}
+        <motion.section
+          id="education"
+          style={sectionStyle}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="section-header">
+            <h2 className="section-title">Education</h2>
+            <div className="section-line" />
+          </div>
 
-					<motion.div className="education-item" variants={itemVariant}>
-						<div className="education-card">
-							<p className="education-degree">
-								<strong>Ph.D. Computer Science</strong>
-							</p>
-							<p className="education-school">Colorado School of Mines</p>
-							<p className="muted">Advisor: Prof. Pejman Tahmasebi</p>
-						</div>
-					</motion.div>
+          <motion.div className="education-item" variants={itemVariant}>
+            <div className="education-card">
+              <p className="education-degree">
+                <strong>Ph.D. Computer Science</strong>
+              </p>
+              <p className="education-school">Colorado School of Mines</p>
+              <p className="muted">Advisor: Prof. Pejman Tahmasebi</p>
+            </div>
+          </motion.div>
 
-					<motion.div className="education-item" variants={itemVariant}>
-						<div className="education-card">
-							<p className="education-degree">
-								<strong>M.S. Computer Science</strong>
-							</p>
-							<p className="education-school">Colorado School of Mines</p>
-							<p className="muted">
-								GPA: 3.7 / 4.0 · Advisor: Prof. Gabe Fierro
-							</p>
-						</div>
-					</motion.div>
+          <motion.div className="education-item" variants={itemVariant}>
+            <div className="education-card">
+              <p className="education-degree">
+                <strong>M.S. Computer Science</strong>
+              </p>
+              <p className="education-school">Colorado School of Mines</p>
+              <p className="muted">
+                GPA: 3.7 / 4.0 · Advisor: Prof. Gabe Fierro
+              </p>
+            </div>
+          </motion.div>
 
-					<motion.div className="education-item" variants={itemVariant}>
-						<div className="education-card">
-							<p className="education-degree">
-								<strong>B.E. Electronics & Communication Engineering</strong>
-							</p>
-							<p className="education-school">Anna University</p>
-							<p className="muted">
-								GPA: 8.56 / 10 · First Class with Distinction
-							</p>
-						</div>
-					</motion.div>
-				</motion.section>
+          <motion.div className="education-item" variants={itemVariant}>
+            <div className="education-card">
+              <p className="education-degree">
+                <strong>B.E. Electronics & Communication Engineering</strong>
+              </p>
+              <p className="education-school">Anna University</p>
+              <p className="muted">
+                GPA: 8.56 / 10 · First Class with Distinction
+              </p>
+            </div>
+          </motion.div>
+        </motion.section>
 
-				{/* SKILLS */}
-				<motion.section
-					id="skills"
-					style={sectionStyle}
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="show"
-					viewport={{ once: true, margin: "-100px" }}
-				>
-					<div className="section-header">
-						<h2 className="section-title">Skills</h2>
-						<div className="section-line" />
-					</div>
+        {/* SKILLS */}
+        <motion.section
+          id="skills"
+          style={sectionStyle}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="section-header">
+            <h2 className="section-title">Skills</h2>
+            <div className="section-line" />
+          </div>
 
-					<div className="skills-grid">
-						{skills.map((skill, i) => (
-							<motion.div
-								key={i}
-								className="skill-card"
-								variants={skillVariant}
-								whileHover={{ y: -8, scale: 1.02 }}
-								transition={{ type: "spring", stiffness: 300 }}
-							>
-								<h3 className="skill-category">{skill.category}</h3>
-								<div className="skill-items">
-									{skill.items.map((item, j) => (
-										<span key={j} className="skill-tag">
-											{item}
-										</span>
-									))}
-								</div>
-							</motion.div>
-						))}
-					</div>
-				</motion.section>
+          <div className="skills-grid">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={i}
+                className="skill-card"
+                variants={skillVariant}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3 className="skill-category">{skill.category}</h3>
+                <div className="skill-items">
+                  {skill.items.map((item, j) => (
+                    <span key={j} className="skill-tag">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-				{/* HONORS */}
-				<motion.section
-					id="honors"
-					style={sectionStyle}
-					variants={staggerContainer}
-					initial="hidden"
-					whileInView="show"
-					viewport={{ once: true, margin: "-100px" }}
-				>
-					<div className="section-header">
-						<h2 className="section-title">Honors & Awards</h2>
-						<div className="section-line" />
-					</div>
+        {/* HONORS */}
+        <motion.section
+          id="honors"
+          style={sectionStyle}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="section-header">
+            <h2 className="section-title">Honors & Awards</h2>
+            <div className="section-line" />
+          </div>
 
-					<div className="honors-grid">
-						{honors.map((honor, i) => (
-							<motion.div
-								key={i}
-								className="honor-card"
-								variants={honorVariant}
-								whileHover={{ scale: 1.03, rotateY: 5 }}
-								transition={{ type: "spring", stiffness: 300 }}
-							>
-								<div className="honor-year">{honor.year}</div>
-								<h3 className="honor-title">{honor.title}</h3>
-								{honor.org && <p className="honor-org">{honor.org}</p>}
-								<div className="honor-shine" />
-							</motion.div>
-						))}
-					</div>
-				</motion.section>
-			</main>
+          <div className="honors-grid">
+            {honors.map((honor, i) => (
+              <motion.div
+                key={i}
+                className="honor-card"
+                variants={honorVariant}
+                whileHover={{ scale: 1.03, rotateY: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="honor-year">{honor.year}</div>
+                <h3 className="honor-title">{honor.title}</h3>
+                {honor.org && <p className="honor-org">{honor.org}</p>}
+                <div className="honor-shine" />
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      </main>
 
-			<style>{`
+      <style>{`
 			 :root {
 		--text: #ffffff;
 		--bg: #000000;
@@ -586,9 +605,11 @@ const Portfolio = () => {
 		margin-top: 1.5rem;
 		display: flex;
 		gap: 1rem;
+		flex-wrap: wrap;
 	}
 
-.cv-button {
+.cv-button,
+.schedule-button {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.5rem;
@@ -604,13 +625,15 @@ const Portfolio = () => {
 	opacity: 0.8;
 }
 
-.cv-button:hover {
+.cv-button:hover,
+.schedule-button:hover {
 	opacity: 1;
 	transform: translateY(-2px);
 	background: rgba(255, 255, 255, 0.05);
 }
 
-.cv-button svg {
+.cv-button svg,
+.schedule-button svg {
 	flex-shrink: 0;
 	opacity: 0.9;
 }
@@ -1265,8 +1288,8 @@ const Portfolio = () => {
 					}
 				}
 			`}</style>
-		</section>
-	);
+    </section>
+  );
 };
 
 export default Portfolio;
