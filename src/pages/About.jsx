@@ -5,8 +5,9 @@ import h1 from "../assets/images/about/h1.webp";
 import h2 from "../assets/images/about/h2.webp";
 import h3 from "../assets/images/about/h3.webp";
 import h4 from "../assets/images/about/h4.webp";
+import h5 from "../assets/images/about/h5.webp";
 
-const images = [h1, h2, h3, h4];
+const images = [h1, h2, h3, h4, h5];
 
 const history = [
   "At 10, I wrote my first lines of code and realized computers obey logic better than people.",
