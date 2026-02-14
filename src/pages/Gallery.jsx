@@ -80,7 +80,7 @@ const Gallery = () => {
               }}
             >
               “Medicine, law, business, engineering — these are noble pursuits
-              and necessary to sustain life.{" "}
+              and necessary to sustain life, but{" "}
               <span
                 style={{
                   color: "#8b5cf6",
