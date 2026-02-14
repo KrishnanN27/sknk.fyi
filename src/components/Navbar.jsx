@@ -1,18 +1,40 @@
 import { motion } from "framer-motion";
-import { Atom, Briefcase, Home, Mail, Moon, Sun, User } from "lucide-react";
+import {
+  Atom,
+  Briefcase,
+  Home,
+  Mail,
+  Moon,
+  Sun,
+  User,
+  Image,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
+  /* ---------------- CLOCK ---------------- */
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  /* ---------------- MOBILE DETECTION ---------------- */
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const navItems = [
@@ -20,6 +42,7 @@ const Navbar = () => {
     { path: "/about", icon: User, label: "About" },
     { path: "/portfolio", icon: Briefcase, label: "Portfolio" },
     { path: "/research", icon: Atom, label: "Research" },
+    { path: "/gallery", icon: Image, label: "Gallery" },
     { path: "/contact", icon: Mail, label: "Contact" },
   ];
 
@@ -98,35 +121,40 @@ const Navbar = () => {
             );
           })}
 
-          {/* THEME TOGGLE */}
-          <button
-            onClick={toggleTheme}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 40,
-              height: 40,
-              marginLeft: 4,
-              background: "rgba(255,255,255,0.12)",
-              color: "inherit",
-              border: "1px solid var(--glass-border)",
-              borderRadius: "14px",
-              cursor: "pointer",
-            }}
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          {/* THEME TOGGLE (DESKTOP ONLY) */}
+          {!isMobile && (
+            <button
+              onClick={toggleTheme}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                marginLeft: 4,
+                background: "rgba(255,255,255,0.12)",
+                color: "inherit",
+                border: "1px solid var(--glass-border)",
+                borderRadius: "14px",
+                cursor: "pointer",
+              }}
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          )}
         </div>
       </nav>
 
-      {/* ---------------- TIME ---------------- */}
+      {/* ---------------- TIME + MOBILE THEME ---------------- */}
       <div
         style={{
           position: "fixed",
           top: "1.5rem",
           right: "1.5rem",
           zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
           padding: "0.75rem 1.2rem",
           background: "var(--glass-bg)",
           color: "var(--text)",
@@ -138,12 +166,33 @@ const Navbar = () => {
           fontSize: "0.9rem",
         }}
       >
+        {/* THEME TOGGLE (MOBILE ONLY) */}
+        {isMobile && (
+          <button
+            onClick={toggleTheme}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 36,
+              height: 36,
+              background: "rgba(255,255,255,0.12)",
+              color: "inherit",
+              border: "1px solid var(--glass-border)",
+              borderRadius: "12px",
+              cursor: "pointer",
+            }}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+        )}
+
         {currentTime.toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
           timeZone: "America/Denver",
-        })}{" "}
+        })}
         <span style={{ opacity: 0.6, fontSize: "0.7rem" }}>MST</span>
       </div>
 

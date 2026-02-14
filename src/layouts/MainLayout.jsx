@@ -29,9 +29,9 @@ const MainLayout = () => {
           : `
   linear-gradient(
     180deg,
-    #f6f5f8 0%,
-    #ecebf1 50%,
-    #f6f5f8 100%
+    #e9e8ee 0%,
+    #dddce3 50%,
+    #e9e8ee 100%
   )
 `;
       return;
