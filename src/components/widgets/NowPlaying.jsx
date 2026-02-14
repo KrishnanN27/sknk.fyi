@@ -5,26 +5,31 @@ export default function NowPlaying() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/now-playing");
-      const json = await res.json();
-      setData(json);
+      try {
+        // Always hit production API
+        const res = await fetch("https://www.sknk.fyi/api/now-playing");
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error("Spotify fetch error:", err);
+      }
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 10000);
+    const interval = setInterval(fetchData, 10000); // refresh every 10s
     return () => clearInterval(interval);
   }, []);
 
   if (!data) return <div>Loading...</div>;
 
-  // 🎵 If currently playing
+  /* ================= CURRENTLY PLAYING ================= */
   if (data.current && data.current.item) {
     const track = data.current.item;
 
     return (
       <div style={{ display: "flex", gap: "0.75rem" }}>
         <img
-          src={track.album.images[0].url}
+          src={track.album.images[0]?.url}
           alt="album"
           style={{
             width: 60,
@@ -43,7 +48,7 @@ export default function NowPlaying() {
     );
   }
 
-  // 🎶 Fallback: Top tracks
+  /* ================= TOP TRACKS FALLBACK ================= */
   if (data.top) {
     return (
       <div>
@@ -59,5 +64,5 @@ export default function NowPlaying() {
     );
   }
 
-  return null;
+  return <div>No Spotify data available.</div>;
 }
