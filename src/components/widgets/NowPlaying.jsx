@@ -21,10 +21,66 @@ export default function NowPlaying() {
 
   if (!data) return <div style={{ opacity: 0.6 }}>Loading…</div>;
 
-  const topTracks = Array.isArray(data?.top) ? data.top.slice(0, 5) : [];
+  const current = data.current?.item;
+  const lastPlayed = data.recent?.[0]?.track;
+  const topTracks = data.top?.slice(0, 5) || [];
+
+  const featuredTrack = current || lastPlayed;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      {/* ================= FEATURED (Now or Last Played) ================= */}
+      {featuredTrack && (
+        <div>
+          <div
+            style={{
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              opacity: 0.5,
+              marginBottom: "0.8rem",
+            }}
+          >
+            {current ? "Now Playing" : "Last Played"}
+          </div>
+
+          <a
+            href={featuredTrack.external_urls.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "flex",
+              gap: "1rem",
+              textDecoration: "none",
+              color: "inherit",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={featuredTrack.album.images[0]?.url}
+              alt="album"
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: "12px",
+                objectFit: "cover",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+              }}
+            />
+
+            <div>
+              <div style={{ fontWeight: 600, fontSize: "1rem" }}>
+                {featuredTrack.name}
+              </div>
+              <div style={{ opacity: 0.7 }}>
+                {featuredTrack.artists.map((a) => a.name).join(", ")}
+              </div>
+            </div>
+          </a>
+        </div>
+      )}
+
+      {/* ================= TOP TRACKS GRID ================= */}
       {topTracks.length > 0 && (
         <div>
           <div
@@ -52,6 +108,7 @@ export default function NowPlaying() {
                 href={track.external_urls.spotify}
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ display: "block" }}
               >
                 <img
                   src={track.album.images[0]?.url}
@@ -60,6 +117,7 @@ export default function NowPlaying() {
                     width: "100%",
                     borderRadius: "10px",
                     objectFit: "cover",
+                    transition: "transform 0.2s ease",
                   }}
                 />
               </a>
