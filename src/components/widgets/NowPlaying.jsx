@@ -92,7 +92,7 @@ export default function NowPlaying() {
               marginBottom: "0.8rem",
             }}
           >
-            Top Tracks
+            Currently Obsessed With
           </div>
 
           <div
