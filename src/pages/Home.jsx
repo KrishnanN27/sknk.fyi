@@ -10,247 +10,125 @@ const container = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.22,
-      delayChildren: 0.2,
+      staggerChildren: 0.14,
+      delayChildren: 0.1,
     },
   },
 };
 
 const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 18,
-    filter: "blur(6px)",
-  },
+  hidden: { opacity: 0, y: 32, filter: "blur(10px)" },
   show: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
-    },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
-const tagVariants = {
-  hidden: { opacity: 0, y: 8, scale: 0.95 },
+const nameReveal = {
+  hidden: { opacity: 0, y: 48, filter: "blur(14px)", skewY: 2 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
+    filter: "blur(0px)",
+    skewY: 0,
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const slideIn = {
+  hidden: { opacity: 0, x: 40, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.3 },
   },
 };
 
 /* ---------------- Tag component ---------------- */
 
 const Tag = ({ children }) => (
-  <motion.span
-    variants={tagVariants}
-    style={{
-      padding: "0.25rem 0.6rem",
-      fontSize: "0.75rem",
-      fontWeight: 500,
-      textTransform: "uppercase",
-      letterSpacing: "0.06em",
-      borderRadius: "4px",
-      background: "var(--tag-bg)",
-      border: "1px solid var(--tag-border)",
-      color: "var(--text)",
-    }}
-  >
-    {children}
-  </motion.span>
+  <span className="tag">{children}</span>
 );
 
 /* ---------------- Home component ---------------- */
 
 const Home = () => {
   return (
-    <section
-      style={{
-        flex: 1,
-        maxWidth: "1400px",
-        margin: "0 auto",
-        padding: "10rem 2rem 6rem",
-        position: "relative",
-      }}
-    >
+    <section className="home-section">
+      {/* Ambient background orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 320px",
-          gap: "3.5rem",
-          alignItems: "start",
-        }}
+        className="home-grid"
       >
         {/* ================= LEFT COLUMN ================= */}
-        <div style={{ maxWidth: 720 }}>
+        <div className="left-col">
+
+          {/* Eyebrow */}
+          <motion.div variants={fadeUp} className="eyebrow">
+            <span className="eyebrow-dot" />
+            Colorado School of Mines
+            <span className="eyebrow-dot" />
+            CS PhD
+          </motion.div>
+
           {/* Name */}
-          <motion.h1
-            variants={fadeUp}
-            style={{
-              fontSize: "clamp(2.6rem, 5vw, 3.8rem)",
-              fontWeight: 600,
-              letterSpacing: "-0.03em",
-              marginBottom: "0.8rem",
-              lineHeight: 1.05,
-            }}
-          >
-            Sowndarya{" "}
-            <span style={{ fontWeight: 600 }}>
-              <span style={{ color: "rgba(128,128,128,0.85)" }}>Krish</span>
-              nan
-            </span>
+          <motion.h1 variants={nameReveal} className="name">
+            <span className="name-first">Sowndarya</span>
+            <br />
+            <span className="name-last"><span className="name-krish">Krish</span><span className="name-nan">nan</span></span>
           </motion.h1>
 
           {/* Tags */}
-          <motion.div
-            variants={container}
-            style={{
-              display: "flex",
-              gap: "0.6rem",
-              flexWrap: "wrap",
-              marginBottom: "2rem",
-            }}
-          >
+          <motion.div variants={fadeUp} className="tags-row">
             <Tag>PhD Student</Tag>
             <Tag>Research Assistant</Tag>
-            <Tag>Former Software Engineer</Tag>
+            <Tag>Former SWE</Tag>
           </motion.div>
 
-          {/* Institution */}
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "1.1rem",
-              lineHeight: 1.7,
-              opacity: 0.85,
-              marginBottom: "1.8rem",
-            }}
-          >
-            PhD Student in Computer Science at{" "}
-            <a
-              href="https://www.mines.edu/"
-              target="_blank"
-              rel="noreferrer"
-              className="mines-link"
-            >
-              Colorado School of Mines
-            </a>{" "}
-            ·{" "}
-            <a
-              href="https://cs.mines.edu/"
-              target="_blank"
-              rel="noreferrer"
-              className="cs-link"
-            >
-              Computer Science
-            </a>
-          </motion.p>
+          {/* Divider */}
+          <motion.div variants={fadeUp} className="rule" />
 
           {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "1.05rem",
-              lineHeight: 1.7,
-              opacity: 0.6,
-              marginBottom: "2.8rem",
-            }}
-          >
-            A space where I share my personal journey, research, and
-            photography.
+          <motion.p variants={fadeUp} className="bio">
+            A space where I share my personal journey, research, and photography.
           </motion.p>
 
           {/* Action Buttons */}
-          <motion.div
-            variants={fadeUp}
-            style={{
-              display: "flex",
-              gap: "1.2rem",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            {/* Portfolio Button - Glass with Glow */}
+          <motion.div variants={fadeUp} className="actions">
             <motion.a
               href="/portfolio"
-              className="portfolio-btn"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.7rem",
-                padding: "0.65rem 1.5rem 0.65rem 0.65rem",
-                borderRadius: "999px",
-                textDecoration: "none",
-                color: "var(--text)",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                position: "relative",
-                overflow: "hidden",
-                background: "var(--glass-bg)",
-                backdropFilter: "blur(12px)",
-                border: "1.5px solid var(--glass-border)",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
+              className="btn btn-primary"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
             >
               <img
                 src={headshot}
                 alt="Sowndarya"
-                style={{
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid var(--glass-border)",
-                }}
+                className="btn-avatar"
               />
               View Portfolio
+              <svg className="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </motion.a>
 
-            {/* Schedule Meeting - Glass with Neon Border */}
             <motion.a
               href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
               target="_blank"
               rel="noreferrer"
-              className="schedule-btn"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.65rem 1.6rem",
-                borderRadius: "999px",
-                textDecoration: "none",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                letterSpacing: "0.01em",
-                color: "var(--text)",
-                position: "relative",
-                background: "var(--glass-bg)",
-                backdropFilter: "blur(12px)",
-                border: "1.5px solid var(--glass-border)",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
+              className="btn btn-secondary"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
@@ -259,135 +137,341 @@ const Home = () => {
               Schedule a Meeting
             </motion.a>
           </motion.div>
+
+
         </div>
 
         {/* ================= RIGHT COLUMN ================= */}
-        <motion.div
-          variants={container}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-          }}
-        >
-          <motion.div variants={fadeUp}>
+        <motion.div variants={slideIn} className="right-col">
+          <div className="widget-stack">
             <Widget title="Spotify Now">
               <NowPlaying />
             </Widget>
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
             <Widget title="Status">
               <Status />
             </Widget>
-          </motion.div>
+          </div>
+
+          {/* Decorative index number */}
+          <div className="index-mark">01</div>
         </motion.div>
       </motion.div>
 
-      <style>
-        {`
-          @media (max-width: 900px) {
-            section > div {
-              grid-template-columns: 1fr !important;
-            }
-          }
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
 
-          .mines-link,
-          .cs-link {
-            text-decoration: none;
-            font-weight: 500;
-            color: #2f6fe4;
-            transition: color 0.25s ease;
-          }
+        .home-section {
+          flex: 1;
+          max-width: 1300px;
+          margin: 0 auto;
+          padding: 9rem 2.5rem 6rem;
+          position: relative;
+          overflow: hidden;
+          font-family: 'DM Sans', sans-serif;
+        }
 
-          .mines-link:hover,
-          .cs-link:hover {
-            color: #3b82f6;
-          }
+        /* Ambient orbs */
+        .orb {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 0;
+          filter: blur(80px);
+        }
+        .orb-1 {
+          width: 500px;
+          height: 500px;
+          top: -100px;
+          right: -80px;
+          background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+          animation: float-orb 12s ease-in-out infinite;
+        }
+        .orb-2 {
+          width: 360px;
+          height: 360px;
+          bottom: 40px;
+          left: -60px;
+          background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+          animation: float-orb 16s ease-in-out infinite reverse;
+        }
+        @keyframes float-orb {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(20px, -30px) scale(1.05); }
+          66% { transform: translate(-15px, 20px) scale(0.97); }
+        }
 
-          /* Portfolio Button Hover Effects */
-          .portfolio-btn {
-            box-shadow: 0 0 0 rgba(255, 255, 255, 0),
-                        0 2px 8px rgba(0, 0, 0, 0.1);
-          }
+        .home-grid {
+          display: grid;
+          grid-template-columns: 1fr 300px;
+          gap: 5rem;
+          align-items: start;
+          position: relative;
+          z-index: 1;
+        }
 
-          .portfolio-btn:hover {
-            background: var(--glass-bg) !important;
-            border-color: var(--text) !important;
-            box-shadow: 0 0 25px var(--glass-border),
-                        0 0 50px var(--glass-border),
-                        0 0 75px var(--glass-border),
-                        0 4px 16px rgba(0, 0, 0, 0.2) !important;
-            transform: translateY(-2px) scale(1.02) !important;
-          }
+        /* LEFT */
+        .left-col {
+          max-width: 640px;
+        }
 
-          .portfolio-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, var(--glass-border) 0%, transparent 70%);
-            border-radius: 999px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
+        .eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.78rem;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--text);
+          opacity: 0.45;
+          margin-bottom: 1.6rem;
+        }
+        .eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9ca3af; /* soft grey */
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(156,163,175,0.4);
+}
 
-          .portfolio-btn:hover::before {
-            opacity: 0.5;
-          }
+        .name {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(3.4rem, 6vw, 5.2rem);
+          font-weight: 400;
+          line-height: 0.95;
+          letter-spacing: -0.02em;
+          margin: 0 0 1.6rem 0;
+          color: var(--text);
+        }
+        .name-first,
+        .name-nan {
+          font-style: italic;
+        }
+        .name-last {
+          font-style: italic;
+        }
+        .name-krish {
+          color: color-mix(in srgb, var(--text) 42%, transparent);
+        }
 
-          /* Schedule Button Hover Effects */
-          .schedule-btn {
-            box-shadow: 0 0 0 rgba(255, 255, 255, 0),
-                        0 2px 8px rgba(0, 0, 0, 0.1);
-          }
+        /* Tags */
+        .tags-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 1.8rem;
+        }
+        .tag {
+          font-size: 0.72rem;
+          font-weight: 500;
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+          padding: 0.28rem 0.7rem;
+          border-radius: 3px;
+          border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+          color: color-mix(in srgb, var(--text) 65%, transparent);
+          background: transparent;
+        }
 
-          .schedule-btn:hover {
-            background: var(--glass-bg) !important;
-            border-color: var(--text) !important;
-            box-shadow: 0 0 20px var(--glass-border),
-                        0 0 40px var(--glass-border),
-                        inset 0 0 20px var(--glass-border) !important;
-            transform: translateY(-2px) scale(1.02) !important;
-          }
+        .rule {
+          width: 40px;
+          height: 1px;
+          background: var(--text);
+          opacity: 0.2;
+          margin-bottom: 1.8rem;
+          transform-origin: left;
+          animation: rule-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.8s;
+        }
+        @keyframes rule-grow {
+          from { transform: scaleX(0); opacity: 0; }
+          to { transform: scaleX(1); opacity: 0.2; }
+        }
 
-          .schedule-btn::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--glass-border);
-            border-radius: 999px;
-            z-index: -1;
-            opacity: 0;
-            filter: blur(8px);
-            transition: opacity 0.3s ease;
-          }
+        .bio {
+          font-size: 1rem;
+          line-height: 1.8;
+          opacity: 0.55;
+          margin: 0 0 2.4rem 0;
+          font-weight: 300;
+          max-width: 480px;
+        }
 
-          .schedule-btn:hover::after {
-            opacity: 0.6;
-          }
+        /* Buttons */
+        .actions {
+          display: flex;
+          gap: 0.9rem;
+          flex-wrap: wrap;
+          align-items: center;
+          margin-bottom: 2rem;
+        }
 
-          /* Pulsing glow animation */
-          @keyframes pulse-glow {
-            0%, 100% {
-              filter: brightness(1);
-            }
-            50% {
-              filter: brightness(1.1);
-            }
-          }
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+          padding: 0.6rem 1.3rem;
+          border-radius: 6px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.88rem;
+          font-weight: 500;
+          text-decoration: none;
+          transition: all 0.25s ease;
+          cursor: pointer;
+        }
 
-          .portfolio-btn:hover,
-          .schedule-btn:hover {
-            animation: pulse-glow 2s ease-in-out infinite;
+        .btn-primary {
+          background: transparent;
+          color: var(--text);
+          border: 1.5px solid color-mix(in srgb, var(--text) 28%, transparent);
+        }
+        .btn-primary:hover {
+          background: color-mix(in srgb, var(--text) 8%, transparent);
+          border-color: color-mix(in srgb, var(--text) 50%, transparent);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text);
+          border: none;
+          position: relative;
+          padding: calc(0.6rem + 1.5px) calc(1.3rem + 1.5px);
+        }
+        .btn-secondary::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 6px;
+          padding: 1.5px;
+          background: linear-gradient(135deg, rgba(139,92,246,0.7) 0%, rgba(99,102,241,0.4) 50%, color-mix(in srgb, var(--text) 15%, transparent) 100%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+        }
+        .btn-secondary:hover {
+          background: rgba(139,92,246,0.06);
+        }
+        .btn-secondary:hover::before {
+          background: linear-gradient(135deg, rgba(139,92,246,0.95) 0%, rgba(99,102,241,0.65) 50%, color-mix(in srgb, var(--text) 25%, transparent) 100%);
+        }
+
+        .btn-avatar {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          object-fit: cover;
+          opacity: 0.9;
+        }
+
+        .btn-arrow {
+          opacity: 0.6;
+        }
+
+        .footer-note {
+          font-size: 0.8rem;
+          opacity: 0.3;
+          margin: 0;
+        }
+        .inline-link {
+          color: inherit;
+          text-decoration: none;
+          border-bottom: 1px solid currentColor;
+          opacity: 1;
+          transition: opacity 0.2s;
+        }
+        .inline-link:hover {
+          opacity: 0.7;
+        }
+
+        /* RIGHT */
+        .right-col {
+          position: relative;
+          padding-top: 0.5rem;
+        }
+
+        .widget-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          align-items: stretch;
+        }
+        .widget-stack > * {
+          width: 100%;
+        }
+
+        .index-mark {
+          position: absolute;
+          bottom: -2rem;
+          right: 0;
+          font-family: 'DM Serif Display', serif;
+          font-size: 5rem;
+          font-weight: 400;
+          opacity: 0.04;
+          line-height: 1;
+          pointer-events: none;
+          user-select: none;
+          color: var(--text);
+        }
+
+        @media (max-width: 880px) {
+          .home-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
           }
-        `}
-      </style>
+          .right-col {
+            max-width: 380px;
+          }
+          .index-mark {
+            display: none;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .home-section {
+            padding: 6rem 1.5rem 4rem;
+          }
+          .name {
+            font-size: clamp(2.8rem, 12vw, 3.8rem);
+            margin-bottom: 1.2rem;
+          }
+          .eyebrow {
+            font-size: 0.7rem;
+            margin-bottom: 1.2rem;
+          }
+          .tags-row {
+            gap: 0.4rem;
+            margin-bottom: 1.4rem;
+          }
+          .bio {
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+          }
+          .actions {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.75rem;
+          }
+          .btn {
+            justify-content: center;
+            padding: 0.75rem 1.3rem;
+          }
+          .btn-secondary {
+            padding: calc(0.75rem + 1.5px) calc(1.3rem + 1.5px);
+          }
+          .orb-1 {
+            width: 300px;
+            height: 300px;
+            top: -60px;
+            right: -60px;
+          }
+          .orb-2 {
+            width: 220px;
+            height: 220px;
+          }
+        }
+      `}</style>
     </section>
   );
 };
