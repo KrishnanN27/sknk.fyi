@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import headshot from "../assets/images/about/headshot.jpeg";
 import cvFile from "../assets/pdf/CV.pdf";
 
@@ -158,8 +158,6 @@ const honors = [
 const Portfolio = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeSection, setActiveSection] = useState("intro");
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const containerRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -185,30 +183,11 @@ const Portfolio = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse parallax effect
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-        setMousePosition({ x, y });
-      }
-    };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
-    <section className="about-wrapper" ref={containerRef}>
-      {/* Animated background gradient */}
-      <div
-        className="bg-gradient"
-        style={{
-          transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
-        }}
-      />
+    <section className="about-wrapper">
+
 
       {/* -------- DESKTOP NAV -------- */}
       <aside className="about-nav">
@@ -646,24 +625,6 @@ const Portfolio = () => {
 					overflow: hidden;
 				}
 
-				/* Animated background */
-				.bg-gradient {
-					position: fixed;
-					top: -50%;
-					left: -50%;
-					width: 200%;
-					height: 200%;
-					background: radial-gradient(
-						circle at 50% 50%,
-						rgba(59, 130, 246, 0.08) 0%,
-						rgba(139, 92, 246, 0.08) 25%,
-						rgba(236, 72, 153, 0.08) 50%,
-						transparent 70%
-					);
-					pointer-events: none;
-					transition: transform 0.3s ease;
-					z-index: -1;
-				}
 
 				/* DESKTOP FIXED NAV */
 				.about-nav {
