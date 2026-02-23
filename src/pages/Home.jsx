@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import Status from "../components/widgets/Status";
-import NowPlaying from "../components/widgets/NowPlaying";
-import Widget from "../components/Widget";
 import headshot from "../assets/images/about/headshot.jpeg";
+import Widget from "../components/Widget";
+import NowPlaying from "../components/widgets/NowPlaying";
+import Status from "../components/widgets/Status";
 
 /* ---------------- animation presets ---------------- */
 
