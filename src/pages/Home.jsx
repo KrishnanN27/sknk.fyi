@@ -49,9 +49,7 @@ const slideIn = {
 
 /* ---------------- Tag component ---------------- */
 
-const Tag = ({ children }) => (
-  <span className="tag">{children}</span>
-);
+const Tag = ({ children }) => <span className="tag">{children}</span>;
 
 /* ---------------- Home component ---------------- */
 
@@ -70,7 +68,6 @@ const Home = () => {
       >
         {/* ================= LEFT COLUMN ================= */}
         <div className="left-col">
-
           {/* Eyebrow */}
           <motion.div variants={fadeUp} className="eyebrow">
             <span className="eyebrow-dot" />
@@ -83,7 +80,10 @@ const Home = () => {
           <motion.h1 variants={nameReveal} className="name">
             <span className="name-first">Sowndarya</span>
             <br />
-            <span className="name-last"><span className="name-krish">Krish</span><span className="name-nan">nan</span></span>
+            <span className="name-last">
+              <span className="name-krish">Krish</span>
+              <span className="name-nan">nan</span>
+            </span>
           </motion.h1>
 
           {/* Tags */}
@@ -98,7 +98,8 @@ const Home = () => {
 
           {/* Description */}
           <motion.p variants={fadeUp} className="bio">
-            A space where I share my personal journey, research, and photography.
+            A space where I share my personal journey, research, and
+            photography.
           </motion.p>
 
           {/* Action Buttons */}
@@ -109,13 +110,19 @@ const Home = () => {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
-              <img
-                src={headshot}
-                alt="Sowndarya"
-                className="btn-avatar"
-              />
+              <img src={headshot} alt="Sowndarya" className="btn-avatar" />
               View Portfolio
-              <svg className="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                className="btn-arrow"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </motion.a>
@@ -128,7 +135,16 @@ const Home = () => {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
@@ -137,8 +153,6 @@ const Home = () => {
               Schedule a Meeting
             </motion.a>
           </motion.div>
-
-
         </div>
 
         {/* ================= RIGHT COLUMN ================= */}
@@ -168,6 +182,8 @@ const Home = () => {
           position: relative;
           overflow: hidden;
           font-family: 'DM Sans', sans-serif;
+          font-size: 1.08rem;
+
         }
 
         /* Ambient orbs */
@@ -218,7 +234,7 @@ const Home = () => {
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          font-size: 0.78rem;
+          font-size: 1rem;
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
@@ -263,7 +279,7 @@ const Home = () => {
           margin-bottom: 1.8rem;
         }
         .tag {
-          font-size: 0.72rem;
+          font-size: 0.9rem;
           font-weight: 500;
           letter-spacing: 0.07em;
           text-transform: uppercase;
@@ -290,7 +306,7 @@ const Home = () => {
         }
 
         .bio {
-          font-size: 1rem;
+          font-size: 1.2rem;
           line-height: 1.8;
           opacity: 0.55;
           margin: 0 0 2.4rem 0;
@@ -314,7 +330,7 @@ const Home = () => {
           padding: 0.6rem 1.3rem;
           border-radius: 6px;
           font-family: 'DM Sans', sans-serif;
-          font-size: 0.88rem;
+          font-size: 1rem;
           font-weight: 500;
           text-decoration: none;
           transition: all 0.25s ease;
