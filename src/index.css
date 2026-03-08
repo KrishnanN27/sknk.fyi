@@ -1,32 +1,13 @@
 /* =========================
-   JetBrains Mono (local, variable font)
+   Playfair Display + Cabinet Grotesk
    ========================= */
 
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/src/assets/font/jetbrains/JetBrainsMono-VariableFont_wght.ttf")
-    format("truetype");
-  font-weight: 100 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/src/assets/font/jetbrains/JetBrainsMono-Italic-VariableFont_wght.ttf")
-    format("truetype");
-  font-weight: 100 800;
-  font-style: italic;
-  font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,700,800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* =========================
-   THEME VARIABLES
-   ========================= */
 
 :root[data-theme="dark"] {
   --bg: #050208;
@@ -40,92 +21,72 @@
 :root[data-theme="light"] {
   --bg: #e9e8ee;
   --text: #1e2329;
-  --glass-bg: rgba(255, 255, 255, 0.3); /* Reduced from 0.78 */
+  --glass-bg: rgba(255, 255, 255, 0.3);
   --glass-border: rgba(30, 35, 45, 0.12);
   --tag-border: rgba(0, 0, 0, 0.18);
   --tag-bg: transparent;
 }
-/* =========================
-   GLOBAL FONT — JetBrains Mono
-   ========================= */
 
 @layer base {
   * {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Cabinet Grotesk", sans-serif;
   }
-
   html,
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
 }
-html {
-  overflow-y: scroll; /* always show scrollbar */
-}
-
-html {
-  scrollbar-gutter: auto; /* remove forced gutter */
-}
-
-/* =========================
-   RESET & BASE
-   ========================= */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: auto;
+  scroll-behavior: smooth;
+}
 html,
 body {
   background: var(--bg);
   color: var(--text);
 }
-
-/* Hide scrollbar */
 body::-webkit-scrollbar {
   display: none;
 }
-
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
-/* Headings (still mono, just tighter) */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selection */
 ::selection {
   background: rgba(160, 100, 255, 0.3);
   color: white;
 }
-
 @media (max-width: 768px) {
   footer {
-    margin-bottom: 5.5rem; /* navbar height + breathing room */
+    margin-bottom: 5.5rem;
   }
 }
-
 bb-ambient-ribbon {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+}
+code,
+pre,
+kbd {
+  font-family: "JetBrains Mono", monospace;
 }
