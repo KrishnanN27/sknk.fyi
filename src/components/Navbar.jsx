@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Atom,
   Briefcase,
@@ -15,7 +15,8 @@ import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [hoveredPath, setHoveredPath] = useState(null);
+  const [colonVisible, setColonVisible] = useState(true);
 
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -23,18 +24,11 @@ const Navbar = () => {
 
   /* ---------------- CLOCK ---------------- */
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+      setColonVisible((v) => !v); // blink colon
+    }, 1000);
     return () => clearInterval(timer);
-  }, []);
-
-  /* ---------------- MOBILE DETECTION ---------------- */
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const navItems = [
@@ -46,16 +40,27 @@ const Navbar = () => {
     { path: "/contact", icon: Mail, label: "Contact" },
   ];
 
+  const timeStr = currentTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "America/Denver",
+  });
+  const [hh, mm] = timeStr.split(":");
+
   return (
     <>
       {/* ---------------- NAVBAR ---------------- */}
       <nav className="navbar-container">
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.25rem",
-            padding: "0.5rem",
+            gap: "0.15rem",
+            padding: "0.45rem",
             background: "var(--glass-bg)",
             color: "var(--text)",
             backdropFilter: "blur(24px) saturate(180%)",
@@ -66,14 +71,24 @@ const Navbar = () => {
             position: "relative",
           }}
         >
-          {navItems.map((item) => {
+          {navItems.map((item, i) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
+            const isHovered = hoveredPath === item.path;
 
             return (
-              <button
+              <motion.button
                 key={item.path}
                 onClick={() => navigate(item.path)}
+                onHoverStart={() => setHoveredPath(item.path)}
+                onHoverEnd={() => setHoveredPath(null)}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: i * 0.055,
+                  duration: 0.4,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
                 style={{
                   position: "relative",
                   display: "flex",
@@ -88,8 +103,31 @@ const Navbar = () => {
                   fontSize: "0.9rem",
                   fontWeight: isActive ? 600 : 500,
                   zIndex: 1,
+                  outline: "none",
                 }}
               >
+                {/* Hover pill */}
+                {isHovered && !isActive && (
+                  <motion.div
+                    layoutId="nav-hover-pill"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "14px",
+                      background:
+                        theme === "dark"
+                          ? "rgba(255,255,255,0.07)"
+                          : "rgba(0,0,0,0.04)",
+                      zIndex: -1,
+                    }}
+                  />
+                )}
+
+                {/* Active pill */}
                 {isActive && (
                   <motion.div
                     layoutId="nav-active-pill"
@@ -115,16 +153,27 @@ const Navbar = () => {
                   />
                 )}
 
-                <Icon size={18} strokeWidth={2.5} />
+                {/* Icon with spring scale when active */}
+                <motion.span
+                  animate={isActive ? { scale: 1.15 } : { scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Icon size={18} strokeWidth={isActive ? 2.8 : 2.3} />
+                </motion.span>
+
                 <span className="nav-label">{item.label}</span>
-              </button>
+              </motion.button>
             );
           })}
-        </div>
+        </motion.div>
       </nav>
 
-      {/* ---------------- TIME + THEME (ALL SCREENS) ---------------- */}
-      <div
+      {/* ---------------- TIME + THEME ---------------- */}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
         style={{
           position: "fixed",
           top: "1.5rem",
@@ -133,7 +182,7 @@ const Navbar = () => {
           display: "flex",
           alignItems: "center",
           gap: "0.75rem",
-          padding: "0.75rem 1.2rem",
+          padding: "0.6rem 1.1rem",
           background: "var(--glass-bg)",
           color: "var(--text)",
           border: "1px solid var(--glass-border)",
@@ -142,11 +191,14 @@ const Navbar = () => {
           WebkitBackdropFilter: "blur(20px)",
           fontWeight: 600,
           fontSize: "0.9rem",
+          fontVariantNumeric: "tabular-nums",
+          letterSpacing: "0.03em",
         }}
       >
-        {/* THEME TOGGLE */}
-        <button
+        {/* THEME TOGGLE with icon rotation */}
+        <motion.button
           onClick={toggleTheme}
+          whileTap={{ scale: 0.9 }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -159,20 +211,41 @@ const Navbar = () => {
             border: "1px solid var(--glass-border)",
             borderRadius: "12px",
             cursor: "pointer",
-            transition: "all 0.2s ease",
+            overflow: "hidden",
+            position: "relative",
           }}
         >
-          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.span
+              key={theme}
+              initial={{ y: 16, opacity: 0, rotate: -30 }}
+              animate={{ y: 0, opacity: 1, rotate: 0 }}
+              exit={{ y: -16, opacity: 0, rotate: 30 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              style={{ display: "flex" }}
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </motion.span>
+          </AnimatePresence>
+        </motion.button>
 
-        {currentTime.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "America/Denver",
-        })}
-        <span style={{ opacity: 0.6, fontSize: "0.7rem" }}>MST</span>
-      </div>
+        {/* Blinking clock */}
+        <span>
+          {hh}
+          <motion.span
+            animate={{ opacity: colonVisible ? 1 : 0.15 }}
+            transition={{ duration: 0.1 }}
+          >
+            :
+          </motion.span>
+          {mm}
+        </span>
+        <span
+          style={{ opacity: 0.5, fontSize: "0.7rem", letterSpacing: "0.08em" }}
+        >
+          MST
+        </span>
+      </motion.div>
 
       {/* ---------------- RESPONSIVE CSS ---------------- */}
       <style>{`
@@ -188,6 +261,7 @@ const Navbar = () => {
           .navbar-container {
             top: auto;
             bottom: 1.5rem;
+            border-top: 1px solid var(--glass-border);
           }
 
           .nav-label {
