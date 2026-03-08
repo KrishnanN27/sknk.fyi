@@ -22,11 +22,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  /* ---------------- CLOCK ---------------- */
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-      setColonVisible((v) => !v); // blink colon
+      setColonVisible((v) => !v);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -50,7 +49,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ---------------- NAVBAR ---------------- */}
       <nav className="navbar-container">
         <motion.div
           initial={{ opacity: 0, y: -12 }}
@@ -59,15 +57,15 @@ const Navbar = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.15rem",
-            padding: "0.45rem",
+            gap: "0.1rem",
+            padding: "0.4rem",
             background: "var(--glass-bg)",
             color: "var(--text)",
             backdropFilter: "blur(24px) saturate(180%)",
             WebkitBackdropFilter: "blur(24px) saturate(180%)",
             border: "1px solid var(--glass-border)",
             borderRadius: "20px",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
             position: "relative",
           }}
         >
@@ -93,83 +91,62 @@ const Navbar = () => {
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.6rem",
-                  padding: "0.7rem 1.1rem",
+                  gap: "0.55rem",
+                  padding: "0.65rem 1rem",
                   background: "transparent",
                   color: "inherit",
                   border: "none",
                   borderRadius: "14px",
                   cursor: "pointer",
-                  fontSize: "0.9rem",
-                  fontWeight: isActive ? 600 : 500,
+                  fontWeight: 400,
                   zIndex: 1,
                   outline: "none",
+                  opacity: isActive ? 1 : isHovered ? 0.7 : 0.4,
+                  transition: "opacity 0.2s ease",
                 }}
               >
-                {/* Hover pill */}
-                {isHovered && !isActive && (
-                  <motion.div
-                    layoutId="nav-hover-pill"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: "14px",
-                      background:
-                        theme === "dark"
-                          ? "rgba(255,255,255,0.07)"
-                          : "rgba(0,0,0,0.04)",
-                      zIndex: -1,
-                    }}
-                  />
-                )}
-
-                {/* Active pill */}
+                {/* Active pill — soft, no harsh contrast */}
                 {isActive && (
                   <motion.div
                     layoutId="nav-active-pill"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     style={{
                       position: "absolute",
                       inset: 0,
                       borderRadius: "14px",
                       background:
                         theme === "dark"
-                          ? "rgba(255,255,255,0.16)"
-                          : "rgba(0,0,0,0.06)",
-                      boxShadow:
+                          ? "rgba(255,255,255,0.09)"
+                          : "rgba(0,0,0,0.05)",
+                      border:
                         theme === "dark"
-                          ? "inset 0 1px 0 rgba(255,255,255,0.25)"
-                          : "inset 0 1px 0 rgba(255,255,255,0.6)",
+                          ? "1px solid rgba(255,255,255,0.1)"
+                          : "1px solid rgba(0,0,0,0.06)",
                       zIndex: -1,
                     }}
                   />
                 )}
 
-                {/* Icon with spring scale when active */}
-                <motion.span
-                  animate={isActive ? { scale: 1.15 } : { scale: 1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <Icon size={18} strokeWidth={isActive ? 2.8 : 2.3} />
-                </motion.span>
+                <Icon size={17} strokeWidth={1.8} />
 
-                <span className="nav-label">{item.label}</span>
+                <span
+                  className="nav-label"
+                  style={{
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    fontSize: "0.7rem",
+                    fontWeight: 500,
+                  }}
+                >
+                  {item.label}
+                </span>
               </motion.button>
             );
           })}
         </motion.div>
       </nav>
 
-      {/* ---------------- TIME + THEME ---------------- */}
+      {/* TIME + THEME */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -189,13 +166,12 @@ const Navbar = () => {
           borderRadius: "18px",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
-          fontWeight: 600,
-          fontSize: "0.9rem",
+          fontWeight: 400,
+          fontSize: "0.85rem",
           fontVariantNumeric: "tabular-nums",
-          letterSpacing: "0.03em",
+          letterSpacing: "0.04em",
         }}
       >
-        {/* THEME TOGGLE with icon rotation */}
         <motion.button
           onClick={toggleTheme}
           whileTap={{ scale: 0.9 }}
@@ -203,16 +179,17 @@ const Navbar = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 36,
-            height: 36,
+            width: 32,
+            height: 32,
             background:
-              theme === "dark" ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.06)",
+              theme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.04)",
             color: "inherit",
             border: "1px solid var(--glass-border)",
-            borderRadius: "12px",
+            borderRadius: "10px",
             cursor: "pointer",
             overflow: "hidden",
             position: "relative",
+            opacity: 0.7,
           }}
         >
           <AnimatePresence mode="popLayout" initial={false}>
@@ -224,16 +201,15 @@ const Navbar = () => {
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ display: "flex" }}
             >
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
             </motion.span>
           </AnimatePresence>
         </motion.button>
 
-        {/* Blinking clock */}
-        <span>
+        <span style={{ opacity: 0.8 }}>
           {hh}
           <motion.span
-            animate={{ opacity: colonVisible ? 1 : 0.15 }}
+            animate={{ opacity: colonVisible ? 0.8 : 0.2 }}
             transition={{ duration: 0.1 }}
           >
             :
@@ -241,13 +217,16 @@ const Navbar = () => {
           {mm}
         </span>
         <span
-          style={{ opacity: 0.5, fontSize: "0.7rem", letterSpacing: "0.08em" }}
+          style={{
+            opacity: 0.35,
+            fontSize: "0.65rem",
+            letterSpacing: "0.1em",
+          }}
         >
           MST
         </span>
       </motion.div>
 
-      {/* ---------------- RESPONSIVE CSS ---------------- */}
       <style>{`
         .navbar-container {
           position: fixed;
