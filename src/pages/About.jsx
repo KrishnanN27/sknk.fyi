@@ -39,9 +39,9 @@ const forFun = [
 ];
 
 const stats = [
-  { label: "Height", value: "5′7″", sub: null },
-  { label: "Weight", value: "83.5 kg", sub: "184 lbs" },
-  { label: "Age", value: 24 },
+  // { label: "Height", value: "5′7″", sub: null },
+  // { label: "Weight", value: "83.5 kg", sub: "184 lbs" },
+  // { label: "Age", value: 24 },
   { label: "Years Coding", value: "10", sub: "2016 → present" },
   { label: "Coffee / Day", value: "classified", sub: "you don't want to know" },
   { label: "Sleep", value: "¯\\_(ツ)_/¯", sub: "none of your business" },
@@ -136,11 +136,11 @@ const About = () => {
         animate="show"
       >
         <p className="body-text drop-cap">
-          Who am I? Genuinely still figuring that out. Most friends call me
-          Krish or Chris. If you'd like to try the full name: Sown-dar-yeh
-          Krish-nun. I'm a PhD student, a former software engineer, and someone
-          who thinks deeply about things that probably don't need that much
-          thought.
+          {" "}
+          Most friends call me Krish or Chris. If you'd like to try the full
+          name: Sown-dar-yeh Krish-nun. I'm a PhD student, a former software
+          engineer, and someone who thinks deeply about things that probably
+          don't need that much thought.
         </p>
         <p className="body-text muted">
           This is where I put the stuff that doesn't fit anywhere else.
@@ -154,7 +154,7 @@ const About = () => {
         initial="hidden"
         animate="show"
       >
-        <span className="section-eyebrow">By the Numbers</span>
+        <span className="section-eyebrow">Stats</span>
         <div className="stats-grid">
           {stats.map((stat, i) => (
             <motion.div
