@@ -115,17 +115,16 @@ const Home = () => {
               </motion.span>
             ))}
           </div>
-
           <motion.p
             className="home-institution"
             initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
             animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            {"PhD Student in Computer Science at "}
-            <MinesLink />
-            {" · "}
+            {"PhD Student in "}
             <CSLink />
+            {" at "}
+            <MinesLink />
           </motion.p>
 
           <motion.p
