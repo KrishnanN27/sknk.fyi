@@ -389,12 +389,12 @@ const Research = () => {
       </motion.div>
 
       <style>{`
-        .research {
-          min-height: 100vh; max-width: 860px; margin: 0 auto;
-          padding: clamp(6rem,12vh,8.5rem) clamp(1.25rem,5vw,2rem) clamp(3rem,8vh,5rem);
-          color: var(--text);
-          display: flex; flex-direction: column; gap: 3rem;
-        }
+       .research {
+  min-height: 100vh; max-width: 860px; margin: 0 auto;
+  padding: clamp(8rem, 14vh, 10rem) clamp(1.25rem,5vw,2rem) clamp(3rem,8vh,5rem);
+  color: var(--text);
+  display: flex; flex-direction: column; gap: 3rem;
+}
 
         .intro-block { margin: 0; }
 
