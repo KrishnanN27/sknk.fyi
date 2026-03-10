@@ -4,390 +4,336 @@ import Widget from "../components/Widget";
 import NowPlaying from "../components/widgets/NowPlaying";
 import Status from "../components/widgets/Status";
 
-/* ---------------- animation presets ---------------- */
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.22,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 18,
-    filter: "blur(6px)",
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
-
-const tagVariants = {
-  hidden: { opacity: 0, y: 8, scale: 0.95 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-};
-
-/* ---------------- Tag component ---------------- */
-
-const Tag = ({ children }) => (
-  <motion.span
-    variants={tagVariants}
-    style={{
-      padding: "0.25rem 0.6rem",
-      fontSize: "0.75rem",
-      fontWeight: 500,
-      textTransform: "uppercase",
-      letterSpacing: "0.06em",
-      borderRadius: "4px",
-      background: "var(--tag-bg)",
-      border: "1px solid var(--tag-border)",
-      color: "var(--text)",
-    }}
+const MinesLink = () => (
+  <a
+    href="https://www.mines.edu/"
+    target="_blank"
+    rel="noreferrer"
+    className="mines-link"
   >
-    {children}
-  </motion.span>
+    {"Colorado School of Mines"}
+  </a>
 );
 
-/* ---------------- Home component ---------------- */
+const CSLink = () => (
+  <a
+    href="https://cs.mines.edu/"
+    target="_blank"
+    rel="noreferrer"
+    className="mines-link"
+  >
+    {"Computer Science"}
+  </a>
+);
+
+const PortfolioBtn = ({ src }) => (
+  <a href="/portfolio" className="btn btn-filled">
+    <img src={src} alt="" className="btn-avatar" />
+    <span className="btn-label">{"View Portfolio"}</span>
+    <span className="btn-icon">{"↗"}</span>
+  </a>
+);
+
+const ScheduleBtn = () => (
+  <a
+    href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
+    target="_blank"
+    rel="noreferrer"
+    className="btn btn-outline"
+  >
+    <span className="btn-label">{"Schedule a Meeting"}</span>
+    <span className="btn-icon-ghost">{"→"}</span>
+  </a>
+);
+
+const letters = "Sowndarya".split("");
+const letters2 = "Krishnan".split("");
 
 const Home = () => {
   return (
-    <section
-      style={{
-        flex: 1,
-        maxWidth: "1400px",
-        margin: "0 auto",
-        padding: "10rem 2rem 6rem",
-        position: "relative",
-      }}
-    >
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 320px",
-          gap: "3.5rem",
-          alignItems: "start",
-        }}
-      >
-        {/* ================= LEFT COLUMN ================= */}
-        <div style={{ maxWidth: 720 }}>
-          {/* Name */}
-          <motion.h1
-            variants={fadeUp}
-            style={{
-              fontSize: "clamp(2.6rem, 5vw, 3.8rem)",
-              fontWeight: 600,
-              letterSpacing: "-0.03em",
-              marginBottom: "0.8rem",
-              lineHeight: 1.05,
-            }}
-          >
-            Sowndarya{" "}
-            <span style={{ fontWeight: 600 }}>
-              <span style={{ color: "rgba(128,128,128,0.85)" }}>Krish</span>
-              nan
+    <section className="home-section">
+      <div className="home-grid">
+        <div className="left-col">
+          <h1 className="home-name">
+            <span className="name-word">
+              {letters.map((char, i) => (
+                <span className="char-wrap" key={i}>
+                  <motion.span
+                    className="char"
+                    initial={{ y: "105%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.05 + i * 0.04,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                </span>
+              ))}
             </span>
-          </motion.h1>
-
-          {/* Tags */}
-          <motion.div
-            variants={container}
-            style={{
-              display: "flex",
-              gap: "0.6rem",
-              flexWrap: "wrap",
-              marginBottom: "2rem",
-            }}
-          >
-            <Tag>PhD Student</Tag>
-            <Tag>Research Assistant</Tag>
-            <Tag>Former Software Engineer</Tag>
-          </motion.div>
-
-          {/* Institution */}
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "1.1rem",
-              lineHeight: 1.7,
-              opacity: 0.85,
-              marginBottom: "1.8rem",
-            }}
-          >
-            PhD Student in Computer Science at{" "}
-            <a
-              href="https://www.mines.edu/"
-              target="_blank"
-              rel="noreferrer"
-              className="mines-link"
-            >
-              Colorado School of Mines
-            </a>{" "}
-            ·{" "}
-            <a
-              href="https://cs.mines.edu/"
-              target="_blank"
-              rel="noreferrer"
-              className="cs-link"
-            >
-              Computer Science
-            </a>
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontSize: "1.05rem",
-              lineHeight: 1.7,
-              opacity: 0.6,
-              marginBottom: "2.8rem",
-            }}
-          >
-            A space where I share my personal journey, research, and
-            photography.
-          </motion.p>
-
-          {/* Action Buttons */}
-          <motion.div
-            variants={fadeUp}
-            style={{
-              display: "flex",
-              gap: "1.2rem",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            {/* Portfolio Button - Glass with Glow */}
-            <motion.a
-              href="/portfolio"
-              className="portfolio-btn"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.7rem",
-                padding: "0.65rem 1.5rem 0.65rem 0.65rem",
-                borderRadius: "999px",
-                textDecoration: "none",
-                color: "var(--text)",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                position: "relative",
-                overflow: "hidden",
-                background: "var(--glass-bg)",
-                backdropFilter: "blur(12px)",
-                border: "1.5px solid var(--glass-border)",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
-              <img
-                src={headshot}
-                alt="Sowndarya"
-                style={{
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid var(--glass-border)",
+            <span className="name-word">
+              {letters2.map((char, i) => (
+                <span className="char-wrap" key={i}>
+                  <motion.span
+                    className="char"
+                    style={i < 5 ? { color: "#65686d" } : {}}
+                    initial={{ y: "105%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.32 + i * 0.04,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
+          </h1>
+          <div className="tags-row">
+            {[
+              "PhD Student",
+              "Research Assistant",
+              "Former Software Engineer",
+            ].map((t, i) => (
+              <motion.span
+                className="tag-chip"
+                key={t}
+                initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
+                animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.55 + i * 0.1,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
-              />
-              View Portfolio
-            </motion.a>
-
-            {/* Schedule Meeting - Glass with Neon Border */}
-            <motion.a
-              href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
-              target="_blank"
-              rel="noreferrer"
-              className="schedule-btn"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.65rem 1.6rem",
-                borderRadius: "999px",
-                textDecoration: "none",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                letterSpacing: "0.01em",
-                color: "var(--text)",
-                position: "relative",
-                background: "var(--glass-bg)",
-                backdropFilter: "blur(12px)",
-                border: "1.5px solid var(--glass-border)",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
               >
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              Schedule a Meeting
-            </motion.a>
+                {t}
+              </motion.span>
+            ))}
+          </div>
+
+          <motion.p
+            className="home-institution"
+            initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
+            animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {"PhD Student in Computer Science at "}
+            <MinesLink />
+            {" · "}
+            <CSLink />
+          </motion.p>
+
+          <motion.p
+            className="home-desc"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.05, ease: "easeOut" }}
+          >
+            {
+              "A space where I share my personal journey, research, and photography."
+            }
+          </motion.p>
+
+          <motion.div
+            className="btn-row"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <PortfolioBtn src={headshot} />
+            <ScheduleBtn />
           </motion.div>
         </div>
 
-        {/* ================= RIGHT COLUMN ================= */}
         <motion.div
-          variants={container}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-          }}
+          className="widgets-col"
+          initial={{ opacity: 0, y: 28, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <motion.div variants={fadeUp}>
-            <Widget title="Spotify Now">
-              <NowPlaying />
-            </Widget>
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <Widget title="Status">
-              <Status />
-            </Widget>
-          </motion.div>
+          <Widget title="Spotify Now">
+            <NowPlaying />
+          </Widget>
+          <Widget title="Status">
+            <Status />
+          </Widget>
         </motion.div>
-      </motion.div>
+      </div>
 
-      <style>
-        {`
-          @media (max-width: 900px) {
-            section > div {
-              grid-template-columns: 1fr !important;
-            }
-          }
+      <style>{`
+        .home-section {
+          flex: 1;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 10rem 2rem 6rem;
+        }
+        .home-grid {
+          display: grid;
+          grid-template-columns: 1fr 320px;
+          gap: 3.5rem;
+          align-items: start;
+        }
+        .left-col { max-width: 720px; }
 
-          .mines-link,
-          .cs-link {
-            text-decoration: none;
-            font-weight: 500;
-            color: #2f6fe4;
-            transition: color 0.25s ease;
-          }
+        .home-name {
+          display: flex;
+          gap: 0.3em;
+          flex-wrap: wrap;
+          font-size: clamp(3rem, 6vw, 4.8rem);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          line-height: 1;
+          margin-bottom: 1.5rem;
+        }
+        .name-word {
+          display: inline-flex;
+          overflow: hidden;
+          line-height: 1.1;
+        }
+        .char-wrap {
+          display: inline-block;
+          overflow: hidden;
+          line-height: 1.1;
+        }
+        .char { display: inline-block; }
+        .char-muted { color: rgba(128, 128, 128, 0.42); }
 
-          .mines-link:hover,
-          .cs-link:hover {
-            color: #3b82f6;
-          }
+        .tags-row {
+          display: flex;
+          gap: 0.45rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.6rem;
+        }
+        .tag-chip {
+          display: inline-block;
+          padding: 0.24rem 0.7rem;
+          font-size: 0.78rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          border-radius: 3px;
+          background: var(--tag-bg);
+          border: 1px solid var(--tag-border);
+          color: var(--text);
+          opacity: 0.65;
+        }
 
-          /* Portfolio Button Hover Effects */
-          .portfolio-btn {
-            box-shadow: 0 0 0 rgba(255, 255, 255, 0),
-                        0 2px 8px rgba(0, 0, 0, 0.1);
-          }
+        .home-institution {
+          font-size: 1.15rem;
+          line-height: 1.75;
+          opacity: 0.8;
+          margin: 0 0 1.4rem 0;
+        }
+        .home-desc {
+          font-size: 1.08rem;
+          line-height: 1.8;
+          opacity: 0.38;
+          margin-bottom: 2.2rem;
+        }
+        .mines-link {
+          text-decoration: none;
+          font-weight: 500;
+          color: #2f6fe4;
+          transition: color 0.25s ease;
+        }
+        .mines-link:hover { color: #5b9cf6; }
 
-          .portfolio-btn:hover {
-            background: var(--glass-bg) !important;
-            border-color: var(--text) !important;
-            box-shadow: 0 0 25px var(--glass-border),
-                        0 0 50px var(--glass-border),
-                        0 0 75px var(--glass-border),
-                        0 4px 16px rgba(0, 0, 0, 0.2) !important;
-            transform: translateY(-2px) scale(1.02) !important;
-          }
+        .btn-row {
+          display: flex;
+          gap: 0.6rem;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        .btn {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          text-decoration: none;
+          font-size: 0.95rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          cursor: pointer;
+          overflow: hidden;
+          border-radius: 100px;
+          transition: color 0.35s ease, border-color 0.35s ease, opacity 0.35s ease;
+          white-space: nowrap;
+        }
+        .btn::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: var(--text);
+          transform: translateX(-101%);
+          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 0;
+        }
+        .btn:hover::before { transform: translateX(0); }
+        .btn:hover { color: var(--bg); }
+        .btn > * { position: relative; z-index: 1; }
 
-          .portfolio-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, var(--glass-border) 0%, transparent 70%);
-            border-radius: 999px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
+        .btn-filled {
+          padding: 0.4rem 1rem 0.4rem 0.4rem;
+          color: var(--text);
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          backdrop-filter: blur(12px);
+        }
+        .btn-filled:hover { border-color: var(--text); }
 
-          .portfolio-btn:hover::before {
-            opacity: 0.5;
-          }
+        .btn-avatar {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+          transition: opacity 0.3s ease;
+        }
+        .btn-filled:hover .btn-avatar { opacity: 0.1; }
 
-          /* Schedule Button Hover Effects */
-          .schedule-btn {
-            box-shadow: 0 0 0 rgba(255, 255, 255, 0),
-                        0 2px 8px rgba(0, 0, 0, 0.1);
-          }
+        .btn-icon {
+          font-size: 0.95rem;
+          opacity: 0.45;
+          transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+        .btn-filled:hover .btn-icon {
+          transform: translate(2px, -2px);
+          opacity: 1;
+        }
 
-          .schedule-btn:hover {
-            background: var(--glass-bg) !important;
-            border-color: var(--text) !important;
-            box-shadow: 0 0 20px var(--glass-border),
-                        0 0 40px var(--glass-border),
-                        inset 0 0 20px var(--glass-border) !important;
-            transform: translateY(-2px) scale(1.02) !important;
-          }
+        .btn-outline {
+          padding: 0.52rem 1.2rem;
+          color: var(--text);
+          background: transparent;
+          border: 1.5px solid var(--text);
+          opacity: 0.75;
+        }
+        .btn-outline:hover { opacity: 1; }
 
-          .schedule-btn::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--glass-border);
-            border-radius: 999px;
-            z-index: -1;
-            opacity: 0;
-            filter: blur(8px);
-            transition: opacity 0.3s ease;
-          }
+        .btn-icon-ghost {
+          font-size: 0.9rem;
+          transition: transform 0.25s ease;
+          opacity: 0.7;
+        }
+        .btn-outline:hover .btn-icon-ghost {
+          transform: translateX(3px);
+          opacity: 1;
+        }
 
-          .schedule-btn:hover::after {
-            opacity: 0.6;
-          }
+        .widgets-col {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
 
-          /* Pulsing glow animation */
-          @keyframes pulse-glow {
-            0%, 100% {
-              filter: brightness(1);
-            }
-            50% {
-              filter: brightness(1.1);
-            }
-          }
-
-          .portfolio-btn:hover,
-          .schedule-btn:hover {
-            animation: pulse-glow 2s ease-in-out infinite;
-          }
-        `}
-      </style>
+        @media (max-width: 900px) {
+          .home-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 };
