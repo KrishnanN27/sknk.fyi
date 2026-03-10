@@ -45,7 +45,6 @@ const ScheduleBtn = () => (
     <span className="btn-icon-ghost">{"→"}</span>
   </a>
 );
-
 const letters = "Sowndarya".split("");
 const letters2 = "Krishnan".split("");
 
@@ -93,6 +92,7 @@ const Home = () => {
               ))}
             </span>
           </h1>
+
           <div className="tags-row">
             {[
               "PhD Student",
@@ -110,7 +110,8 @@ const Home = () => {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {t}
+                <span className="tag-dot" />
+                <span className="tag-label">{t}</span>
               </motion.span>
             ))}
           </div>
@@ -200,28 +201,44 @@ const Home = () => {
           line-height: 1.1;
         }
         .char { display: inline-block; }
-        .char-muted { color: rgba(128, 128, 128, 0.42); }
 
-        .tags-row {
-          display: flex;
-          gap: 0.45rem;
-          flex-wrap: wrap;
-          margin-bottom: 1.6rem;
-        }
-        .tag-chip {
-          display: inline-block;
-          padding: 0.24rem 0.7rem;
-          font-size: 0.78rem;
-          font-weight: 500;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          border-radius: 3px;
-          background: var(--tag-bg);
-          border: 1px solid var(--tag-border);
-          color: var(--text);
-          opacity: 0.65;
-        }
+        /* ── Glassmorphism Tags ── */
+.tags-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+}
 
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  border-radius: 5px;
+  background: var(--glass-bg, rgba(255,255,255,0.06));
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.12));
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.tag-chip:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.tag-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+        /* ── Rest of styles ── */
         .home-institution {
           font-size: 1.15rem;
           line-height: 1.75;
@@ -332,6 +349,12 @@ const Home = () => {
 
         @media (max-width: 900px) {
           .home-grid { grid-template-columns: 1fr !important; }
+          .tags-row { gap: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+          .tag-chip { padding: 0.26rem 0.7rem 0.26rem 0.55rem; }
+          .tag-label { font-size: 0.68rem; letter-spacing: 0.05em; }
         }
       `}</style>
     </section>
