@@ -597,14 +597,13 @@ const CSS = `
   /* ── SECTION TITLE ── */
   .pf-sec-title {
     font-family: "Playfair Display", serif;
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-size: clamp(1.9rem, 3.5vw, 2.4rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     opacity: 0.9;
     margin-bottom: 2.25rem;
   }
 
-  /* ── HERO ── */
   /* ── HERO ── */
   .pf-hero {
     display: flex;
@@ -637,7 +636,7 @@ const CSS = `
 
   .pf-name {
     font-family: "Playfair Display", serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1;
@@ -655,7 +654,7 @@ const CSS = `
 
   .pf-chip {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     background: var(--glass-bg);
@@ -668,10 +667,10 @@ const CSS = `
   }
 
   .pf-bio {
-    font-size: 0.88rem;
+    font-size: 1rem;
     font-weight: 300;
-    line-height: 1.7;
-    opacity: 0.55;
+    line-height: 1.75;
+    opacity: 0.65;
     margin: 0;
   }
 
@@ -683,8 +682,8 @@ const CSS = `
   }
 
   .pf-meta {
-    font-size: 0.72rem;
-    opacity: 0.3;
+    font-size: 0.82rem;
+    opacity: 0.4;
     letter-spacing: 0.03em;
   }
   .pf-meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
@@ -698,9 +697,9 @@ const CSS = `
 
   .pf-btn {
     display: inline-flex; align-items: center; gap: 0.45rem;
-    padding: 0.6rem 1.2rem;
+    padding: 0.65rem 1.3rem;
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.75rem; font-weight: 800;
+    font-size: 0.82rem; font-weight: 800;
     letter-spacing: 0.07em; text-transform: uppercase;
     text-decoration: none;
     border-radius: 8px; cursor: pointer;
@@ -786,7 +785,7 @@ const CSS = `
 
   .tl-company {
     font-family: "Playfair Display", serif;
-    font-size: 1.12rem; font-weight: 700;
+    font-size: 1.22rem; font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.25;
     margin-bottom: 0.2rem;
@@ -794,8 +793,8 @@ const CSS = `
   }
 
   .tl-role {
-    font-size: 0.8rem;
-    opacity: 0.4;
+    font-size: 0.9rem;
+    opacity: 0.5;
     font-style: italic;
   }
 
@@ -809,8 +808,8 @@ const CSS = `
 
   .tl-period {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.67rem;
-    opacity: 0.3;
+    font-size: 0.76rem;
+    opacity: 0.4;
     letter-spacing: 0.03em;
     white-space: nowrap;
   }
@@ -818,7 +817,7 @@ const CSS = `
   .tl-badge {
     display: inline-flex; align-items: center; gap: 0.3rem;
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.57rem; font-weight: 800;
+    font-size: 0.62rem; font-weight: 800;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--pf-green);
     background: var(--pf-green-bg);
@@ -846,14 +845,14 @@ const CSS = `
   }
 
   .tl-bullets li {
-    font-size: 0.86rem; font-weight: 300;
-    line-height: 1.65; padding-left: 1rem; position: relative;
-    opacity: 0.62;
+    font-size: 0.96rem; font-weight: 300;
+    line-height: 1.7; padding-left: 1rem; position: relative;
+    opacity: 0.72;
   }
 
   .tl-bullets li::before {
     content: '·'; position: absolute; left: 0;
-    opacity: 0.4; font-size: 1rem;
+    opacity: 0.5; font-size: 1rem;
   }
 
   /* ── EDUCATION ── */
@@ -875,13 +874,13 @@ const CSS = `
 
   .edu-degree {
     font-family: "Playfair Display", serif;
-    font-size: 1.05rem; font-weight: 700;
-    letter-spacing: -0.02em; margin-bottom: 0.25rem;
-    opacity: 0.88;
+    font-size: 1.15rem; font-weight: 700;
+    letter-spacing: -0.02em; margin-bottom: 0.3rem;
+    opacity: 0.9;
   }
 
   .edu-meta {
-    font-size: 0.72rem; opacity: 0.32; letter-spacing: 0.02em; line-height: 1.5;
+    font-size: 0.82rem; opacity: 0.45; letter-spacing: 0.02em; line-height: 1.55;
   }
 
   .edu-right {
@@ -891,7 +890,7 @@ const CSS = `
 
   .edu-school {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.78rem; font-weight: 700; opacity: 0.45; text-align: right;
+    font-size: 0.88rem; font-weight: 700; opacity: 0.55; text-align: right;
   }
 
   /* ── BENTO SKILLS ── */
@@ -902,7 +901,6 @@ const CSS = `
     gap: 0.75rem;
   }
 
-  /* Wide first card */
   .bento-0 { grid-column: span 4; }
   .bento-1 { grid-column: span 2; }
   .bento-2 { grid-column: span 2; }
@@ -922,20 +920,20 @@ const CSS = `
 
   .bento-cat {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.64rem; font-weight: 800;
+    font-size: 0.72rem; font-weight: 800;
     letter-spacing: 0.12em; text-transform: uppercase;
-    opacity: 0.32; margin-bottom: 0.8rem;
+    opacity: 0.45; margin-bottom: 0.8rem;
   }
 
   .bento-tags { display: flex; flex-wrap: wrap; gap: 0.38rem; }
 
   .pf-tag {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.73rem; font-weight: 500;
-    padding: 0.26rem 0.62rem; border-radius: 5px;
+    font-size: 0.82rem; font-weight: 500;
+    padding: 0.3rem 0.7rem; border-radius: 5px;
     background: var(--tag-bg);
     border: 1px solid var(--tag-border);
-    opacity: 0.72;
+    opacity: 0.82;
     cursor: default;
     transition: opacity 0.15s ease;
     letter-spacing: 0.02em;
@@ -963,20 +961,20 @@ const CSS = `
   .honor-year {
     display: block;
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.62rem; font-weight: 800;
+    font-size: 0.7rem; font-weight: 800;
     letter-spacing: 0.14em; text-transform: uppercase;
-    opacity: 0.28; margin-bottom: 0.55rem;
+    opacity: 0.4; margin-bottom: 0.55rem;
   }
 
   .honor-title {
     font-family: "Playfair Display", serif;
-    font-size: 1.02rem; font-weight: 700;
+    font-size: 1.1rem; font-weight: 700;
     letter-spacing: -0.02em; line-height: 1.3;
-    margin-bottom: 0.35rem; opacity: 0.88;
+    margin-bottom: 0.35rem; opacity: 0.9;
   }
 
   .honor-org {
-    font-size: 0.76rem; opacity: 0.35; font-weight: 400;
+    font-size: 0.86rem; opacity: 0.5; font-weight: 400;
   }
 
   /* ── LIGHT THEME ── */
@@ -984,45 +982,66 @@ const CSS = `
   :root[data-theme="light"] .tl-company,
   :root[data-theme="light"] .edu-degree,
   :root[data-theme="light"] .honor-title,
-  :root[data-theme="light"] .pf-sec-title { color: #000; opacity: 1; }
+  :root[data-theme="light"] .pf-sec-title {
+    color: #111;
+    opacity: 1;
+  }
 
-  :root[data-theme="light"] .pf-bio,
-  :root[data-theme="light"] .tl-bullets li { color: #000; opacity: 0.72; }
+  :root[data-theme="light"] .pf-bio { color: #222; opacity: 1; }
+  :root[data-theme="light"] .tl-bullets li { color: #222; opacity: 1; }
 
-  :root[data-theme="light"] .tl-role,
-  :root[data-theme="light"] .edu-school,
-  :root[data-theme="light"] .edu-meta,
-  :root[data-theme="light"] .honor-org,
-  :root[data-theme="light"] .bento-cat { color: #000; opacity: 0.5; }
+  :root[data-theme="light"] .tl-role { color: #333; opacity: 1; }
+  :root[data-theme="light"] .edu-school { color: #333; opacity: 1; }
+  :root[data-theme="light"] .edu-meta { color: #444; opacity: 1; }
+  :root[data-theme="light"] .honor-org { color: #444; opacity: 1; }
+  :root[data-theme="light"] .bento-cat { color: #333; opacity: 1; }
 
-  :root[data-theme="light"] .tl-period,
-  :root[data-theme="light"] .honor-year,
-  :root[data-theme="light"] .pf-chip,
-  :root[data-theme="light"] .pf-meta { color: #000; opacity: 0.55; }
+  :root[data-theme="light"] .tl-period { color: #555; opacity: 1; }
+  :root[data-theme="light"] .honor-year { color: #555; opacity: 1; }
+  :root[data-theme="light"] .pf-chip { color: #222; opacity: 1; }
+  :root[data-theme="light"] .pf-meta { color: #444; opacity: 1; }
+  :root[data-theme="light"] .pf-meta a { color: #111; }
 
   :root[data-theme="light"] .pf-dot-pip { background: #000; }
 
   :root[data-theme="light"] .edu-list,
-  :root[data-theme="light"] .edu-row { border-color: rgba(0,0,0,0.1); }
+  :root[data-theme="light"] .edu-row { border-color: rgba(0,0,0,0.12); }
 
-  :root[data-theme="light"] .tl-node { border-color: rgba(0,0,0,0.18); background: #fff; }
+  :root[data-theme="light"] .tl-node { border-color: rgba(0,0,0,0.22); background: #fff; }
   :root[data-theme="light"] .tl-node-live { border-color: var(--pf-green); background: var(--pf-green-bg); }
-  :root[data-theme="light"] .tl-line { background: rgba(0,0,0,0.1); }
+  :root[data-theme="light"] .tl-line { background: rgba(0,0,0,0.12); }
 
   :root[data-theme="light"] .bento-card,
-  :root[data-theme="light"] .honor-card { border-color: rgba(0,0,0,0.1); }
+  :root[data-theme="light"] .honor-card { border-color: rgba(0,0,0,0.12); }
   :root[data-theme="light"] .bento-card:hover,
-  :root[data-theme="light"] .honor-card:hover { border-color: rgba(0,0,0,0.25); }
+  :root[data-theme="light"] .honor-card:hover { border-color: rgba(0,0,0,0.3); }
 
-  :root[data-theme="light"] .pf-tag { border-color: rgba(0,0,0,0.14); color: #000; opacity: 0.78; }
-  :root[data-theme="light"] .pf-tag:hover { opacity: 1; }
+  :root[data-theme="light"] .pf-tag {
+    border-color: rgba(0,0,0,0.16);
+    color: #222;
+    opacity: 1;
+  }
+  :root[data-theme="light"] .pf-tag:hover { opacity: 0.75; }
 
-  :root[data-theme="light"] .pf-btn-fill { background: #000; color: #fff; opacity: 1; }
-  :root[data-theme="light"] .pf-btn-fill:hover { opacity: 0.8; }
-  :root[data-theme="light"] .pf-btn-ghost { color: #000; border-color: rgba(0,0,0,0.18); opacity: 1; }
-  :root[data-theme="light"] .pf-btn-ghost:hover { border-color: rgba(0,0,0,0.45); }
+  :root[data-theme="light"] .pf-btn-fill { background: #111; color: #fff; opacity: 1; }
+  :root[data-theme="light"] .pf-btn-fill:hover { background: #000; }
+  :root[data-theme="light"] .pf-btn-ghost { color: #111; border-color: rgba(0,0,0,0.22); opacity: 1; }
+  :root[data-theme="light"] .pf-btn-ghost:hover { border-color: rgba(0,0,0,0.5); }
 
-  :root[data-theme="light"] .pf-chip { border-color: rgba(0,0,0,0.14); background: rgba(255,255,255,0.55); }
+  :root[data-theme="light"] .pf-chip {
+    border-color: rgba(0,0,0,0.16);
+    background: rgba(255,255,255,0.65);
+  }
+
+  :root[data-theme="light"] .tl-badge {
+    color: #0a7a52;
+    background: rgba(10,122,82,0.08);
+    border-color: rgba(10,122,82,0.3);
+  }
+
+  :root[data-theme="light"] .tl-badge-dot {
+    background: #0a7a52;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
@@ -1033,10 +1052,8 @@ const CSS = `
     .pf-page { padding: 5rem 1.25rem 8rem; gap: 5.5rem; }
 
     .pf-hero { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-    .pf-name { white-space: normal; font-size: 1.9rem; }
+    .pf-name { white-space: normal; font-size: 2rem; }
     .pf-actions { margin-left: 0; }
-
-    .pf-name { font-size: 2.8rem; }
 
     .bento {
       grid-template-columns: 1fr 1fr;
@@ -1051,7 +1068,6 @@ const CSS = `
 
     .edu-row { flex-direction: column; gap: 0.4rem; }
     .edu-right { align-items: flex-start; }
-
   }
 `;
 
