@@ -115,12 +115,12 @@ const Research = () => {
         animate="show"
       >
         <p className="body-text drop-cap">
-          At the core of my research is the quantum-classical frontier —
-          designing hybrid algorithms that let quantum and classical computers
-          work together to solve problems neither can handle well alone. From
-          there, my interests reach into AI and machine learning, GANs, image
-          super-resolution, and large language models — threads I keep pulling
-          on, curious about where they might meet the quantum world.
+          My research focuses on solving real-world engineering problems using
+          advanced computational methods, particularly hybrid quantum–classical
+          algorithms for scientific computing and simulation. I also work on
+          artificial intelligence and machine learning, including generative
+          models, image super-resolution, and large language models, both
+          independently and in applications related to scientific computing.
         </p>
       </motion.div>
 
@@ -411,12 +411,7 @@ const Research = () => {
         }
         .interest-chip:hover { opacity:0.85; transform:translateY(-1px); }
 
-        /* Quantum–AI Hybrid — distinct but not interactive */
-        .interest-chip--hybrid {
-          border:1.5px solid var(--text);
-          opacity:0.8;
-          font-weight:700;
-        }
+
         .interest-chip--hybrid:hover { opacity:1; transform:translateY(-1px); }
 
         /* main research section */
