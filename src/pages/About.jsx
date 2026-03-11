@@ -138,9 +138,7 @@ const About = () => {
         <p className="body-text drop-cap">
           {" "}
           Most friends call me Krish or Chris. If you'd like to try the full
-          name: Sown-dar-yeh Krish-nun. I'm a PhD student, a former software
-          engineer, and someone who thinks deeply about things that probably
-          don't need that much thought.
+          name: Sown-dar-yeh Krish-nun.
         </p>
         <p className="body-text muted">
           This is where I put the stuff that doesn't fit anywhere else.
@@ -260,7 +258,7 @@ const About = () => {
       </motion.div>
 
       {/* ── QUIET INFLUENCES ── */}
-      <motion.div
+      {/* <motion.div
         className="section-block"
         variants={fadeUp(0.55)}
         initial="hidden"
@@ -282,7 +280,7 @@ const About = () => {
             </motion.blockquote>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
 
       <style>{`
         .about {
