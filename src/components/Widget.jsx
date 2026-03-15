@@ -8,11 +8,10 @@ export default function Widget({ title, children }) {
     <motion.div
       whileHover={{ scale: 1.01 }}
       transition={{ type: "spring", stiffness: 220, damping: 30 }}
-      className="relative"
+      className="widget-root"
       style={{
         borderRadius: "22px",
         overflow: "hidden",
-        minHeight: "220px",
 
         // Glass background — airy
         background:
@@ -71,15 +70,32 @@ export default function Widget({ title, children }) {
         </div>
 
         {/* Content */}
-        <div
-          style={{
-            display: "block",
-            paddingBottom: "0.4rem", // 👈 critical for rounded corners
-          }}
-        >
+        <div style={{ display: "block", paddingBottom: "0.4rem" }}>
           {children}
         </div>
       </div>
+
+      <style>{`
+        .widget-root {
+          position: relative;
+          max-width: 380px;
+          width: 100%;
+        }
+
+        @media (max-width: 900px) {
+          .widgets-col {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .widgets-col {
+            max-width: 100%;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }

@@ -6,6 +6,22 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { ArrowLeft } from "lucide-react";
 
+const blogImages = import.meta.glob("../assets/images/blogs/*/1.png", {
+  eager: true,
+  import: "default",
+});
+
+const resolveBlogImages = (content) =>
+  content.replace(
+    /\.\.\/assets\/images\/blogs\/([^/]+)\/1\.png/g,
+    (match, slug) => {
+      const key = Object.keys(blogImages).find((k) =>
+        k.includes(`/blogs/${slug}/1.png`),
+      );
+      return key ? blogImages[key] : match;
+    },
+  );
+
 const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -70,7 +86,7 @@ const BlogPost = () => {
 
       <div className="prose">
         <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-          {post.content}
+          {resolveBlogImages(post.content)}
         </ReactMarkdown>
       </div>
     </motion.div>

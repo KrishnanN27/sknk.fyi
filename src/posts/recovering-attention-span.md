@@ -2,6 +2,7 @@
 title: "Recovering what I lost (just my attention span)"
 date: "2024-09-08"
 author: "Krish"
+cover: "attention_span"
 excerpt: "A personal journey of reclaiming focus and overcoming digital distractions with practical tips and strategies."
 tags:
   [
@@ -15,11 +16,13 @@ tags:
   ]
 ---
 
-## Realizing the Problem
-
-Returning to grad school after being a working professional for a year, I quickly realized how much my ability to focus had deteriorated. I used to work for hours without distractions, but now, constant digital interruptions and doom-scrolling had eroded my concentration.
-
-It became difficult to even sit through a 20-minute video, let alone focus on tasks. Despite attempts like **caffeine**, quiet spaces, and packed schedules, nothing seemed to help. In _Gen Z_ terms, I had fallen victim to **social media brain rot**.
+<div style="display:flex; gap:1.5rem; align-items:flex-start; margin-bottom:2rem;">
+  <div style="flex:1; min-width:0;">
+    <p>Returning to grad school after being a working professional for a year, I quickly realized how much my ability to focus had deteriorated. I used to work for hours without distractions, but now, constant digital interruptions and doom-scrolling had eroded my concentration.</p>
+    <p>It became difficult to even sit through a 20-minute video, let alone focus on tasks. Despite attempts like <strong>caffeine</strong>, quiet spaces, and packed schedules, nothing seemed to help. In <em>Gen Z</em> terms, I had fallen victim to <strong>social media brain rot</strong>.</p>
+  </div>
+  <img src="../assets/images/blogs/attention_span/1.png" alt="Attention span" style="width:200px; flex-shrink:0; border-radius:12px; object-fit:cover;" />
+</div>
 
 ---
 

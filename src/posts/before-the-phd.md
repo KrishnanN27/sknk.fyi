@@ -3,6 +3,8 @@ title: "Before the PhD: Understanding the MS Thesis Journey"
 date: "2025-10-02"
 author: "Krish"
 draft: "true"
+cover: "msthesis"
+
 excerpt: "There's a lot of advice out there for PhD students — but what about those doing a research-based MS? Here's what an MS thesis actually is, what people overlook, and how to figure out if research is really for you."
 tags: ["gradschool", "research", "ms-thesis", "academic-life", "reflection"]
 ---
@@ -11,15 +13,18 @@ tags: ["gradschool", "research", "ms-thesis", "academic-life", "reflection"]
    this is a draft — will be done eventually, probably.
 </div>
 
-When I was looking for advice on getting into a research-based MS, I found plenty about PhDs but almost nothing about what a Master's thesis actually feels like. This post is meant to fill that gap and give you a clearer picture of what the journey really looks like.
-
-A lot of students who want hands-on research jump straight from **Bachelor's to PhD**, while others go for a **coursework-only MS**. The **MS thesis** sits somewhere in between — not the most common route, and often misunderstood.
-
-In this post, I want to share what I've learned about that middle ground — things I wish someone had explained when I was figuring it out. I'll talk about:
+<div style="display:flex; gap:1.5rem; align-items:flex-start; margin-bottom:2rem;">
+  <div style="flex:1; min-width:0;">
+    <p>When I was looking for advice on getting into a research-based MS, I found plenty about PhDs but almost nothing about what a Master's thesis actually feels like. This post is meant to fill that gap and give you a clearer picture of what the journey really looks like.</p>
+    <p>A lot of students who want hands-on research jump straight from <strong>Bachelor's to PhD</strong>, while others go for a <strong>coursework-only MS</strong>. The <strong>MS thesis</strong> sits somewhere in between — not the most common route, and often misunderstood.</p>
+    <p>In this post, I want to share what I've learned about that middle ground — things I wish someone had explained when I was figuring it out. I'll talk about:</p>
+  </div>
+  <img src="../assets/images/blogs/msthesis/1.png" alt="MS Thesis" style="width:200px; flex-shrink:0; border-radius:12px; object-fit:cover;" />
+</div>
 
 - [What an MS thesis actually is](#what-an-ms-thesis-actually-is)
 - [What a good approach looks like for getting into an MS thesis](#what-a-good-approach-looks-like)
-- [The stuff people often overlook](#the-stuff-people-often-overlook)
+- [The stuff people often overlook](#the-stuff-often-overlooked)
 - [How to figure out if research (and maybe a PhD) is really for you](#is-research-for-you)
 
 An MS thesis might look like a "mini PhD" on paper, but it's really its own thing — a mix of structure and self-direction that tests how well you can explore and think independently.

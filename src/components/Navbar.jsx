@@ -107,27 +107,32 @@ const Navbar = () => {
                   transition: "opacity 0.2s ease",
                 }}
               >
-                {/* Active pill — soft, no harsh contrast */}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-active-pill"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: "14px",
-                      background:
-                        theme === "dark"
-                          ? "rgba(255,255,255,0.09)"
-                          : "rgba(0,0,0,0.05)",
-                      border:
-                        theme === "dark"
-                          ? "1px solid rgba(255,255,255,0.1)"
-                          : "1px solid rgba(0,0,0,0.06)",
-                      zIndex: -1,
-                    }}
-                  />
-                )}
+                {/* Fixed: removed layoutId to prevent cross-page slide animation */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      key={item.path}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: "14px",
+                        background:
+                          theme === "dark"
+                            ? "rgba(255,255,255,0.09)"
+                            : "rgba(0,0,0,0.05)",
+                        border:
+                          theme === "dark"
+                            ? "1px solid rgba(255,255,255,0.1)"
+                            : "1px solid rgba(0,0,0,0.06)",
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
 
                 <Icon size={17} strokeWidth={1.8} />
 
