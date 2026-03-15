@@ -17,7 +17,7 @@ const getCoverImage = (coverKey) => {
 
 export default function LatestBlog() {
   const navigate = useNavigate();
-  const post = getAllPosts()[0]; // latest only
+  const post = getAllPosts()[0];
 
   if (!post)
     return (
@@ -40,6 +40,8 @@ export default function LatestBlog() {
         alignItems: "center",
         gap: "0.85rem",
         padding: "0.65rem 0",
+        width: "100%",
+        minWidth: 0,
       }}
     >
       {/* Thumbnail */}
@@ -90,7 +92,13 @@ export default function LatestBlog() {
           gap: "0.2rem",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.45rem",
+          }}
+        >
           <motion.span
             variants={{ hover: { x: 2 } }}
             transition={{ duration: 0.2 }}
@@ -98,9 +106,11 @@ export default function LatestBlog() {
               fontSize: "0.84rem",
               fontWeight: 500,
               lineHeight: 1.3,
-              whiteSpace: "nowrap",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
               overflow: "hidden",
-              textOverflow: "ellipsis",
+              minWidth: 0,
             }}
           >
             {post.title}

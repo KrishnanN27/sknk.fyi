@@ -104,10 +104,11 @@ export default function NowPlaying() {
       {topTracks.length > 0 && (
         <div>
           <div style={labelStyle}>Currently Obsessed With</div>
+          {/* 5 fixed columns — each album shrinks proportionally, no overflow */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(5, 1fr)",
+              gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
               gap: "0.4rem",
             }}
           >
@@ -117,6 +118,7 @@ export default function NowPlaying() {
                 href={track.external_urls.spotify}
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ display: "block", minWidth: 0 }}
               >
                 <img
                   src={track.album.images[0]?.url}
@@ -126,6 +128,7 @@ export default function NowPlaying() {
                     aspectRatio: "1/1",
                     borderRadius: "6px",
                     objectFit: "cover",
+                    display: "block",
                     transition: "opacity 0.2s ease",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}

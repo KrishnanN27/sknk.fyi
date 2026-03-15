@@ -40,7 +40,7 @@ export default function Status() {
       <div
         style={{
           width: "100%",
-          aspectRatio: "16 / 9",
+          maxHeight: "160px" /* cap so it never towers on mobile */,
           borderRadius: "12px",
           overflow: "hidden",
         }}
@@ -54,6 +54,7 @@ export default function Status() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            display: "block",
           }}
         />
       </div>
