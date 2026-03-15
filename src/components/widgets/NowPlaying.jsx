@@ -9,6 +9,7 @@ export default function NowPlaying() {
       try {
         const res = await fetch("https://www.sknk.fyi/api/now-playing");
         const json = await res.json();
+        console.log(json);
         setData(json);
       } catch (err) {
         console.error("Spotify fetch error:", err);
