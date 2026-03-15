@@ -39,12 +39,7 @@ const forFun = [
 ];
 
 const stats = [
-  // { label: "Height", value: "5′7″", sub: null },
-  // { label: "Weight", value: "83.5 kg", sub: "184 lbs" },
-  // { label: "Age", value: 24 },
   { label: "Years Coding", value: "10", sub: "2016 → present" },
-  { label: "Coffee / Day", value: "classified", sub: "you don't want to know" },
-  { label: "Sleep", value: "¯\\_(ツ)_/¯", sub: "none of your business" },
   { label: "Keyboards", value: "8", sub: "and counting" },
   { label: "Countries", value: "2", sub: "working on it" },
   {
@@ -52,15 +47,6 @@ const stats = [
     value: "4",
     sub: "Tamil · Telugu · English · Japanese*",
   },
-];
-
-const quotes = [
-  "If we don't explain science to the public, others will fill the gap with nonsense.",
-  "Don't shine to be seen. Shine to help others see.",
-  "You can honor your parents and break their patterns. You can love your culture and question its traditions. You can respect your elders and challenge their beliefs.",
-  "The cosmos is within us. We are made of star stuff. We are a way for the universe to know itself. — Carl Sagan",
-  "A ship in harbor is safe, but that is not what ships are for. — John A. Shedd",
-  "Do not go where the path may lead. Go instead where there is no path and leave a trail. — Emerson",
 ];
 
 const fadeUp = (delay = 0) => ({
@@ -84,17 +70,7 @@ const About = () => {
 
   return (
     <section className="about">
-      {/* ── DRAFT NOTICE ── */}
-      <motion.div
-        className="draft-notice"
-        variants={fadeUp(0.1)}
-        initial="hidden"
-        animate="show"
-      >
-        <span className="draft-dot" />
-        Please be nice — this page is aggressively under construction. It will
-        be good. Eventually.
-      </motion.div>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');`}</style>
 
       {/* ── HERO IMAGE ROTATOR ── */}
       <motion.div
@@ -140,7 +116,7 @@ const About = () => {
           Most friends call me Krish or Chris. If you'd like to try the full
           name: Sown-dar-yeh Krish-nun.
         </p>
-        <p className="body-text muted">
+        <p className="body-text muted handwrite">
           This is where I put the stuff that doesn't fit anywhere else.
         </p>
       </motion.div>
@@ -224,7 +200,7 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               viewport={{ once: true }}
-              whileHover={{ y: -2 }}
+              whileHover={{ opacity: 0.9 }}
             >
               {item}
             </motion.span>
@@ -249,38 +225,13 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               viewport={{ once: true }}
-              whileHover={{ y: -2 }}
+              whileHover={{ opacity: 0.9 }}
             >
               {item}
             </motion.span>
           ))}
         </div>
       </motion.div>
-
-      {/* ── QUIET INFLUENCES ── */}
-      {/* <motion.div
-        className="section-block"
-        variants={fadeUp(0.55)}
-        initial="hidden"
-        animate="show"
-      >
-        <span className="section-eyebrow">Quiet Influences</span>
-        <div className="quotes-list">
-          {quotes.map((quote, i) => (
-            <motion.blockquote
-              key={i}
-              className="quote-item"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <span className="quote-mark">"</span>
-              <p className="quote-text">{quote}</p>
-            </motion.blockquote>
-          ))}
-        </div>
-      </motion.div> */}
 
       <style>{`
         .about {
@@ -294,36 +245,7 @@ const About = () => {
           gap: 4rem;
         }
 
-        /* draft notice */
-        .draft-notice {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          padding: 0.6rem 1rem;
-          border-radius: 8px;
-          border: 1px solid rgba(220, 38, 38, 0.45);
-          background: rgba(220, 38, 38, 0.08);
-          backdrop-filter: blur(12px);
-          font-size: 0.8rem;
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          color: rgb(220, 38, 38);
-          align-self: flex-start;
-        }
-        .draft-dot {
-          display: inline-block;
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: rgb(220, 38, 38);
-          flex-shrink: 0;
-          animation: blink 2.5s ease infinite;
-        }
-        @keyframes blink {
-          0%,100% { opacity: 1; }
-          50%      { opacity: 0.25; }
-        }
-
-        /* hero rotator */
+        /* ── hero ── */
         .hero-rotator {
           position: relative;
           width: 100%;
@@ -333,23 +255,19 @@ const About = () => {
           border: 1px solid var(--glass-border);
         }
         .hero-img {
-          position: absolute;
-          inset: 0;
-          width: 100%; height: 100%;
-          object-fit: cover;
+          position: absolute; inset: 0;
+          width: 100%; height: 100%; object-fit: cover;
         }
         .hero-overlay {
           position: absolute; inset: 0;
-          background: linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
-          pointer-events: none;
-          z-index: 1;
+          background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.38) 100%);
+          pointer-events: none; z-index: 1;
         }
         .hero-theme-overlay {
           position: absolute; inset: 0;
-          pointer-events: none;
-          z-index: 2;
+          pointer-events: none; z-index: 2;
         }
-        :root[data-theme="dark"] .hero-theme-overlay { background: rgba(0,0,0,0.32); }
+        :root[data-theme="dark"]  .hero-theme-overlay { background: rgba(0,0,0,0.32); }
         :root[data-theme="light"] .hero-theme-overlay { background: rgba(255,255,255,0.22); }
         .hero-dots {
           position: absolute; bottom: 1rem; left: 50%;
@@ -358,12 +276,12 @@ const About = () => {
         }
         .hero-dot {
           width: 5px; height: 5px; border-radius: 50%; border: none;
-          background: rgba(255,255,255,0.4); cursor: pointer; padding: 0;
+          background: rgba(255,255,255,0.35); cursor: pointer; padding: 0;
           transition: background 0.3s, transform 0.3s;
         }
-        .hero-dot--active { background: rgba(255,255,255,0.95); transform: scale(1.3); }
+        .hero-dot--active { background: rgba(255,255,255,0.92); transform: scale(1.3); }
 
-        /* intro */
+        /* ── intro ── */
         .intro-block { margin: 0; }
         .body-text {
           font-size: clamp(1rem, 3vw, 1.08rem);
@@ -372,6 +290,11 @@ const About = () => {
         }
         .body-text:last-child { margin-bottom: 0; }
         .body-text.muted { opacity: 0.38; }
+        .body-text.handwrite {
+          font-family: "Reenie Beanie", cursive;
+          font-size: clamp(1.15rem, 3.5vw, 1.35rem);
+          line-height: 1.6; letter-spacing: 0.02em;
+        }
         .drop-cap::first-letter {
           font-family: "Playfair Display", serif;
           font-size: 3.8em; font-weight: 800;
@@ -379,7 +302,7 @@ const About = () => {
           margin: 0.06em 0.1em 0 0; color: var(--text);
         }
 
-        /* sections */
+        /* ── sections ── */
         .section-block { display: flex; flex-direction: column; gap: 1.4rem; }
         .section-eyebrow {
           font-size: 0.68rem; font-weight: 800;
@@ -387,112 +310,99 @@ const About = () => {
           opacity: 0.4; color: var(--text);
         }
 
-        /* ── stats grid ── */
         .stats-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1px;
+          grid-template-columns: repeat(2, 1fr);
           border: 1px solid var(--glass-border);
-          border-radius: 12px;
-          overflow: hidden;
-          background: var(--glass-border);
+          border-radius: 12px; overflow: hidden;
         }
         .stat-card {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
+          display: flex; flex-direction: column; gap: 0.25rem;
           padding: 1.2rem 1.1rem;
-          background: var(--bg);
-          transition: background 0.2s;
+          background: transparent;
+          transition: background 0.25s;
         }
-        .stat-card:hover {
-          background: var(--glass-bg);
-        }
+        .stat-card:hover { background: color-mix(in srgb, var(--glass-border) 30%, transparent); }
+        .stat-card:nth-child(1) { border-bottom: 1px solid var(--glass-border); }
+        .stat-card:nth-child(2) { border-left: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
+        .stat-card:nth-child(4) { border-left: 1px solid var(--glass-border); }
         .stat-label {
-          font-size: 0.6rem;
-          font-weight: 800;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          opacity: 0.35;
-          color: var(--text);
+          font-size: 0.6rem; font-weight: 800;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          opacity: 0.35; color: var(--text);
         }
         .stat-value {
           font-family: "Playfair Display", serif;
-          font-size: clamp(1.1rem, 3vw, 1.5rem);
-          font-weight: 800;
-          line-height: 1.1;
-          color: var(--text);
-          opacity: 0.88;
+          font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800;
+          line-height: 1.1; color: var(--text); opacity: 0.88;
         }
         .stat-sub {
-          font-size: 0.68rem;
-          font-weight: 500;
-          opacity: 0.38;
-          color: var(--text);
-          line-height: 1.4;
-          margin-top: 0.1rem;
+          font-size: 0.68rem; font-weight: 500;
+          opacity: 0.38; color: var(--text); line-height: 1.4; margin-top: 0.1rem;
         }
         .stat-footnote {
-          font-size: 0.75rem;
-          font-style: italic;
-          opacity: 0.35;
-          margin: 0;
-          color: var(--text);
+          font-size: 0.75rem; font-style: italic;
+          opacity: 0.35; margin: 0; color: var(--text);
         }
 
-        /* fun facts */
+        /* ── fun facts ── */
         .facts-list { display: flex; flex-direction: column; }
         .fact-item {
           display: grid;
           grid-template-columns: 2.8rem 1fr;
-          gap: 0.8rem;
-          align-items: baseline;
+          gap: 0.8rem; align-items: baseline;
           padding: 1rem 0;
           border-bottom: 1px solid var(--glass-border);
         }
         .fact-item:first-child { border-top: 1px solid var(--glass-border); }
         .fact-num {
-          font-family: "Playfair Display", serif;
-          font-size: 1.1rem; font-weight: 800;
-          font-style: italic; opacity: 0.18; line-height: 1;
+          font-family: "Reenie Beanie", cursive;
+          font-size: 1.5rem; opacity: 0.28; line-height: 1; color: var(--text);
         }
         .fact-text {
-          font-size: 0.98rem; line-height: 1.75;
+          font-family: "Reenie Beanie", cursive;
+          font-size: 1.25rem; line-height: 1.6; letter-spacing: 0.02em;
           opacity: 0.72; margin: 0; color: var(--text);
         }
 
-        /* likes / for fun chips */
-        .chips-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        /* ── likes / for fun — two-col editorial list ── */
+        .chips-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0;
+          border-top: 1px solid var(--glass-border);
+        }
         .like-chip {
-          display: inline-flex; align-items: center;
-          padding: 0.3rem 0.85rem; border-radius: 4px;
-          background: var(--glass-bg); border: 1px solid var(--glass-border);
-          backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-          font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
-          color: var(--text); opacity: 0.55; cursor: default;
-          transition: opacity 0.2s, transform 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          padding: 0.7rem 0.2rem;
+          border-bottom: 1px solid var(--glass-border);
+          font-family: "Reenie Beanie", cursive;
+          font-size: 1.1rem;
+          letter-spacing: 0.02em;
+          color: var(--text);
+          opacity: 0.55;
+          cursor: default;
+          transition: opacity 0.2s;
         }
-        .like-chip:hover { opacity: 0.88; }
-
-        /* quotes */
-        .quotes-list { display: flex; flex-direction: column; gap: 2.2rem; }
-        .quote-item { margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 0.3rem; }
-        .quote-mark {
-          font-family: "Playfair Display", serif;
-          font-size: 2.8rem; line-height: 0.6;
-          opacity: 0.1; user-select: none; display: block;
+        .like-chip::before {
+          content: "—";
+          font-family: inherit;
+          font-size: 0.75rem;
+          opacity: 0.3;
+          flex-shrink: 0;
         }
-        .quote-text {
-          font-family: "Playfair Display", serif;
-          font-size: clamp(1rem, 2.8vw, 1.2rem);
-          font-style: italic; font-weight: 500;
-          line-height: 1.65; opacity: 0.72; margin: 0; color: var(--text);
+        .like-chip:nth-child(even) {
+          padding-left: 1rem;
+          border-left: 1px solid var(--glass-border);
         }
 
         @media (max-width: 600px) {
           .drop-cap::first-letter { font-size: 3em; }
           .fact-item { grid-template-columns: 2rem 1fr; }
-          .stats-grid { grid-template-columns: repeat(2, 1fr); }
+          .chips-row { grid-template-columns: 1fr; }
+          .like-chip:nth-child(even) { padding-left: 0.2rem; border-left: none; }
         }
       `}</style>
     </section>

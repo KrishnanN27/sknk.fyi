@@ -30,7 +30,6 @@ const PortfolioBtn = ({ src }) => (
   <a href="/portfolio" className="btn btn-filled">
     <img src={src} alt="" className="btn-avatar" />
     <span className="btn-label">{"View Portfolio"}</span>
-    <span className="btn-icon">{"↗"}</span>
   </a>
 );
 
@@ -39,12 +38,43 @@ const ScheduleBtn = () => (
     href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
     target="_blank"
     rel="noreferrer"
-    className="btn btn-outline"
+    className="schedule-pill"
   >
-    <span className="btn-label">{"Schedule a Meeting"}</span>
-    <span className="btn-icon-ghost">{"→"}</span>
+    <span className="schedule-icon-wrap">
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    </span>
+    <span>{"Schedule a Meeting"}</span>
+    <span className="schedule-arrow-wrap">
+      <svg
+        width="11"
+        height="11"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </span>
   </a>
 );
+
 const letters = "Sowndarya".split("");
 const letters2 = "Krishnan".split("");
 
@@ -115,6 +145,7 @@ const Home = () => {
               </motion.span>
             ))}
           </div>
+
           <motion.p
             className="home-institution"
             initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
@@ -201,43 +232,37 @@ const Home = () => {
         }
         .char { display: inline-block; }
 
-        /* ── Glassmorphism Tags ── */
-.tags-row {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.6rem;
-}
+        /* ── Tags ── */
+        .tags-row {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.6rem;
+        }
+        .tag-chip {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.28rem 0.75rem;
+          border-radius: 5px;
+          background: var(--glass-bg, rgba(255,255,255,0.06));
+          border: 1px solid var(--glass-border, rgba(255,255,255,0.12));
+          backdrop-filter: blur(14px) saturate(160%);
+          -webkit-backdrop-filter: blur(14px) saturate(160%);
+          transition: opacity 0.2s ease, transform 0.2s ease;
+          cursor: default;
+        }
+        .tag-chip:hover { opacity: 0.8; transform: translateY(-1px); }
+        .tag-label {
+          font-size: 0.74rem;
+          font-weight: 600;
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+          color: var(--text);
+          opacity: 0.65;
+          white-space: nowrap;
+        }
 
-.tag-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.28rem 0.75rem;
-  border-radius: 5px;
-  background: var(--glass-bg, rgba(255,255,255,0.06));
-  border: 1px solid var(--glass-border, rgba(255,255,255,0.12));
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  cursor: default;
-}
-
-.tag-chip:hover {
-  opacity: 0.8;
-  transform: translateY(-1px);
-}
-
-.tag-label {
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.65;
-  white-space: nowrap;
-}
-
-        /* ── Rest of styles ── */
+        /* ── Text ── */
         .home-institution {
           font-size: 1.15rem;
           line-height: 1.75;
@@ -258,12 +283,15 @@ const Home = () => {
         }
         .mines-link:hover { color: #5b9cf6; }
 
+        /* ── Button row ── */
         .btn-row {
           display: flex;
-          gap: 0.6rem;
+          gap: 0.65rem;
           align-items: center;
           flex-wrap: wrap;
         }
+
+        /* Portfolio filled button — no arrow */
         .btn {
           position: relative;
           display: inline-flex;
@@ -302,55 +330,71 @@ const Home = () => {
         .btn-filled:hover { border-color: var(--text); }
 
         .btn-avatar {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          object-fit: cover;
+          width: 28px; height: 28px;
+          border-radius: 50%; object-fit: cover;
           flex-shrink: 0;
           transition: opacity 0.3s ease;
         }
         .btn-filled:hover .btn-avatar { opacity: 0.1; }
 
-        .btn-icon {
-          font-size: 0.95rem;
-          opacity: 0.45;
-          transition: transform 0.25s ease, opacity 0.25s ease;
-        }
-        .btn-filled:hover .btn-icon {
-          transform: translate(2px, -2px);
-          opacity: 1;
-        }
-
-        .btn-outline {
-          padding: 0.52rem 1.2rem;
+        /* ── Schedule pill — matches Portfolio page style ── */
+        .schedule-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.6rem;
+          padding: 0.36rem 0.5rem 0.36rem 0.62rem;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          border-radius: 999px;
+          font-size: 0.86rem;
+          font-weight: 700;
           color: var(--text);
-          background: transparent;
-          border: 1.5px solid var(--text);
-          opacity: 0.75;
+          text-decoration: none;
+          letter-spacing: 0.02em;
+          backdrop-filter: blur(12px);
+          opacity: 0.72;
+          transition: opacity 0.2s, border-color 0.2s;
+          white-space: nowrap;
         }
-        .btn-outline:hover { opacity: 1; }
-
-        .btn-icon-ghost {
-          font-size: 0.9rem;
-          transition: transform 0.25s ease;
-          opacity: 0.7;
-        }
-        .btn-outline:hover .btn-icon-ghost {
-          transform: translateX(3px);
+        .schedule-pill:hover {
           opacity: 1;
+          border-color: rgba(var(--text-rgb, 229,231,235), 0.3);
         }
 
+        .schedule-icon-wrap {
+          display: flex; align-items: center; justify-content: center;
+          width: 26px; height: 26px;
+          background: rgba(var(--text-rgb, 229,231,235), 0.07);
+          border: 1px solid var(--glass-border);
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+
+        .schedule-arrow-wrap {
+          display: flex; align-items: center; justify-content: center;
+          width: 24px; height: 24px;
+          background: rgba(var(--text-rgb, 229,231,235), 0.07);
+          border: 1px solid var(--glass-border);
+          border-radius: 50%;
+          flex-shrink: 0;
+          transition: background 0.18s;
+        }
+        .schedule-pill:hover .schedule-arrow-wrap {
+          background: rgba(var(--text-rgb, 229,231,235), 0.13);
+        }
+
+        /* ── Widgets ── */
         .widgets-col {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
         }
 
+        /* ── Responsive ── */
         @media (max-width: 900px) {
           .home-grid { grid-template-columns: 1fr !important; }
           .tags-row { gap: 0.4rem; }
         }
-
         @media (max-width: 480px) {
           .tag-chip { padding: 0.26rem 0.7rem 0.26rem 0.55rem; }
           .tag-label { font-size: 0.68rem; letter-spacing: 0.05em; }

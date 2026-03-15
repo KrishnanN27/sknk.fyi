@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import headshot from "../assets/images/about/headshot.jpeg";
 import cvFile from "../assets/pdf/CV.pdf";
@@ -6,7 +6,6 @@ import cvFile from "../assets/pdf/CV.pdf";
 /* ─────────────────────────────────────────
    DATA
 ───────────────────────────────────────── */
-
 const sections = [
   { id: "intro", label: "About" },
   { id: "experience", label: "Experience" },
@@ -15,12 +14,51 @@ const sections = [
   { id: "honors", label: "Honors" },
 ];
 
+const socials = [
+  {
+    label: "GitHub",
+    href: "https://github.com/",
+    icon: (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/",
+    icon: (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Email",
+    href: "mailto:sknkfyi@gmail.com",
+    icon: (
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <polyline points="2,4 12,13 22,4" />
+      </svg>
+    ),
+  },
+];
+
 const experiences = [
   {
     company: "G4 Lab, Colorado School of Mines",
     role: "Research Assistant",
-    period: "Aug 2025",
-    periodEnd: "Present",
+    period: "Aug 2025 — Present",
     status: "current",
     highlights: [
       "ML-driven surrogate models for PDE systems.",
@@ -31,8 +69,7 @@ const experiences = [
   {
     company: "Colorado School of Mines",
     role: "Teaching Assistant",
-    period: "Aug 2025",
-    periodEnd: "May 2026",
+    period: "Aug 2025 — May 2026",
     status: "current",
     highlights: [
       "Mentored graduate students on ML design and optimization.",
@@ -42,8 +79,7 @@ const experiences = [
   {
     company: "Data-Driven CPS Lab",
     role: "Research Assistant",
-    period: "Aug 2023",
-    periodEnd: "May 2025",
+    period: "Aug 2023 — May 2025",
     highlights: [
       "Designed FlowSHACL, a DAG-based SHACL engine.",
       "Dependency-aware execution optimizations.",
@@ -53,8 +89,7 @@ const experiences = [
   {
     company: "Sloan Foundation Energy Project",
     role: "Full Stack Engineer",
-    period: "Jan 2023",
-    periodEnd: "May 2025",
+    period: "Jan 2023 — May 2025",
     highlights: [
       "Backend services for high-frequency energy data.",
       "Containerized deployment via Docker.",
@@ -63,8 +98,7 @@ const experiences = [
   {
     company: "NCompass Tech Studio",
     role: "Software Engineer",
-    period: "May 2021",
-    periodEnd: "May 2022",
+    period: "May 2021 — May 2022",
     highlights: [
       "Android and Flutter application development.",
       "UI redesign — 1,000+ new downloads.",
@@ -76,18 +110,20 @@ const education = [
   {
     degree: "Ph.D., Computer Science",
     school: "Colorado School of Mines",
-    meta: "Advisor: Prof. Pejman Tahmasebi",
+    advisor: "Advisor: Prof. Pejman Tahmasebi",
     status: "current",
   },
   {
     degree: "M.S., Computer Science",
     school: "Colorado School of Mines",
-    meta: "GPA 3.7 / 4.0 · Advisor: Prof. Gabe Fierro",
+    gpa: "3.7 / 4.0",
+    advisor: "Advisor: Prof. Gabe Fierro",
   },
   {
     degree: "B.E., Electronics & Communication",
     school: "Anna University",
-    meta: "GPA 8.56 / 10 · First Class with Distinction",
+    gpa: "8.56 / 10",
+    distinction: "First Class with Distinction",
   },
 ];
 
@@ -113,111 +149,123 @@ const honors = [
 /* ─────────────────────────────────────────
    VARIANTS
 ───────────────────────────────────────── */
-
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.02 } },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.02 } },
 };
-
 const up = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.5 } },
-};
-
 /* ─────────────────────────────────────────
-   EXPERIENCE TIMELINE ITEM
+   EXPERIENCE CARD
 ───────────────────────────────────────── */
-
-const TimelineItem = ({ exp, isLast }) => {
+const ExpCard = ({ exp }) => {
   const [open, setOpen] = useState(false);
   return (
-    <motion.div className="tl-item" variants={up}>
-      {/* spine */}
-      <div className="tl-spine">
-        <div
-          className={`tl-node${exp.status === "current" ? " tl-node-live" : ""}`}
-        />
-        {!isLast && <div className="tl-line" />}
-      </div>
+    <motion.div
+      className={`exp-card${exp.status === "current" ? " exp-card-live" : ""}`}
+      variants={up}
+      whileHover={{ y: -2 }}
+      transition={{ type: "spring", stiffness: 300, damping: 24 }}
+    >
+      {exp.status === "current" && <div className="exp-live-bar" />}
 
-      {/* content */}
-      <div className="tl-content" onClick={() => setOpen(!open)}>
-        <div className="tl-header">
-          <div className="tl-header-left">
-            <h3 className="tl-company">{exp.company}</h3>
-            <p className="tl-role">{exp.role}</p>
-          </div>
-          <div className="tl-header-right">
-            <span className="tl-period">
-              {exp.period} — {exp.periodEnd}
-            </span>
+      <div className="exp-top">
+        <div className="exp-top-left">
+          <div className="exp-role-row">
+            <span className="exp-role">{exp.role}</span>
             {exp.status === "current" && (
-              <span className="tl-badge">
-                <span className="tl-badge-dot" />
+              <span className="exp-badge">
+                <span className="exp-badge-dot" />
                 Now
               </span>
             )}
-            <motion.span
-              className="tl-chevron"
-              animate={{ rotate: open ? 180 : 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </motion.span>
           </div>
+          <p className="exp-company">{exp.company}</p>
         </div>
-
-        <motion.div
-          initial={false}
-          animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-          style={{ overflow: "hidden" }}
-        >
-          <ul className="tl-bullets">
-            {exp.highlights.map((h, j) => (
-              <motion.li
-                key={j}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: open ? 1 : 0, x: open ? 0 : -8 }}
-                transition={{ delay: j * 0.06 + 0.05 }}
-              >
-                {h}
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+        <span className="exp-period">{exp.period}</span>
       </div>
+
+      <button
+        className="exp-toggle"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span>{open ? "Hide details" : "Show details"}</span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.22 }}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </motion.span>
+      </button>
+
+      <motion.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+        style={{ overflow: "hidden" }}
+      >
+        <ul className="exp-bullets">
+          {exp.highlights.map((h, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, x: -6 }}
+              animate={{ opacity: open ? 1 : 0, x: open ? 0 : -6 }}
+              transition={{ delay: i * 0.055 + 0.04 }}
+            >
+              {h}
+            </motion.li>
+          ))}
+        </ul>
+      </motion.div>
     </motion.div>
   );
 };
 
 /* ─────────────────────────────────────────
+   SECTION QUICK-NAV — left-side vertical
+───────────────────────────────────────── */
+const SectionNav = ({ active, onNav }) => (
+  <div className="sec-nav-wrap">
+    {sections.map(({ id, label }) => (
+      <button
+        key={id}
+        className={`sec-nav-btn${active === id ? " active" : ""}`}
+        onClick={() => onNav(id)}
+      >
+        <span className="sec-nav-line" />
+        <span className="sec-nav-label">{label}</span>
+      </button>
+    ))}
+  </div>
+);
+
+/* ─────────────────────────────────────────
    MAIN
 ───────────────────────────────────────── */
-
 const Portfolio = () => {
   const [active, setActive] = useState("intro");
 
+  /* Active section tracking */
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) =>
@@ -241,41 +289,101 @@ const Portfolio = () => {
   return (
     <div className="pf-root">
       <style>{CSS}</style>
-      {/* ── DOT NAV ── */}
-      <nav className="pf-dotnav">
-        {sections.map(({ id, label }) => (
-          <button
-            key={id}
-            className={`pf-dot-btn${active === id ? " active" : ""}`}
-            onClick={() => scrollTo(id)}
-            title={label}
-          >
-            <span className="pf-dot-pip" />
-          </button>
-        ))}
-      </nav>
+
+      {/* Section quick-nav — always visible left sidebar */}
+      <SectionNav active={active} onNav={scrollTo} />
 
       <div className="pf-page">
-        {/* ══════════════════════
-            INTRO — centered hero
-        ══════════════════════ */}
+        {/* ══ INTRO ══ */}
         <section
           id="intro"
           className="pf-section"
-          style={{ scrollMarginTop: "100px" }}
+          style={{ scrollMarginTop: "108px" }}
         >
+          {/* Action buttons */}
           <motion.div
-            className="pf-hero"
-            variants={stagger}
-            initial="hidden"
-            animate="show"
+            className="hero-actions"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ marginBottom: "2.25rem" }}
           >
-            {/* ── LEFT: photo ── */}
+            <motion.a
+              href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="schedule-pill"
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <span className="schedule-icon-wrap">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </span>
+              <span>Schedule a call</span>
+              <span className="schedule-arrow-wrap">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
+            </motion.a>
+            <motion.a
+              href={cvFile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cv-pill"
+              whileHover={{ scale: 1.04, y: -1 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="8" y1="13" x2="16" y2="13" />
+                <line x1="8" y1="17" x2="16" y2="17" />
+                <line x1="8" y1="9" x2="10" y2="9" />
+              </svg>
+              View CV
+            </motion.a>
+          </motion.div>
+
+          {/* Photo + name — single row */}
+          <div className="hero-name-row">
             <motion.div
               className="pf-photo-wrap"
               initial={{ opacity: 0, scale: 0.88 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
             >
               <img
                 src={headshot}
@@ -284,109 +392,97 @@ const Portfolio = () => {
               />
             </motion.div>
 
-            {/* ── RIGHT ── */}
-            <div className="pf-hero-right">
-              <div className="pf-clip">
-                <motion.h1
-                  className="pf-name"
-                  initial={{ y: "105%" }}
-                  animate={{ y: "0%" }}
-                  transition={{
-                    delay: 0.12,
-                    duration: 0.85,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  Sowndarya Krishnan NK
-                </motion.h1>
-              </div>
-
-              <motion.div className="pf-chips" variants={up}>
-                {[
-                  "Ph.D. Student",
-                  "Computer Science",
-                  "Colorado School of Mines",
-                ].map((label) => (
-                  <span key={label} className="pf-chip">
-                    {label}
-                  </span>
-                ))}
-              </motion.div>
-
-              <motion.p className="pf-bio" variants={up}>
-                Hybrid quantum–AI methods for scientific computing and
-                physics-based modeling — extending classical simulation limits
-                through computational innovation.
-              </motion.p>
-
-              <motion.div className="pf-hero-bottom" variants={up}>
-                <span className="pf-meta">
-                  Golden, CO ·{" "}
-                  <a href="mailto:sknkfyi@gmail.com">sknkfyi@gmail.com</a>
-                </span>
-                <div className="pf-actions">
-                  <motion.a
-                    href={cvFile}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pf-btn pf-btn-fill"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.96 }}
-                  >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    View CV
-                  </motion.a>
-                  <motion.a
-                    href="https://calendar.app.google/QECW5xXxB1YGAGnu9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pf-btn pf-btn-ghost"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.96 }}
-                  >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="3" y="4" width="18" height="18" rx="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    Schedule
-                  </motion.a>
-                </div>
-              </motion.div>
+            <div className="pf-clip">
+              <motion.h1
+                className="pf-name"
+                initial={{ y: "108%" }}
+                animate={{ y: "0%" }}
+                transition={{
+                  delay: 0.1,
+                  duration: 0.85,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                Sowndarya <span className="pf-name-dim">Krishnan NK</span>
+              </motion.h1>
             </div>
+          </div>
+
+          {/* Subtitle + location */}
+          <motion.div
+            className="hero-sub-row"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.32, duration: 0.55 }}
+          >
+            <span className="hero-subtitle">
+              Ph.D. Student · Computer Science · Colorado School of Mines
+            </span>
+            <span className="hero-location">
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Golden, CO
+            </span>
           </motion.div>
+
+          {/* Social pills */}
+          <motion.div
+            className="hero-socials"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.42, duration: 0.5 }}
+          >
+            {socials.map((s) => (
+              <motion.a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-pill"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {s.icon}
+                {s.label}
+              </motion.a>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="hero-divider"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 0.52, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          />
+
+          <motion.p
+            className="pf-bio"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.55 }}
+          >
+            Hybrid quantum–AI methods for scientific computing and physics-based
+            modeling — extending classical simulation limits through
+            computational innovation.
+          </motion.p>
         </section>
 
-        {/* ══════════════════════
-            EXPERIENCE — timeline
-        ══════════════════════ */}
+        {/* ══ EXPERIENCE ══ */}
         <section
           id="experience"
           className="pf-section"
-          style={{ scrollMarginTop: "100px" }}
+          style={{ scrollMarginTop: "108px" }}
         >
           <motion.div
             variants={stagger}
@@ -397,25 +493,19 @@ const Portfolio = () => {
             <motion.h2 className="pf-sec-title" variants={up}>
               Experience
             </motion.h2>
-            <div className="tl-list">
+            <div className="exp-list">
               {experiences.map((exp, i) => (
-                <TimelineItem
-                  key={i}
-                  exp={exp}
-                  isLast={i === experiences.length - 1}
-                />
+                <ExpCard key={i} exp={exp} />
               ))}
             </div>
           </motion.div>
         </section>
 
-        {/* ══════════════════════
-            EDUCATION
-        ══════════════════════ */}
+        {/* ══ EDUCATION ══ */}
         <section
           id="education"
           className="pf-section"
-          style={{ scrollMarginTop: "100px" }}
+          style={{ scrollMarginTop: "108px" }}
         >
           <motion.div
             variants={stagger}
@@ -428,19 +518,31 @@ const Portfolio = () => {
             </motion.h2>
             <div className="edu-list">
               {education.map((edu, i) => (
-                <motion.div key={i} className="edu-row" variants={up}>
-                  <div className="edu-left">
-                    <p className="edu-degree">{edu.degree}</p>
-                    <p className="edu-meta">{edu.meta}</p>
-                  </div>
-                  <div className="edu-right">
-                    <p className="edu-school">{edu.school}</p>
-                    {edu.status === "current" && (
-                      <span className="tl-badge">
-                        <span className="tl-badge-dot" />
-                        In Progress
-                      </span>
-                    )}
+                <motion.div key={i} className="edu-card" variants={up}>
+                  <div className="edu-card-body">
+                    <div className="edu-card-top">
+                      <div>
+                        <p className="edu-degree">{edu.degree}</p>
+                        <p className="edu-school">{edu.school}</p>
+                      </div>
+                      {edu.status === "current" && (
+                        <span className="edu-badge">
+                          <span className="exp-badge-dot" />
+                          In Progress
+                        </span>
+                      )}
+                    </div>
+                    <div className="edu-meta-row">
+                      {edu.gpa && (
+                        <span className="edu-pill">GPA {edu.gpa}</span>
+                      )}
+                      {edu.advisor && (
+                        <span className="edu-pill">{edu.advisor}</span>
+                      )}
+                      {edu.distinction && (
+                        <span className="edu-pill">{edu.distinction}</span>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -448,13 +550,11 @@ const Portfolio = () => {
           </motion.div>
         </section>
 
-        {/* ══════════════════════
-            SKILLS — bento grid
-        ══════════════════════ */}
+        {/* ══ SKILLS ══ */}
         <section
           id="skills"
           className="pf-section"
-          style={{ scrollMarginTop: "100px" }}
+          style={{ scrollMarginTop: "108px" }}
         >
           <motion.div
             variants={stagger}
@@ -471,7 +571,7 @@ const Portfolio = () => {
                   key={i}
                   className={`bento-card bento-${i}`}
                   variants={up}
-                  whileHover={{ y: -4, borderColor: "var(--pf-border-hi)" }}
+                  whileHover={{ y: -3, borderColor: "var(--pf-border-hi)" }}
                   transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 >
                   <p className="bento-cat">{s.category}</p>
@@ -488,13 +588,11 @@ const Portfolio = () => {
           </motion.div>
         </section>
 
-        {/* ══════════════════════
-            HONORS — 2-col list
-        ══════════════════════ */}
+        {/* ══ HONORS ══ */}
         <section
           id="honors"
           className="pf-section pf-section-last"
-          style={{ scrollMarginTop: "100px" }}
+          style={{ scrollMarginTop: "108px" }}
         >
           <motion.div
             variants={stagger}
@@ -511,7 +609,7 @@ const Portfolio = () => {
                   key={i}
                   className="honor-card"
                   variants={up}
-                  whileHover={{ y: -4, borderColor: "var(--pf-border-hi)" }}
+                  whileHover={{ y: -3, borderColor: "var(--pf-border-hi)" }}
                   transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 >
                   <span className="honor-year">{h.year}</span>
@@ -530,377 +628,346 @@ const Portfolio = () => {
 /* ─────────────────────────────────────────
    CSS
 ───────────────────────────────────────── */
-
 const CSS = `
   .pf-root {
     --pf-border:    var(--glass-border);
-    --pf-border-hi: rgba(var(--text-rgb, 229,231,235), 0.3);
+    --pf-border-hi: rgba(var(--text-rgb, 229,231,235), 0.28);
     --pf-card:      var(--glass-bg);
     --pf-green:     #34d399;
-    --pf-green-bg:  rgba(52,211,153,0.08);
-    --pf-green-br:  rgba(52,211,153,0.25);
+    --pf-green-bg:  rgba(52,211,153,0.07);
+    --pf-green-br:  rgba(52,211,153,0.22);
+
+    /* Adjust this to match your Navbar's actual height */
+    --navbar-h: 64px;
   }
 
   .pf-root *, .pf-root *::before, .pf-root *::after { box-sizing: border-box; }
+  .pf-root { color: var(--text); min-height: 100vh; }
 
-  .pf-root {
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* ── DOT NAV ── */
-  .pf-dotnav {
+  /* ═══════════════════════════════════
+     SECTION QUICK-NAV — left vertical
+  ═══════════════════════════════════ */
+  .sec-nav-wrap {
     position: fixed;
-    right: 2rem;
+    left: 2rem;
     top: 50%;
     transform: translateY(-50%);
     z-index: 40;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.15rem;
   }
 
-  .pf-dot-btn {
-    background: none; border: none; cursor: pointer;
-    padding: 4px; display: flex; align-items: center; justify-content: center;
-  }
-
-  .pf-dot-pip {
-    display: block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--text);
-    opacity: 0.18;
-    transition: all 0.22s ease;
-  }
-
-  .pf-dot-btn.active .pf-dot-pip {
-    opacity: 0.6;
-    width: 8px; height: 8px;
-  }
-
-  .pf-dot-btn:hover .pf-dot-pip { opacity: 0.38; }
-
-  /* ── PAGE ── */
-  .pf-page {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 6rem 2rem 10rem;
-    display: flex;
-    flex-direction: column;
-    gap: 8rem;
-  }
-
-  .pf-section       { position: relative; }
-  .pf-section-last  { padding-bottom: 2rem; }
-
-  /* ── SECTION TITLE ── */
-  .pf-sec-title {
-    font-family: "Playfair Display", serif;
-    font-size: clamp(1.9rem, 3.5vw, 2.4rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    opacity: 0.9;
-    margin-bottom: 2.25rem;
-  }
-
-  /* ── HERO ── */
-  .pf-hero {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2rem;
-    padding-top: 0.5rem;
-  }
-
-  .pf-photo-wrap { flex-shrink: 0; }
-
-  .pf-photo {
-    width: 88px; height: 88px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 0 1px var(--pf-border), 0 4px 20px rgba(0,0,0,0.12);
-    filter: saturate(0.9);
-    display: block;
-  }
-
-  .pf-hero-right {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .pf-clip { overflow: hidden; }
-
-  .pf-name {
-    font-family: "Playfair Display", serif;
-    font-size: clamp(1.9rem, 4vw, 2.7rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1;
-    display: block;
-    opacity: 0.95;
-    white-space: nowrap;
-  }
-
-  /* info chip boxes */
-  .pf-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .pf-chip {
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    background: var(--glass-bg);
-    border: 1px solid var(--pf-border);
-    border-radius: 7px;
-    padding: 0.3rem 0.7rem;
-    backdrop-filter: blur(10px);
-    opacity: 0.75;
-    white-space: nowrap;
-  }
-
-  .pf-bio {
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.75;
-    opacity: 0.65;
-    margin: 0;
-  }
-
-  .pf-hero-bottom {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  .pf-meta {
-    font-size: 0.82rem;
-    opacity: 0.4;
-    letter-spacing: 0.03em;
-  }
-  .pf-meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-  .pf-meta a:hover { opacity: 0.6; }
-
-  .pf-actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-left: auto;
-  }
-
-  .pf-btn {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    padding: 0.65rem 1.3rem;
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.82rem; font-weight: 800;
-    letter-spacing: 0.07em; text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 8px; cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .pf-btn-fill {
-    background: var(--text);
-    color: var(--bg);
-    border: 1px solid transparent;
-    opacity: 0.85;
-  }
-  .pf-btn-fill:hover { opacity: 1; }
-
-  .pf-btn-ghost {
-    background: var(--glass-bg);
-    color: var(--text);
-    border: 1px solid var(--pf-border);
-    backdrop-filter: blur(12px);
-    opacity: 0.72;
-  }
-  .pf-btn-ghost:hover { opacity: 1; border-color: var(--text); }
-
-  /* ── TIMELINE ── */
-  .tl-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .tl-item {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 1.25rem;
-    position: relative;
-  }
-
-  .tl-spine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 0.35rem;
-  }
-
-  .tl-node {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--glass-bg);
-    border: 2px solid var(--pf-border);
-    flex-shrink: 0;
-    transition: border-color 0.2s ease;
-    z-index: 1;
-  }
-
-  .tl-node-live {
-    border-color: var(--pf-green);
-    background: var(--pf-green-bg);
-    box-shadow: 0 0 8px rgba(52,211,153,0.25);
-  }
-
-  .tl-line {
-    width: 1px;
-    flex: 1;
-    background: var(--pf-border);
-    margin-top: 6px;
-    min-height: 28px;
-  }
-
-  .tl-content {
-    padding-bottom: 2rem;
-    cursor: pointer;
-  }
-
-  .tl-item:last-child .tl-content { padding-bottom: 0; }
-
-  .tl-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 0;
-  }
-
-  .tl-company {
-    font-family: "Playfair Display", serif;
-    font-size: 1.22rem; font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-    margin-bottom: 0.2rem;
-    opacity: 0.9;
-  }
-
-  .tl-role {
-    font-size: 0.9rem;
-    opacity: 0.5;
-    font-style: italic;
-  }
-
-  .tl-header-right {
+  .sec-nav-btn {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    background: none; border: none; cursor: pointer;
+    padding: 0.2rem 0;
+    text-align: left;
+  }
+
+  .sec-nav-line {
+    display: block;
+    width: 18px; height: 1.5px;
+    background: var(--text);
+    border-radius: 2px;
+    opacity: 0.2;
+    transition: width 0.22s ease, opacity 0.22s ease;
     flex-shrink: 0;
-    padding-top: 0.1rem;
   }
 
-  .tl-period {
+  .sec-nav-label {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.76rem;
-    opacity: 0.4;
-    letter-spacing: 0.03em;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.25;
     white-space: nowrap;
+    transition: opacity 0.18s ease;
   }
 
-  .tl-badge {
+  .sec-nav-btn:hover .sec-nav-line  { width: 26px; opacity: 0.45; }
+  .sec-nav-btn:hover .sec-nav-label { opacity: 0.55; }
+
+  .sec-nav-btn.active .sec-nav-line  { width: 28px; opacity: 0.9; }
+  .sec-nav-btn.active .sec-nav-label { opacity: 0.88; }
+
+  /* ═══════════════════════
+     PAGE LAYOUT
+  ═══════════════════════ */
+  .pf-page {
+    max-width: 760px;
+    margin: 0 auto;
+    /* Top padding accounts for Navbar + small breathing room */
+    padding: calc(var(--navbar-h) + 3rem) 2rem 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 7rem;
+  }
+
+  .pf-section      { position: relative; }
+  .pf-section-last { padding-bottom: 2rem; }
+
+  .pf-sec-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.75rem, 3.2vw, 2.2rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    opacity: 0.9; margin-bottom: 1.75rem;
+  }
+
+  /* ═══════════════════════
+     HERO
+  ═══════════════════════ */
+  /* ═══════════════════════
+     HERO ACTIONS
+  ═══════════════════════ */
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .schedule-pill {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.36rem 0.5rem 0.36rem 0.62rem;
+    background: var(--glass-bg); border: 1px solid var(--pf-border);
+    border-radius: 999px;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.86rem; font-weight: 700;
+    color: var(--text); text-decoration: none;
+    letter-spacing: 0.02em; backdrop-filter: blur(12px);
+    opacity: 0.72; transition: opacity 0.2s, border-color 0.2s;
+  }
+  .schedule-pill:hover { opacity: 1; border-color: var(--pf-border-hi); }
+
+  .schedule-icon-wrap {
+    display: flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px;
+    background: rgba(var(--text-rgb,229,231,235),0.07);
+    border: 1px solid var(--pf-border); border-radius: 50%;
+  }
+  .schedule-arrow-wrap {
+    display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    background: rgba(var(--text-rgb,229,231,235),0.07);
+    border: 1px solid var(--pf-border); border-radius: 50%;
+    transition: background 0.18s;
+  }
+  .schedule-pill:hover .schedule-arrow-wrap {
+    background: rgba(var(--text-rgb,229,231,235),0.13);
+  }
+
+  .cv-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: none; border: none; padding: 0;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.86rem; font-weight: 800;
+    color: var(--text); text-decoration: none;
+    letter-spacing: 0.04em;
+    opacity: 0.65;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 1px;
+    transition: opacity 0.18s;
+  }
+  .cv-pill:hover { opacity: 1; }
+
+  .hero-name-row {
+    display: flex; align-items: center;
+    gap: 1rem; margin-bottom: 1rem;
+  }
+  .pf-photo-wrap { flex-shrink: 0; }
+  .pf-photo {
+    width: 62px; height: 62px; border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px var(--pf-border), 0 4px 16px rgba(0,0,0,0.14);
+    filter: saturate(0.88); display: block;
+  }
+  .pf-clip { overflow: hidden; }
+  .pf-name {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+    font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; opacity: 0.95;
+    display: block; margin: 0; white-space: nowrap;
+  }
+  .pf-name-dim { opacity: 0.38; }
+
+  .hero-sub-row {
+    display: flex; align-items: center;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
+  }
+  .hero-subtitle { font-size: 0.87rem; font-weight: 400; opacity: 0.42; letter-spacing: 0.01em; }
+  .hero-location {
     display: inline-flex; align-items: center; gap: 0.3rem;
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.62rem; font-weight: 800;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--pf-green);
-    background: var(--pf-green-bg);
-    border: 1px solid var(--pf-green-br);
-    border-radius: 20px;
-    padding: 0.18rem 0.48rem;
-    white-space: nowrap;
+    font-size: 0.82rem; opacity: 0.26; letter-spacing: 0.02em;
   }
 
-  .tl-badge-dot {
+  .hero-socials { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.85rem; }
+
+  .social-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.34rem 0.8rem;
+    background: var(--glass-bg); border: 1px solid var(--pf-border);
+    border-radius: 999px;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.79rem; font-weight: 700;
+    color: var(--text); text-decoration: none;
+    opacity: 0.52; letter-spacing: 0.02em;
+    backdrop-filter: blur(8px);
+    transition: opacity 0.18s, border-color 0.18s;
+  }
+  .social-pill:hover { opacity: 1; border-color: var(--pf-border-hi); }
+
+  .hero-divider {
+    height: 1px; background: var(--pf-border);
+    margin-bottom: 1.5rem; transform-origin: left;
+  }
+  .pf-bio {
+    font-size: 1rem; font-weight: 300;
+    line-height: 1.8; opacity: 0.56; margin: 0;
+  }
+
+  /* ═══════════════════════
+     EXPERIENCE CARDS
+  ═══════════════════════ */
+  .exp-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .exp-card {
+    position: relative;
+    background: var(--pf-card);
+    border: 1px solid var(--pf-border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem 1rem;
+    overflow: hidden;
+    transition: border-color 0.22s, transform 0.22s;
+  }
+
+  .exp-live-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--pf-green) 0%, transparent 100%);
+    opacity: 0.65;
+  }
+
+  .exp-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 1rem; margin-bottom: 0.6rem;
+  }
+  .exp-top-left { flex: 1; min-width: 0; }
+  .exp-role-row {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.22rem; flex-wrap: wrap;
+  }
+  .exp-role {
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: -0.02em; opacity: 0.92;
+  }
+  .exp-badge {
+    display: inline-flex; align-items: center; gap: 0.28rem;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.58rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pf-green); background: var(--pf-green-bg);
+    border: 1px solid var(--pf-green-br); border-radius: 20px;
+    padding: 0.15rem 0.45rem; white-space: nowrap;
+  }
+  .exp-badge-dot {
     width: 4px; height: 4px; border-radius: 50%;
     background: var(--pf-green);
     animation: blink 2s ease-in-out infinite;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  .tl-chevron { opacity: 0.25; margin-left: 0.25rem; }
-  .tl-content:hover .tl-chevron,
-  .tl-item:hover .tl-node { border-color: var(--pf-border-hi); }
+  .exp-company {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.84rem; font-weight: 500; opacity: 0.45;
+  }
+  .exp-period {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.72rem; font-weight: 600;
+    opacity: 0.32; letter-spacing: 0.02em;
+    white-space: nowrap; flex-shrink: 0; padding-top: 0.2rem;
+  }
+  .exp-toggle {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    background: none; border: none; cursor: pointer;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text); opacity: 0.3; padding: 0;
+    transition: opacity 0.18s;
+  }
+  .exp-toggle:hover { opacity: 0.7; }
 
-  .tl-bullets {
+  .exp-bullets {
     list-style: none; padding: 0;
-    margin-top: 0.85rem;
-    display: flex; flex-direction: column; gap: 0.42rem;
+    margin: 0.85rem 0 0.35rem;
+    display: flex; flex-direction: column; gap: 0.45rem;
+  }
+  .exp-bullets li {
+    font-size: 0.93rem; font-weight: 300;
+    line-height: 1.7; padding-left: 1.1rem;
+    position: relative; opacity: 0.62;
+  }
+  .exp-bullets li::before {
+    content: '–'; position: absolute; left: 0;
+    opacity: 0.4; font-size: 0.85rem; top: 0.05em;
   }
 
-  .tl-bullets li {
-    font-size: 0.96rem; font-weight: 300;
-    line-height: 1.7; padding-left: 1rem; position: relative;
-    opacity: 0.72;
+  /* ═══════════════════════
+     EDUCATION CARDS
+  ═══════════════════════ */
+  .edu-list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .edu-card {
+    display: flex; align-items: stretch;
+    background: var(--pf-card);
+    border: 1px solid var(--pf-border);
+    border-radius: 14px; overflow: hidden;
+    transition: border-color 0.22s;
   }
-
-  .tl-bullets li::before {
-    content: '·'; position: absolute; left: 0;
-    opacity: 0.5; font-size: 1rem;
+  .edu-card-body {
+    flex: 1; padding: 1.2rem 1.35rem;
+    display: flex; flex-direction: column; gap: 0.65rem;
   }
-
-  /* ── EDUCATION ── */
-  .edu-list {
-    display: flex; flex-direction: column;
-    border-top: 1px solid var(--pf-border);
+  .edu-card-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 1rem;
   }
-
-  .edu-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 1.35rem 0;
-    border-bottom: 1px solid var(--pf-border);
-  }
-
-  .edu-left { flex: 1; }
-
   .edu-degree {
     font-family: "Playfair Display", serif;
-    font-size: 1.15rem; font-weight: 700;
-    letter-spacing: -0.02em; margin-bottom: 0.3rem;
-    opacity: 0.9;
+    font-size: 1.08rem; font-weight: 700;
+    letter-spacing: -0.02em; opacity: 0.92; margin-bottom: 0.2rem;
   }
-
-  .edu-meta {
-    font-size: 0.82rem; opacity: 0.45; letter-spacing: 0.02em; line-height: 1.55;
-  }
-
-  .edu-right {
-    display: flex; flex-direction: column;
-    align-items: flex-end; gap: 0.35rem; flex-shrink: 0;
-  }
-
   .edu-school {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.88rem; font-weight: 700; opacity: 0.55; text-align: right;
+    font-size: 0.84rem; font-weight: 600; opacity: 0.45;
+  }
+  .edu-badge {
+    display: inline-flex; align-items: center; gap: 0.28rem;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.58rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pf-green); background: var(--pf-green-bg);
+    border: 1px solid var(--pf-green-br); border-radius: 20px;
+    padding: 0.15rem 0.45rem; white-space: nowrap; flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .edu-meta-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .edu-pill {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.22rem 0.6rem; border-radius: 5px;
+    background: rgba(var(--text-rgb,229,231,235),0.05);
+    border: 1px solid var(--pf-border);
+    opacity: 0.55; letter-spacing: 0.01em;
   }
 
-  /* ── BENTO SKILLS ── */
-  .bento {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto auto;
-    gap: 0.75rem;
-  }
-
+  /* ═══════════════════════
+     BENTO SKILLS
+  ═══════════════════════ */
+  .bento { display: grid; grid-template-columns: repeat(6,1fr); gap: 0.6rem; }
   .bento-0 { grid-column: span 4; }
   .bento-1 { grid-column: span 2; }
   .bento-2 { grid-column: span 2; }
@@ -908,166 +975,124 @@ const CSS = `
   .bento-4 { grid-column: span 2; }
 
   .bento-card {
-    background: var(--pf-card);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid var(--pf-border);
-    border-radius: 14px;
-    padding: 1.35rem;
-    transition: border-color 0.25s ease, transform 0.25s ease;
-    cursor: default;
+    background: var(--pf-card); border: 1px solid var(--pf-border);
+    border-radius: 14px; padding: 1.15rem;
+    transition: border-color 0.25s, transform 0.25s;
   }
-
   .bento-cat {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.72rem; font-weight: 800;
+    font-size: 0.67rem; font-weight: 800;
     letter-spacing: 0.12em; text-transform: uppercase;
-    opacity: 0.45; margin-bottom: 0.8rem;
+    opacity: 0.38; margin-bottom: 0.7rem;
   }
-
-  .bento-tags { display: flex; flex-wrap: wrap; gap: 0.38rem; }
-
+  .bento-tags { display: flex; flex-wrap: wrap; gap: 0.32rem; }
   .pf-tag {
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.82rem; font-weight: 500;
-    padding: 0.3rem 0.7rem; border-radius: 5px;
-    background: var(--tag-bg);
-    border: 1px solid var(--tag-border);
-    opacity: 0.82;
-    cursor: default;
-    transition: opacity 0.15s ease;
-    letter-spacing: 0.02em;
+    font-size: 0.79rem; font-weight: 500;
+    padding: 0.26rem 0.62rem; border-radius: 5px;
+    background: var(--tag-bg); border: 1px solid var(--tag-border);
+    opacity: 0.78; letter-spacing: 0.02em; transition: opacity 0.15s;
   }
   .pf-tag:hover { opacity: 1; }
 
-  /* ── HONORS ── */
-  .honors-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
+  /* ═══════════════════════
+     HONORS
+  ═══════════════════════ */
+  .honors-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.6rem; }
 
   .honor-card {
-    background: var(--pf-card);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid var(--pf-border);
-    border-radius: 14px;
-    padding: 1.35rem;
-    transition: border-color 0.25s ease, transform 0.25s ease;
-    cursor: default;
+    background: var(--pf-card); border: 1px solid var(--pf-border);
+    border-radius: 14px; padding: 1.25rem;
+    transition: border-color 0.25s, transform 0.25s;
   }
-
   .honor-year {
     display: block;
     font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 0.7rem; font-weight: 800;
+    font-size: 0.67rem; font-weight: 800;
     letter-spacing: 0.14em; text-transform: uppercase;
-    opacity: 0.4; margin-bottom: 0.55rem;
+    opacity: 0.34; margin-bottom: 0.48rem;
   }
-
   .honor-title {
     font-family: "Playfair Display", serif;
-    font-size: 1.1rem; font-weight: 700;
+    font-size: 1.02rem; font-weight: 700;
     letter-spacing: -0.02em; line-height: 1.3;
-    margin-bottom: 0.35rem; opacity: 0.9;
+    margin-bottom: 0.3rem; opacity: 0.9;
   }
+  .honor-org { font-size: 0.82rem; opacity: 0.44; }
 
-  .honor-org {
-    font-size: 0.86rem; opacity: 0.5; font-weight: 400;
-  }
-
-  /* ── LIGHT THEME ── */
+  /* ═══════════════════════
+     LIGHT THEME
+  ═══════════════════════ */
   :root[data-theme="light"] .pf-name,
-  :root[data-theme="light"] .tl-company,
+  :root[data-theme="light"] .exp-role,
   :root[data-theme="light"] .edu-degree,
   :root[data-theme="light"] .honor-title,
-  :root[data-theme="light"] .pf-sec-title {
-    color: #111;
-    opacity: 1;
-  }
+  :root[data-theme="light"] .pf-sec-title  { color: #111; opacity: 1; }
 
-  :root[data-theme="light"] .pf-bio { color: #222; opacity: 1; }
-  :root[data-theme="light"] .tl-bullets li { color: #222; opacity: 1; }
+  :root[data-theme="light"] .pf-name-dim   { color: #111; opacity: 0.3; }
+  :root[data-theme="light"] .pf-bio        { color: #333; opacity: 1; }
+  :root[data-theme="light"] .exp-company   { color: #555; opacity: 1; }
+  :root[data-theme="light"] .exp-period    { color: #777; opacity: 1; }
+  :root[data-theme="light"] .exp-bullets li{ color: #333; opacity: 1; }
+  :root[data-theme="light"] .exp-toggle    { color: #111; }
+  :root[data-theme="light"] .edu-pill      { color: #444; opacity: 1; border-color: rgba(0,0,0,0.1); background: rgba(0,0,0,0.03); }
+  :root[data-theme="light"] .honor-org     { color: #666; opacity: 1; }
+  :root[data-theme="light"] .bento-cat     { color: #555; opacity: 1; }
+  :root[data-theme="light"] .honor-year    { color: #777; opacity: 1; }
+  :root[data-theme="light"] .hero-subtitle { color: #555; opacity: 1; }
+  :root[data-theme="light"] .hero-location { color: #888; opacity: 1; }
 
-  :root[data-theme="light"] .tl-role { color: #333; opacity: 1; }
-  :root[data-theme="light"] .edu-school { color: #333; opacity: 1; }
-  :root[data-theme="light"] .edu-meta { color: #444; opacity: 1; }
-  :root[data-theme="light"] .honor-org { color: #444; opacity: 1; }
-  :root[data-theme="light"] .bento-cat { color: #333; opacity: 1; }
+  :root[data-theme="light"] .sec-nav-line  { background: #111; }
+  :root[data-theme="light"] .sec-nav-label { color: #111; }
 
-  :root[data-theme="light"] .tl-period { color: #555; opacity: 1; }
-  :root[data-theme="light"] .honor-year { color: #555; opacity: 1; }
-  :root[data-theme="light"] .pf-chip { color: #222; opacity: 1; }
-  :root[data-theme="light"] .pf-meta { color: #444; opacity: 1; }
-  :root[data-theme="light"] .pf-meta a { color: #111; }
+  :root[data-theme="light"] .schedule-pill { color: #111; }
+  :root[data-theme="light"] .schedule-icon-wrap,
+  :root[data-theme="light"] .schedule-arrow-wrap { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); }
+  :root[data-theme="light"] .cv-pill { color: #111; }
+  :root[data-theme="light"] .social-pill   { color: #111; }
+  :root[data-theme="light"] .hero-divider  { background: rgba(0,0,0,0.09); }
 
-  :root[data-theme="light"] .pf-dot-pip { background: #000; }
-
-  :root[data-theme="light"] .edu-list,
-  :root[data-theme="light"] .edu-row { border-color: rgba(0,0,0,0.12); }
-
-  :root[data-theme="light"] .tl-node { border-color: rgba(0,0,0,0.22); background: #fff; }
-  :root[data-theme="light"] .tl-node-live { border-color: var(--pf-green); background: var(--pf-green-bg); }
-  :root[data-theme="light"] .tl-line { background: rgba(0,0,0,0.12); }
-
+  :root[data-theme="light"] .exp-card,
+  :root[data-theme="light"] .edu-card,
   :root[data-theme="light"] .bento-card,
-  :root[data-theme="light"] .honor-card { border-color: rgba(0,0,0,0.12); }
-  :root[data-theme="light"] .bento-card:hover,
-  :root[data-theme="light"] .honor-card:hover { border-color: rgba(0,0,0,0.3); }
+  :root[data-theme="light"] .honor-card    { border-color: rgba(0,0,0,0.09); }
+  :root[data-theme="light"] .edu-card-left { border-color: rgba(0,0,0,0.09); }
+  :root[data-theme="light"] .pf-tag        { color: #222; }
 
-  :root[data-theme="light"] .pf-tag {
-    border-color: rgba(0,0,0,0.16);
-    color: #222;
-    opacity: 1;
-  }
-  :root[data-theme="light"] .pf-tag:hover { opacity: 0.75; }
+  :root[data-theme="light"] .exp-badge,
+  :root[data-theme="light"] .edu-badge { color: #0a7a52; background: rgba(10,122,82,0.07); border-color: rgba(10,122,82,0.25); }
+  :root[data-theme="light"] .exp-badge-dot { background: #0a7a52; }
 
-  :root[data-theme="light"] .pf-btn-fill { background: #111; color: #fff; opacity: 1; }
-  :root[data-theme="light"] .pf-btn-fill:hover { background: #000; }
-  :root[data-theme="light"] .pf-btn-ghost { color: #111; border-color: rgba(0,0,0,0.22); opacity: 1; }
-  :root[data-theme="light"] .pf-btn-ghost:hover { border-color: rgba(0,0,0,0.5); }
-
-  :root[data-theme="light"] .pf-chip {
-    border-color: rgba(0,0,0,0.16);
-    background: rgba(255,255,255,0.65);
-  }
-
-  :root[data-theme="light"] .tl-badge {
-    color: #0a7a52;
-    background: rgba(10,122,82,0.08);
-    border-color: rgba(10,122,82,0.3);
-  }
-
-  :root[data-theme="light"] .tl-badge-dot {
-    background: #0a7a52;
-  }
-
-  /* ── RESPONSIVE ── */
+  /* ═══════════════════════
+     RESPONSIVE
+  ═══════════════════════ */
   @media (max-width: 900px) {
-    .pf-dotnav { display: none; }
+    .sec-nav-wrap { display: none; }
   }
 
   @media (max-width: 640px) {
-    .pf-page { padding: 5rem 1.25rem 8rem; gap: 5.5rem; }
 
-    .pf-hero { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-    .pf-name { white-space: normal; font-size: 2rem; }
-    .pf-actions { margin-left: 0; }
+    .pf-page { padding: calc(var(--navbar-h) + 2rem) 1.1rem 8rem; gap: 5.5rem; }
 
-    .bento {
-      grid-template-columns: 1fr 1fr;
-    }
+    .pf-name { font-size: clamp(1.7rem, 9vw, 2.5rem); white-space: normal; }
+    .pf-photo { width: 52px; height: 52px; }
+
+    .hero-sub-row { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+
+    .exp-top { flex-direction: column; gap: 0.3rem; }
+    .exp-period { padding-top: 0; }
+
+    .edu-card-top { flex-direction: column; gap: 0.4rem; }
+
+    .bento { grid-template-columns: 1fr 1fr; }
     .bento-0 { grid-column: span 2; }
     .bento-1, .bento-2, .bento-3, .bento-4 { grid-column: span 1; }
 
     .honors-grid { grid-template-columns: 1fr; }
+  }
 
-    .tl-header { flex-direction: column; gap: 0.4rem; }
-    .tl-header-right { flex-wrap: wrap; }
-
-    .edu-row { flex-direction: column; gap: 0.4rem; }
-    .edu-right { align-items: flex-start; }
+  @media (max-width: 380px) {
+    .sec-nav-btn { font-size: 0.6rem; padding: 0.22rem 0.38rem; }
   }
 `;
 
