@@ -18,7 +18,8 @@ export default function NowPlaying() {
     return () => clearInterval(interval);
   }, []);
 
-  if (!data) return <div style={{ opacity: 0.6, fontSize: "0.82rem" }}>Loading…</div>;
+  if (!data)
+    return <div style={{ opacity: 0.6, fontSize: "0.82rem" }}>Loading…</div>;
 
   const current = data.current?.item;
   const lastPlayed = data.recent?.[0]?.track;
@@ -34,23 +35,26 @@ export default function NowPlaying() {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: featuredTrack && topTracks.length > 0 ? "0.9rem" : "0",
-    }}>
-
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: featuredTrack && topTracks.length > 0 ? "0.9rem" : "0",
+      }}
+    >
       {featuredTrack && (
         <div>
-          <div style={labelStyle}>{current ? "Now Playing" : "Last Played"}</div>
+          <div style={labelStyle}>
+            {current ? "Now Playing" : "Last Played"}
+          </div>
 
-            <a
-              href={featuredTrack.external_urls.spotify}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "flex",
-                gap: "0.65rem",
+          <a
+            href={featuredTrack.external_urls.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "flex",
+              gap: "0.65rem",
               textDecoration: "none",
               color: "inherit",
               alignItems: "center",
@@ -68,24 +72,28 @@ export default function NowPlaying() {
               }}
             />
             <div style={{ minWidth: 0 }}>
-              <div style={{
-                fontWeight: 600,
-                fontSize: "0.85rem",
-                lineHeight: 1.3,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}>
+              <div
+                style={{
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  lineHeight: 1.3,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {featuredTrack.name}
               </div>
-              <div style={{
-                opacity: 0.5,
-                fontSize: "0.75rem",
-                marginTop: "0.15rem",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}>
+              <div
+                style={{
+                  opacity: 0.5,
+                  fontSize: "0.75rem",
+                  marginTop: "0.15rem",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {featuredTrack.artists.map((a) => a.name).join(", ")}
               </div>
             </div>
@@ -96,13 +104,15 @@ export default function NowPlaying() {
       {topTracks.length > 0 && (
         <div>
           <div style={labelStyle}>Currently Obsessed With</div>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "0.4rem",
-          }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: "0.4rem",
+            }}
+          >
             {topTracks.map((track) => (
-
+              <a
                 key={track.id}
                 href={track.external_urls.spotify}
                 target="_blank"
@@ -128,9 +138,10 @@ export default function NowPlaying() {
       )}
 
       {!featuredTrack && topTracks.length === 0 && (
-        <div style={{ opacity: 0.4, fontSize: "0.82rem" }}>Nothing playing.</div>
+        <div style={{ opacity: 0.4, fontSize: "0.82rem" }}>
+          Nothing playing.
+        </div>
       )}
-
     </div>
   );
 }
