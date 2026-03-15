@@ -18,7 +18,7 @@ const images = [
   ...formatImages(landscapeModules),
 ];
 
-/* ---------- HOOK ---------- */
+/* ---------- HOOKS ---------- */
 
 const useWindowWidth = () => {
   const [width, setWidth] = useState(
@@ -30,6 +30,81 @@ const useWindowWidth = () => {
     return () => window.removeEventListener("resize", handler);
   }, []);
   return width;
+};
+
+/* ---------- SKELETON TILE ---------- */
+
+const SkeletonTile = () => (
+  <div style={s.skeletonWrapper}>
+    <div style={s.skeletonBase}>
+      <div style={s.shimmer} />
+    </div>
+    <style>{shimmerKeyframes}</style>
+  </div>
+);
+
+const shimmerKeyframes = `
+  @keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+`;
+
+/* ---------- GALLERY ITEM ---------- */
+
+const GalleryItem = ({ img, index, onOpen, isHovered, onHover, onLeave }) => {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setReady(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      style={s.item}
+      onClick={() => ready && onOpen(index)}
+      onMouseEnter={() => ready && onHover(index)}
+      onMouseLeave={onLeave}
+    >
+      {/* Skeleton fades out after 3s */}
+      <AnimatePresence>
+        {!ready && (
+          <motion.div
+            key="skeleton"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            style={s.skeletonOverlay}
+          >
+            <SkeletonTile />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Image fades in after 3s */}
+      <motion.img
+        src={img.src}
+        loading="lazy"
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: ready ? 1 : 0,
+          scale: ready && isHovered ? 1.05 : 1,
+          filter:
+            ready && isHovered
+              ? "brightness(1.08) saturate(1.1)"
+              : "brightness(0.95) saturate(0.9)",
+        }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        style={{ ...s.img, pointerEvents: ready ? "auto" : "none" }}
+      />
+    </motion.div>
+  );
 };
 
 /* ---------- COMPONENT ---------- */
@@ -45,7 +120,7 @@ const Gallery = () => {
 
   const cols = isDesktop ? 4 : isTablet ? 3 : 2;
 
-  const close = () => setActiveIndex(null);
+  const close = useCallback(() => setActiveIndex(null), []);
   const next = useCallback(
     () => setActiveIndex((p) => (p === images.length - 1 ? 0 : p + 1)),
     [],
@@ -85,10 +160,7 @@ const Gallery = () => {
   const sidebarStyle = {
     position: isDesktop || isTablet ? "sticky" : "relative",
     top: isDesktop || isTablet ? "120px" : "auto",
-    // On mobile, quote sits above the grid as a slim banner
-    ...(isMobile && {
-      marginBottom: "0.5rem",
-    }),
+    ...(isMobile && { marginBottom: "0.5rem" }),
   };
 
   const lightboxImgStyle = {
@@ -126,36 +198,17 @@ const Gallery = () => {
 
           {/* ── MASONRY ── */}
           <motion.div layout style={{ ...s.masonry, columnCount: cols }}>
-            <AnimatePresence>
-              {images.map((img, i) => (
-                <motion.div
-                  key={img.src}
-                  layout
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  style={s.item}
-                  onClick={() => setActiveIndex(i)}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  <motion.img
-                    src={img.src}
-                    loading="lazy"
-                    style={s.img}
-                    animate={{
-                      scale: hoveredIndex === i ? 1.05 : 1,
-                      filter:
-                        hoveredIndex === i
-                          ? "brightness(1.08) saturate(1.1)"
-                          : "brightness(0.95) saturate(0.9)",
-                    }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {images.map((img, i) => (
+              <GalleryItem
+                key={img.src}
+                img={img}
+                index={i}
+                onOpen={setActiveIndex}
+                isHovered={hoveredIndex === i}
+                onHover={setHoveredIndex}
+                onLeave={() => setHoveredIndex(null)}
+              />
+            ))}
           </motion.div>
         </div>
 
@@ -204,7 +257,6 @@ const Gallery = () => {
                 />
               </AnimatePresence>
 
-              {/* Hide arrows on mobile — swipe is enough */}
               {!isMobile && (
                 <>
                   <button
@@ -296,6 +348,8 @@ const s = {
     overflow: "hidden",
     cursor: "pointer",
     position: "relative",
+    // Preserve aspect ratio while skeleton is showing
+    aspectRatio: "1 / 1",
   },
   img: {
     width: "100%",
@@ -303,6 +357,38 @@ const s = {
     objectFit: "cover",
     display: "block",
   },
+  /* ── Skeleton styles ── */
+  skeletonOverlay: {
+    position: "absolute",
+    inset: 0,
+    zIndex: 2,
+    borderRadius: "8px",
+    overflow: "hidden",
+  },
+  skeletonWrapper: {
+    width: "100%",
+    height: "100%",
+    borderRadius: "8px",
+    overflow: "hidden",
+    position: "relative",
+  },
+  skeletonBase: {
+    width: "100%",
+    height: "100%",
+    background: "rgba(139, 92, 246, 0.06)",
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: "8px",
+  },
+  shimmer: {
+    position: "absolute",
+    inset: 0,
+    background:
+      "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.12) 40%, rgba(255,255,255,0.08) 50%, rgba(139,92,246,0.12) 60%, transparent 100%)",
+    animation: "shimmer 1.6s infinite",
+    transform: "translateX(-100%)",
+  },
+  /* ── existing styles below ── */
   overlay: {
     position: "absolute",
     inset: 0,
