@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-/* ---------------- GIF REGISTRY ---------------- */
-
 const VISUALS = {
   about2crashout: "/gifs/status/about2crashout.gif",
   crashingout: "/gifs/status/crashingout.gif",
@@ -10,14 +8,12 @@ const VISUALS = {
   writingresearchpaper: "/gifs/status/writingresearchpaper.gif",
 };
 
-/* ---------------- STATUS MODES ---------------- */
-
 const STATUS_MAP = {
-  1: { text: "debugging code that worked yesterday", visual: "codenowork" },
-  2: { text: "about to crash out", visual: "about2crashout" },
-  3: { text: "writing a paper", visual: "writingresearchpaper" },
-  4: { text: "deep in research", visual: "researching" },
-  5: { text: "crashing out", visual: "crashingout" },
+  1: { text: "Debugging code that worked yesterday", visual: "codenowork" },
+  2: { text: "About to crash out", visual: "about2crashout" },
+  3: { text: "Writing a paper", visual: "writingresearchpaper" },
+  4: { text: "Deep in research", visual: "researching" },
+  5: { text: "Crashing out", visual: "crashingout" },
 };
 
 export default function Status() {
@@ -36,31 +32,16 @@ export default function Status() {
   if (!status) return null;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.75rem",
-      }}
-    >
-      {/* Status text */}
-      <div
-        style={{
-          fontSize: "0.95rem",
-          fontWeight: 500,
-          lineHeight: 1.4,
-        }}
-      >
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+      <div style={{ fontSize: "0.92rem", fontWeight: 500, lineHeight: 1.4 }}>
         {status.text}
       </div>
 
-      {/* Square visual */}
       <div
         style={{
-          marginTop: "0.75rem",
           width: "100%",
-          aspectRatio: "1 / 1",
-          borderRadius: "14px",
+          aspectRatio: "16 / 9",
+          borderRadius: "12px",
           overflow: "hidden",
         }}
       >
@@ -73,7 +54,6 @@ export default function Status() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            transform: "scale(1.1)",
           }}
         />
       </div>
