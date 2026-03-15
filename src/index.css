@@ -4,7 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,700,800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -89,4 +89,84 @@ code,
 pre,
 kbd {
   font-family: "JetBrains Mono", monospace;
+}
+
+/* =========================
+   Blog Prose Styles
+   ========================= */
+.prose {
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+.prose p {
+  margin-bottom: 1.25rem;
+  opacity: 0.85;
+}
+.prose code {
+  font-family: "JetBrains Mono", monospace;
+  background: var(--glass-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+.prose pre {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85em;
+}
+.prose a {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+.prose blockquote {
+  border-left: 2px solid var(--glass-border);
+  padding-left: 1rem;
+  opacity: 0.6;
+  margin: 1.5rem 0;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose li {
+  margin-bottom: 0.4rem;
+  opacity: 0.85;
+}
+.prose img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: 2rem 0;
+}
+:root[data-theme="dark"] {
+  --link: #60a5fa;
+}
+:root[data-theme="light"] {
+  --link: #2563eb;
+}
+
+.prose a {
+  color: var(--link);
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

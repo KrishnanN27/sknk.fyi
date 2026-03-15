@@ -3,6 +3,7 @@ import headshot from "../assets/images/about/headshot.jpeg";
 import Widget from "../components/Widget";
 import NowPlaying from "../components/widgets/NowPlaying";
 import Status from "../components/widgets/Status";
+import LatestBlog from "../components/widgets/LatestBlog";
 
 const MinesLink = () => (
   <a
@@ -191,6 +192,9 @@ const Home = () => {
           </Widget>
           <Widget title="Status">
             <Status />
+          </Widget>
+          <Widget title="Latest Post">
+            <LatestBlog />
           </Widget>
         </motion.div>
       </div>

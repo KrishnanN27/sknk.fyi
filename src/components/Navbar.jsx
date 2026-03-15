@@ -5,6 +5,7 @@ import {
   Home,
   Mail,
   Moon,
+  PenLine,
   Sun,
   User,
   Image,
@@ -35,6 +36,7 @@ const Navbar = () => {
     { path: "/about", icon: User, label: "About" },
     { path: "/portfolio", icon: Briefcase, label: "Portfolio" },
     { path: "/research", icon: Atom, label: "Research" },
+    { path: "/blog", icon: PenLine, label: "Blog" },
     { path: "/gallery", icon: Image, label: "Gallery" },
     { path: "/contact", icon: Mail, label: "Contact" },
   ];
