@@ -263,7 +263,7 @@ const s = {
   },
   quoteText: {
     fontFamily: "'Reenie Beanie', cursive",
-    fontSize: "1.1rem",
+    fontSize: "1.4rem",
     lineHeight: 1.75,
     margin: 0,
     fontWeight: 400,

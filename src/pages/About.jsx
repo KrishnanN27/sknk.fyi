@@ -284,7 +284,7 @@ const About = () => {
         /* ── intro ── */
         .intro-block { margin: 0; }
         .body-text {
-          font-size: clamp(1rem, 3vw, 1.08rem);
+          font-size: clamp(1.05rem, 3.2vw, 1.18rem);
           line-height: 1.88; opacity: 0.78;
           margin-bottom: 1.2rem; color: var(--text);
         }
@@ -292,8 +292,8 @@ const About = () => {
         .body-text.muted { opacity: 0.38; }
         .body-text.handwrite {
           font-family: "Reenie Beanie", cursive;
-          font-size: clamp(1.15rem, 3.5vw, 1.35rem);
-          line-height: 1.6; letter-spacing: 0.02em;
+          font-size: clamp(1.45rem, 4vw, 1.7rem);
+          line-height: 1.55; letter-spacing: 0.02em;
         }
         .drop-cap::first-letter {
           font-family: "Playfair Display", serif;
@@ -305,11 +305,12 @@ const About = () => {
         /* ── sections ── */
         .section-block { display: flex; flex-direction: column; gap: 1.4rem; }
         .section-eyebrow {
-          font-size: 0.68rem; font-weight: 800;
+          font-size: 0.72rem; font-weight: 800;
           letter-spacing: 0.18em; text-transform: uppercase;
           opacity: 0.4; color: var(--text);
         }
 
+        /* ── stats 2×2 ── */
         .stats-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -317,8 +318,8 @@ const About = () => {
           border-radius: 12px; overflow: hidden;
         }
         .stat-card {
-          display: flex; flex-direction: column; gap: 0.25rem;
-          padding: 1.2rem 1.1rem;
+          display: flex; flex-direction: column; gap: 0.3rem;
+          padding: 1.4rem 1.2rem;
           background: transparent;
           transition: background 0.25s;
         }
@@ -327,21 +328,21 @@ const About = () => {
         .stat-card:nth-child(2) { border-left: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
         .stat-card:nth-child(4) { border-left: 1px solid var(--glass-border); }
         .stat-label {
-          font-size: 0.6rem; font-weight: 800;
+          font-size: 0.65rem; font-weight: 800;
           letter-spacing: 0.16em; text-transform: uppercase;
           opacity: 0.35; color: var(--text);
         }
         .stat-value {
           font-family: "Playfair Display", serif;
-          font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800;
+          font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 800;
           line-height: 1.1; color: var(--text); opacity: 0.88;
         }
         .stat-sub {
-          font-size: 0.68rem; font-weight: 500;
+          font-size: 0.78rem; font-weight: 500;
           opacity: 0.38; color: var(--text); line-height: 1.4; margin-top: 0.1rem;
         }
         .stat-footnote {
-          font-size: 0.75rem; font-style: italic;
+          font-size: 0.8rem; font-style: italic;
           opacity: 0.35; margin: 0; color: var(--text);
         }
 
@@ -349,19 +350,20 @@ const About = () => {
         .facts-list { display: flex; flex-direction: column; }
         .fact-item {
           display: grid;
-          grid-template-columns: 2.8rem 1fr;
+          grid-template-columns: 3.2rem 1fr;
           gap: 0.8rem; align-items: baseline;
-          padding: 1rem 0;
+          padding: 1.1rem 0;
           border-bottom: 1px solid var(--glass-border);
         }
         .fact-item:first-child { border-top: 1px solid var(--glass-border); }
         .fact-num {
           font-family: "Reenie Beanie", cursive;
-          font-size: 1.5rem; opacity: 0.28; line-height: 1; color: var(--text);
+          font-size: 1.9rem; opacity: 0.28; line-height: 1; color: var(--text);
         }
         .fact-text {
           font-family: "Reenie Beanie", cursive;
-          font-size: 1.25rem; line-height: 1.6; letter-spacing: 0.02em;
+          font-size: clamp(1.35rem, 3vw, 1.6rem);
+          line-height: 1.55; letter-spacing: 0.02em;
           opacity: 0.72; margin: 0; color: var(--text);
         }
 
@@ -375,11 +377,11 @@ const About = () => {
         .like-chip {
           display: flex;
           align-items: center;
-          gap: 0.6rem;
-          padding: 0.7rem 0.2rem;
+          gap: 0.65rem;
+          padding: 0.8rem 0.3rem;
           border-bottom: 1px solid var(--glass-border);
           font-family: "Reenie Beanie", cursive;
-          font-size: 1.1rem;
+          font-size: clamp(1.45rem, 3vw, 1.7rem);
           letter-spacing: 0.02em;
           color: var(--text);
           opacity: 0.55;
@@ -389,7 +391,7 @@ const About = () => {
         .like-chip::before {
           content: "—";
           font-family: inherit;
-          font-size: 0.75rem;
+          font-size: 0.85rem;
           opacity: 0.3;
           flex-shrink: 0;
         }
@@ -400,9 +402,9 @@ const About = () => {
 
         @media (max-width: 600px) {
           .drop-cap::first-letter { font-size: 3em; }
-          .fact-item { grid-template-columns: 2rem 1fr; }
+          .fact-item { grid-template-columns: 2.4rem 1fr; }
           .chips-row { grid-template-columns: 1fr; }
-          .like-chip:nth-child(even) { padding-left: 0.2rem; border-left: none; }
+          .like-chip:nth-child(even) { padding-left: 0.3rem; border-left: none; }
         }
       `}</style>
     </section>
