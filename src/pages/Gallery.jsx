@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 /* ---------- AUTO LOAD ---------- */
 
@@ -72,7 +73,6 @@ const GalleryItem = ({ img, index, onOpen, isHovered, onHover, onLeave }) => {
       onMouseEnter={() => ready && onHover(index)}
       onMouseLeave={onLeave}
     >
-      {/* Skeleton fades out after 3s */}
       <AnimatePresence>
         {!ready && (
           <motion.div
@@ -87,7 +87,6 @@ const GalleryItem = ({ img, index, onOpen, isHovered, onHover, onLeave }) => {
         )}
       </AnimatePresence>
 
-      {/* Image fades in after 3s */}
       <motion.img
         src={img.src}
         loading="lazy"
@@ -104,6 +103,115 @@ const GalleryItem = ({ img, index, onOpen, isHovered, onHover, onLeave }) => {
         style={{ ...s.img, pointerEvents: ready ? "auto" : "none" }}
       />
     </motion.div>
+  );
+};
+
+/* ---------- LIGHTBOX ---------- */
+
+const Lightbox = ({
+  activeIndex,
+  isMobile,
+  close,
+  next,
+  prev,
+  setActiveIndex,
+}) => {
+  const lightboxImgStyle = {
+    maxWidth: isMobile ? "92vw" : "65vw",
+    maxHeight: isMobile ? "70vh" : "68vh",
+    objectFit: "contain",
+    borderRadius: "10px",
+    cursor: "grab",
+    userSelect: "none",
+  };
+
+  return createPortal(
+    <AnimatePresence>
+      {activeIndex !== null && (
+        <motion.div
+          style={s.backdrop}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={close}
+        >
+          <button style={s.closeBtn} onClick={close}>
+            ✕
+          </button>
+
+          <div style={s.counter}>
+            <span style={s.counterCurrent}>
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
+            <span style={s.counterSep}>/</span>
+            <span style={s.counterTotal}>
+              {String(images.length).padStart(2, "0")}
+            </span>
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={images[activeIndex].src}
+              src={images[activeIndex].src}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.1}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -60) next();
+                if (info.offset.x > 60) prev();
+              }}
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              style={lightboxImgStyle}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </AnimatePresence>
+
+          {!isMobile && (
+            <>
+              <button
+                style={s.arrowLeft}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prev();
+                }}
+              >
+                ‹
+              </button>
+              <button
+                style={s.arrowRight}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  next();
+                }}
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          <div style={s.dotStrip} onClick={(e) => e.stopPropagation()}>
+            {images.map((_, i) => (
+              <motion.div
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                animate={{
+                  width: i === activeIndex ? 24 : 6,
+                  background:
+                    i === activeIndex ? "#8b5cf6" : "rgba(255,255,255,0.2)",
+                }}
+                transition={{ duration: 0.3 }}
+                style={s.dot}
+              />
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
   );
 };
 
@@ -145,7 +253,6 @@ const Gallery = () => {
     };
   }, [activeIndex, next, prev]);
 
-  /* ── Responsive style overrides ── */
   const bodyStyle = {
     display: "grid",
     gridTemplateColumns: isDesktop
@@ -161,15 +268,6 @@ const Gallery = () => {
     position: isDesktop || isTablet ? "sticky" : "relative",
     top: isDesktop || isTablet ? "120px" : "auto",
     ...(isMobile && { marginBottom: "0.5rem" }),
-  };
-
-  const lightboxImgStyle = {
-    maxWidth: isMobile ? "92vw" : "65vw",
-    maxHeight: isMobile ? "70vh" : "68vh",
-    objectFit: "contain",
-    borderRadius: "10px",
-    cursor: "grab",
-    userSelect: "none",
   };
 
   return (
@@ -211,94 +309,17 @@ const Gallery = () => {
             ))}
           </motion.div>
         </div>
-
-        {/* ── LIGHTBOX ── */}
-        <AnimatePresence>
-          {activeIndex !== null && (
-            <motion.div
-              style={s.backdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={close}
-            >
-              <button style={s.closeBtn} onClick={close}>
-                ✕
-              </button>
-
-              <div style={s.counter}>
-                <span style={s.counterCurrent}>
-                  {String(activeIndex + 1).padStart(2, "0")}
-                </span>
-                <span style={s.counterSep}>/</span>
-                <span style={s.counterTotal}>
-                  {String(images.length).padStart(2, "0")}
-                </span>
-              </div>
-
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={images[activeIndex].src}
-                  src={images[activeIndex].src}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.1}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.x < -60) next();
-                    if (info.offset.x > 60) prev();
-                  }}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  style={lightboxImgStyle}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </AnimatePresence>
-
-              {!isMobile && (
-                <>
-                  <button
-                    style={s.arrowLeft}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      prev();
-                    }}
-                  >
-                    ‹
-                  </button>
-                  <button
-                    style={s.arrowRight}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      next();
-                    }}
-                  >
-                    ›
-                  </button>
-                </>
-              )}
-
-              <div style={s.dotStrip} onClick={(e) => e.stopPropagation()}>
-                {images.map((_, i) => (
-                  <motion.div
-                    key={i}
-                    onClick={() => setActiveIndex(i)}
-                    animate={{
-                      width: i === activeIndex ? 24 : 6,
-                      background:
-                        i === activeIndex ? "#8b5cf6" : "rgba(255,255,255,0.2)",
-                    }}
-                    transition={{ duration: 0.3 }}
-                    style={s.dot}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </section>
+
+      {/* Lightbox portalled to document.body — escapes all CSS stacking contexts */}
+      <Lightbox
+        activeIndex={activeIndex}
+        isMobile={isMobile}
+        close={close}
+        next={next}
+        prev={prev}
+        setActiveIndex={setActiveIndex}
+      />
     </>
   );
 };
@@ -348,7 +369,6 @@ const s = {
     overflow: "hidden",
     cursor: "pointer",
     position: "relative",
-    // Preserve aspect ratio while skeleton is showing
     aspectRatio: "1 / 1",
   },
   img: {
@@ -357,7 +377,6 @@ const s = {
     objectFit: "cover",
     display: "block",
   },
-  /* ── Skeleton styles ── */
   skeletonOverlay: {
     position: "absolute",
     inset: 0,
@@ -388,7 +407,6 @@ const s = {
     animation: "shimmer 1.6s infinite",
     transform: "translateX(-100%)",
   },
-  /* ── existing styles below ── */
   overlay: {
     position: "absolute",
     inset: 0,
@@ -412,7 +430,7 @@ const s = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 999,
+    zIndex: 9998,
   },
   closeBtn: {
     position: "fixed",
@@ -429,7 +447,7 @@ const s = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1001,
+    zIndex: 9999,
   },
   counter: {
     position: "fixed",
@@ -439,7 +457,7 @@ const s = {
     display: "flex",
     alignItems: "baseline",
     gap: "0.4rem",
-    zIndex: 1001,
+    zIndex: 9999,
   },
   counterCurrent: {
     fontSize: "1rem",
@@ -472,7 +490,7 @@ const s = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1001,
+    zIndex: 9999,
   },
   arrowRight: {
     position: "fixed",
@@ -490,7 +508,7 @@ const s = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1001,
+    zIndex: 9999,
   },
   dotStrip: {
     position: "fixed",
@@ -500,7 +518,7 @@ const s = {
     display: "flex",
     gap: "5px",
     alignItems: "center",
-    zIndex: 1001,
+    zIndex: 9999,
   },
   dot: {
     height: "6px",
