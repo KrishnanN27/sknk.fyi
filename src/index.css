@@ -9,32 +9,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   Tokens — all vars in one place
+   ========================= */
+
 :root[data-theme="dark"] {
   --bg: #050208;
   --text: #e5e7eb;
+  --text-muted: rgba(229, 231, 235, 0.55);
   --glass-bg: rgba(255, 255, 255, 0.06);
   --glass-border: rgba(255, 255, 255, 0.18);
   --tag-border: rgba(255, 255, 255, 0.22);
   --tag-bg: transparent;
+  --link: #60a5fa;
 }
 
 :root[data-theme="light"] {
   --bg: #e9e8ee;
   --text: #1e2329;
+  --text-muted: rgba(30, 35, 41, 0.55);
   --glass-bg: rgba(255, 255, 255, 0.3);
   --glass-border: rgba(30, 35, 45, 0.12);
   --tag-border: rgba(0, 0, 0, 0.18);
   --tag-bg: transparent;
+  --link: #2563eb;
 }
+
+/* =========================
+   Base
+   ========================= */
 
 @layer base {
   * {
     font-family: "Cabinet Grotesk", sans-serif;
-  }
-  html,
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
   h1,
   h2,
@@ -46,6 +53,11 @@
     font-weight: 700;
     letter-spacing: -0.02em;
   }
+  html,
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 * {
@@ -53,68 +65,109 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   overflow-y: scroll;
   scrollbar-gutter: auto;
   scroll-behavior: smooth;
 }
+
 html,
 body {
   background: var(--bg);
   color: var(--text);
 }
-body::-webkit-scrollbar {
-  display: none;
-}
+
+/* Hide scrollbar across browsers */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: rgba(160, 100, 255, 0.3);
   color: white;
 }
-@media (max-width: 768px) {
-  footer {
-    margin-bottom: 5.5rem;
-  }
-}
-bb-ambient-ribbon {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+
 code,
 pre,
 kbd {
   font-family: "JetBrains Mono", monospace;
 }
 
+@media (max-width: 768px) {
+  footer {
+    margin-bottom: 5.5rem;
+  }
+}
+
 /* =========================
-   Blog Prose Styles
+   Blog Prose
    ========================= */
+
 .prose {
   line-height: 1.8;
   font-size: 0.95rem;
 }
+
 .prose h1,
 .prose h2,
 .prose h3 {
   font-weight: 600;
   margin: 2rem 0 0.75rem;
 }
+
 .prose p {
   margin-bottom: 1.25rem;
-  opacity: 0.85;
+  color: var(--text-muted);
 }
+
+.prose a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.prose a:hover {
+  opacity: 0.75;
+}
+
+.prose strong {
+  color: var(--text);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--glass-border);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+  color: var(--text-muted);
+}
+
 .prose code {
   font-family: "JetBrains Mono", monospace;
   background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   padding: 0.15em 0.4em;
   border-radius: 4px;
   font-size: 0.88em;
 }
+
 .prose pre {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -123,50 +176,22 @@ kbd {
   overflow-x: auto;
   margin-bottom: 1.5rem;
 }
+
 .prose pre code {
   background: none;
+  border: none;
   padding: 0;
   font-size: 0.85em;
 }
-.prose a {
-  opacity: 0.7;
-  text-decoration: underline;
-}
-.prose blockquote {
-  border-left: 2px solid var(--glass-border);
-  padding-left: 1rem;
-  opacity: 0.6;
-  margin: 1.5rem 0;
-}
-.prose ul,
-.prose ol {
-  padding-left: 1.5rem;
-  margin-bottom: 1.25rem;
-}
-.prose li {
-  margin-bottom: 0.4rem;
-  opacity: 0.85;
-}
+
 .prose img {
   max-width: 100%;
   border-radius: 12px;
   margin: 1.5rem 0;
 }
+
 .prose hr {
   border: none;
   border-top: 1px solid var(--glass-border);
   margin: 2rem 0;
-}
-:root[data-theme="dark"] {
-  --link: #60a5fa;
-}
-:root[data-theme="light"] {
-  --link: #2563eb;
-}
-
-.prose a {
-  color: var(--link);
-  opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }

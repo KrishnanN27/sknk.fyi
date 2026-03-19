@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Research from "./pages/Research";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import PomodoroPage from "./pages/PomodoroPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/pomodoro" element={<PomodoroPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

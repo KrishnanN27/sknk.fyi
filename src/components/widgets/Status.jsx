@@ -33,14 +33,22 @@ export default function Status() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-      <div style={{ fontSize: "0.92rem", fontWeight: 500, lineHeight: 1.4 }}>
+      <div
+        style={{
+          fontFamily: "'Reenie Beanie', cursive",
+          fontSize: "1.5rem",
+          fontWeight: 400,
+          lineHeight: 1.3,
+          letterSpacing: "0.02em",
+        }}
+      >
         {status.text}
       </div>
 
       <div
         style={{
           width: "100%",
-          maxHeight: "160px" /* cap so it never towers on mobile */,
+          maxHeight: "160px",
           borderRadius: "12px",
           overflow: "hidden",
         }}
