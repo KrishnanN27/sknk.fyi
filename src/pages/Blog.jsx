@@ -188,7 +188,6 @@ const Blog = () => {
                 boxShadow:
                   "inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 4px rgba(0,0,0,0.15)",
               }}
-              transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
               style={{
                 cursor: "pointer",
                 border: "1px solid var(--glass-border)",
